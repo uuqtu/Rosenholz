@@ -138,26 +138,26 @@ namespace Rosenholz.Model
             else
                 ItemCounterReferenceGreter = null;
 
-            throw new NotImplementedException("Logik muss noch festgelegt werden");
-
             if (YearOfReferenceGreater == true && ItemCounterReferenceGreter == true)
-                return 0;
+                return -1;
             if (YearOfReferenceGreater == true && ItemCounterReferenceGreter == false)
-                return 0;
+                return -1;
             if (YearOfReferenceGreater == true && ItemCounterReferenceGreter == null)
-                return 0;
+                return -1;
             if (YearOfReferenceGreater == false && ItemCounterReferenceGreter == true)
-                return 0;
+                return 1;
             if (YearOfReferenceGreater == false && ItemCounterReferenceGreter == false)
-                return 0;
+                return 1;
             if (YearOfReferenceGreater == false && ItemCounterReferenceGreter == null)
-                return 0;
+                return 1;
             if (YearOfReferenceGreater == null && ItemCounterReferenceGreter == true)
-                return 0;
+                return -1;
             if (YearOfReferenceGreater == null && ItemCounterReferenceGreter == false)
-                return 0;
+                return 1;
             if (YearOfReferenceGreater == null && ItemCounterReferenceGreter == null)
                 return 0;
+
+            throw new ArgumentException("Fehler beim Vergleich");
 
         }
 
