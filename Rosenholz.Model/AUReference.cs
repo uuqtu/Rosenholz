@@ -91,10 +91,30 @@ namespace Rosenholz.Model
         {
             AUReference actual = new AUReference(au);
 
-            string initializer = "";
-            string item = "";
-            string year = "";
-#warning to implement
+            string[] splitted = actual.AUReferenceString.Split('_');
+
+
+            string initializer = "AU";
+            string item = splitted[1];
+            string year = splitted[2];
+
+            if (actual.Year == int.Parse(DateTime.Now.ToString("yy")))
+            {
+                item = (actual.ItemCounter + 1).ToString("D3");
+                year = DateTime.Now.ToString("yy");
+            }
+            else if (actual.Year < int.Parse(DateTime.Now.ToString("yy")))
+            {
+                item = "001";
+                year = DateTime.Now.ToString("yy");
+            }
+            else
+            {
+                item = "???";
+                year = "??";
+                MessageBox.Show($"Das aktuelle Jahr ist {int.Parse(DateTime.Now.ToString("yy"))}, ich weiß nicht welches Jahr ich nun nehmen soll," +
+                                $" da da aktelle Jahr der neusten F22-Referenz in der Zukunft liegt {actual.Year}.");
+            }
 
             return AUReference.ConvertToAUReference(initializer, item, year);
         }
@@ -113,10 +133,7 @@ namespace Rosenholz.Model
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public int CompareTo(AUReference other)

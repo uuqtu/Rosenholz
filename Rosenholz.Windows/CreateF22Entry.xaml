@@ -9,9 +9,9 @@
     <Grid>
         <Label Content="Current" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="271,7,0,0" Name="label6" VerticalAlignment="Top" />
         <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="321,7,0,0" Name="txtKeyword2" VerticalAlignment="Top" Width="178" 
-                 IsReadOnly="True" Text="{Binding Path=CurrentF22Reference, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                 IsReadOnly="True" Text="{Binding Path=AUReferenceCurrent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
         <Label Content="Net" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="271,37,0,0" Name="labhel6" VerticalAlignment="Top" />
         <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="321,37,0,0" Name="txtKehyword2" VerticalAlignment="Top" Width="178" 
-                 IsReadOnly="True" Text="{Binding Path=ProposedF22Reference, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                 IsReadOnly="True" Text="{Binding Path=ProposedAuReference, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </Window>

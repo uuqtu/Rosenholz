@@ -83,7 +83,7 @@
     <Compile Include="AUReference.cs" />
     <Compile Include="F16.cs" />
     <Compile Include="F22.cs" />
-    <Compile Include="F22Reference.cs" />
+    <Compile Include="F16F22Reference.cs" />
     <Compile Include="F16Storage.cs" />
     <Compile Include="F22Storage.cs" />
     <Compile Include="IniFile.cs" />

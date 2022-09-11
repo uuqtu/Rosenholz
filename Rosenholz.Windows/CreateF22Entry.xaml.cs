@@ -22,44 +22,56 @@ namespace Rosenholz.Windows
     /// </summary>
     public partial class CreateF22Entry : Window
     {
-        private string _currentF22Reference = "";
-        public string CurrentF22Reference
+        private string _aUReferenceCurrent;
+        private string _f16ReferenceCurrent;
+
+        public string AUReferenceCurrent
         {
             get
-            {
-                return _currentF22Reference;
-            }
+            { return _aUReferenceCurrent; }
             set
             {
-                _currentF22Reference = value;
-                OnPropertyChanged(nameof(CurrentF22Reference));
+                _aUReferenceCurrent = value;
+                OnPropertyChanged(nameof(AUReferenceCurrent));
             }
         }
 
-        public string ProposedF22Reference
+        public string F16ReferenceCurrent
+        {
+            get
+            { return _f16ReferenceCurrent; }
+            set
+            {
+                _f16ReferenceCurrent = value;
+                OnPropertyChanged(nameof(F16ReferenceCurrent));
+            }
+        }
+
+
+        public string ProposedAuReference
         {
             get
             {
-                var a = F16F22Reference.NextF22(CurrentF22Reference);
+                var a = AUReference.NextAU(AUReferenceCurrent);
                 return a;
             }
         }
-        public CreateF22Entry(F22 currentF22)
+        public CreateF22Entry(F16F22Reference currentF16Reference)
         {
             InitializeComponent();
             DataContext = this;
-            //CurrentF22Reference = currentF22;
 
+            var Items = F22.Storage.ReadData();
+
+            F16ReferenceCurrent = currentF16Reference.F22String;
+            AUReferenceCurrent = Items[0].AUReference.AUReferenceString;
         }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

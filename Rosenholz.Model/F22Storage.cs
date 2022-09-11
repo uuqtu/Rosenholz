@@ -68,6 +68,7 @@ namespace Rosenholz.Model
                           Dossier = Convert.ToString(rw["Dossier"])
                       }).ToList();
 
+            values.Sort((x, y) => y.AUReference.CompareTo(x.AUReference));
 
             return values;
         }

@@ -91,7 +91,7 @@ namespace Rosenholz.ViewModel
             if (parameter is F22)
             {
                 var text = parameter as F22;
-                CreateF22Entry model = new CreateF22Entry(text);
+                CreateF22Entry model = new CreateF22Entry(CurrentF16Reference);
                 model.ShowDialog();
             }
 

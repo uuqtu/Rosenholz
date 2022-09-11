@@ -226,7 +226,6 @@ namespace Rosenholz.Model
                 return 1;
 
             throw new ArgumentException("Same Object can not occur!");
-            return 0;
         }
 
         public bool Equals(F16F22Reference other)
