@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Rosenholz.UserControls.F22UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Rosenholz.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="0,0,0,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListView Name="UserGrid" Grid.Row="1" Margin="4,130,12,13"  
+                  ItemsSource="{Binding F22Items,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding CurrentF22Selected}">
+            <ListView.View>
+                <GridView x:Name="grdTest">
+                    <GridViewColumn Header="AUReference" DisplayMemberBinding="{Binding AUReference.AUReferenceString}" Width="80" />
+                    <GridViewColumn Header="F16F22Reference"  DisplayMemberBinding="{Binding F16F22Reference.F22String}"  Width="100"/>
+                    <GridViewColumn Header="Pseudonym" DisplayMemberBinding="{Binding Pseudonym}"  Width="100" />
+                    <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created}" Width="100" />
+                    <GridViewColumn Header="Dossier" DisplayMemberBinding="{Binding Dossier}" Width="100" />
+                    <GridViewColumn Header="Link" DisplayMemberBinding="{Binding Link}" Width="100" />
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="Keyword" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="12,7,0,0" Name="label1" VerticalAlignment="Top" />
+        <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="80,7,0,0" Name="txtKeyword" VerticalAlignment="Top" Width="178" 
+                 IsReadOnly="True" Text="{Binding Path=CurrentF16Reference.F22String, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+
+
+        <Button Content="Create F22 Entry" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="310,7,0,0" Name="btnSave"   
+                VerticalAlignment="Top" Width="141"  
+                Command="{Binding Path=AddF22EntryCommand}"
+                CommandParameter="{Binding Path=CurrentF22Selected, Mode=OneWay}"  />
+    </Grid>
+</UserControl>

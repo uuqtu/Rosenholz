@@ -1,0 +1,17 @@
+﻿<Window x:Class="Rosenholz.Windows.CreateF16"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rosenholz.Windows"
+        mc:Ignorable="d"
+        Title="CreateF16" Height="450" Width="800">
+    <Grid>
+        <Label Content="Current" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="271,7,0,0" Name="label6" VerticalAlignment="Top" />
+        <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="321,7,0,0" Name="txtKeyword2" VerticalAlignment="Top" Width="178" 
+                 IsReadOnly="True" Text="{Binding Path=CurrentF22Reference, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Content="Net" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="271,37,0,0" Name="labhel6" VerticalAlignment="Top" />
+        <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="321,37,0,0" Name="txtKehyword2" VerticalAlignment="Top" Width="178" 
+                 IsReadOnly="True" Text="{Binding Path=ProposedF22Reference, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</Window>

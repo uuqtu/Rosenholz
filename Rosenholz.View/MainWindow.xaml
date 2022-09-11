@@ -1,0 +1,23 @@
+﻿<Window x:Class="Rosenholz.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rosenholz.View"
+        xmlns:uc="clr-namespace:Rosenholz.UserControls;assembly=Rosenholz.UserControls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="650" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <uc:F16UserControl x:Name = "F16ViewControl" Loaded = "F16UserControl_Loaded" Grid.Column="0" Grid.Row="0"/>
+        <uc:F22UserControl x:Name = "F22ViewControl"  Loaded="F22ViewControl_Loaded" Grid.Column="1" Grid.Row="0"/>
+    </Grid>
+</Window>
