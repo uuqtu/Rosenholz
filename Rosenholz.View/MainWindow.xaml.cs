@@ -57,5 +57,10 @@ namespace Rosenholz.View
         {
            
         }
+
+        private void AUExplorer_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

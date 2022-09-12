@@ -30,25 +30,25 @@
         <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=ProposedAuReference, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label   Grid.Row="2" Grid.Column="0" Content="AU-Reference"></Label>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=F16f22ReferenceToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=AUReferenceToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label   Grid.Row="3" Grid.Column="0" Content="F16F22-Reference"></Label>
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=KeywordToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=F16F22ReferenceCurrent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label   Grid.Row="4" Grid.Column="0" Content="Pseudonym"></Label>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=LabelToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=PseudonymToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label   Grid.Row="5" Grid.Column="0" Content="Created"></Label>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=PurposeToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=CreatetToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label   Grid.Row="6" Grid.Column="0" Content="Link"></Label>
-        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=PurposeToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=LinkToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label   Grid.Row="7" Grid.Column="0" Content="Dossier"></Label>
-        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Path=PurposeToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Path=DossierToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Button Grid.Row="8" Grid.Column="0" Content="Abort" Command="{Binding Abort}"></Button>
-        <Button Grid.Row="8" Grid.Column="1" Content="Save" Command="{Binding SaveNewF16}"></Button>
+        <Button Grid.Row="8" Grid.Column="1" Content="Save" Command="{Binding SaveNewF22Entry}"></Button>
         
         <!--<Label Content="Current" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="271,7,0,0" Name="label6" VerticalAlignment="Top" />
         <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="321,7,0,0" Name="txtKeyword2" VerticalAlignment="Top" Width="178" 

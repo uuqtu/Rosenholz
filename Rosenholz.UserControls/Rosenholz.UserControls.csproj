@@ -54,6 +54,7 @@
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.116.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.116.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -70,6 +71,9 @@
   <ItemGroup>
     <Compile Include="AUExplorer.xaml.cs">
       <DependentUpon>AUExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonPanel.xaml.cs">
+      <DependentUpon>ButtonPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="F16UserControl.xaml.cs">
       <DependentUpon>F16UserControl.xaml</DependentUpon>
@@ -90,6 +94,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="TextEditor.xaml.cs">
+      <DependentUpon>TextEditor.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -106,11 +113,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ButtonPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="F16UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="F22UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,6 +139,24 @@
       <Project>{fea34100-3c69-4263-b564-936412f8a199}</Project>
       <Name>Rosenholz.ViewModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ressources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ressources\disk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ressources\text_bold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ressources\text_italic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ressources\text_underline.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

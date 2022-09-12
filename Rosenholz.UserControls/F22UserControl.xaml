@@ -35,7 +35,6 @@
 
         <Button Content="Create F22 Entry" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="310,7,0,0" Name="btnSave"   
                 VerticalAlignment="Top" Width="141"  
-                Command="{Binding Path=AddF22EntryCommand}"
-                CommandParameter="{Binding Path=CurrentF22Selected, Mode=OneWay}"  />
+                Command="{Binding Path=AddF22EntryCommand}"/>
     </Grid>
 </UserControl>

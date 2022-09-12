@@ -2,6 +2,7 @@
 using Rosenholz.Windows;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ using System.Threading.Tasks;
 namespace Rosenholz.ViewModel
 {
     public delegate void AUContextChanged(AUReference reference);
-    public class F22ViewModel
+    public class F22ViewModel : INotifyPropertyChanged
     {
-        private IList<F22> _f22List;
+        private ObservableCollection<F22> _f22List;
         private F16F22Reference _currentF16Reference;
         public event AUContextChanged AUContextChangeEvent;
         private F22 _currentF22Selected = null;
@@ -23,7 +24,7 @@ namespace Rosenholz.ViewModel
 
         }
 
-        public IList<F22> F22Items
+        public ObservableCollection<F22> F22Items
         {
             get { return _f22List; }
             set
@@ -62,7 +63,7 @@ namespace Rosenholz.ViewModel
         public void SelectItems(F16F22Reference reference)
         {
             var a = F22.Storage.SelectData(reference);
-            F22Items = a;
+            F22Items = new ObservableCollection<F22>(a);
         }
 
         private RelayCommand _addF22EntryCommand;
@@ -73,7 +74,7 @@ namespace Rosenholz.ViewModel
                 if (_addF22EntryCommand == null)
                 {
                     _addF22EntryCommand = new RelayCommand(
-                        (parameter) => AddF22EntryExecute(parameter),
+                        (parameter) => AddF22EntryExecute(),
                         (parameter) => CanEcexuteF22ntryAdd(parameter)
                     );
                 }
@@ -83,18 +84,17 @@ namespace Rosenholz.ViewModel
 
         private bool CanEcexuteF22ntryAdd(object parameter)
         {
-            return CurrentF16Reference != null;
+            return !string.IsNullOrWhiteSpace(CurrentF16Reference?.F22String);
         }
 
-        public void AddF22EntryExecute(object parameter)
+        public void AddF22EntryExecute()
         {
-            if (parameter is F22)
+            if (CurrentF16Reference != null)
             {
-                var text = parameter as F22;
                 CreateF22Entry model = new CreateF22Entry(CurrentF16Reference);
                 model.ShowDialog();
+                SelectItems(CurrentF16Reference);
             }
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
