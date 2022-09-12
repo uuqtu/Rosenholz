@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RelayCommand.cs" />
     <Page Include="CreateF16.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

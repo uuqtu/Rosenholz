@@ -42,7 +42,7 @@ namespace Rosenholz.Model
             {
                 string command =
                     "INSERT INTO F16 (F16F22REFERENCE, KEYWORD, LABEL, PURPOSE)" +
-                    "VALUES ('" + Insertee.F16F22Reference + "','" + Insertee.Keyword + "','" + Insertee.Label + "','" + Insertee.Purpose + "');";
+                    "VALUES ('" + Insertee.F16F22Reference.F22String + "','" + Insertee.Keyword + "','" + Insertee.Label + "','" + Insertee.Purpose + "');";
 
                 con.InsertData(command);
             }

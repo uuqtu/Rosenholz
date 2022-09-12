@@ -2,6 +2,7 @@
 using Rosenholz.Windows;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,11 @@ using System.Windows.Input;
 namespace Rosenholz.ViewModel
 {
     public delegate void F22ContextChanged(F16F22Reference reference);
-    public class F16ViewModel
+    public class F16ViewModel : INotifyPropertyChanged
     {
-        private IList<F16> _f16List;
+        private ObservableCollection<F16> _f16List;
         private string _reference;
-        private string _latestItem => F16Items[0].F16F22Reference.F22String;
+        private string _latestItem;
         private F16 _currentF16Selected = null;
         public event F22ContextChanged F22ContextChangeEvent;
 
@@ -48,7 +49,10 @@ namespace Rosenholz.ViewModel
             set
             {
                 _currentF16Selected = value;
-                F22ContextChangeEvent.Invoke(_currentF16Selected.F16F22Reference);
+                if (_currentF16Selected != null)
+                    F22ContextChangeEvent?.Invoke(_currentF16Selected.F16F22Reference);
+                else
+                    F22ContextChangeEvent?.Invoke(new F16F22Reference("I_000_00"));
                 OnPropertyChanged(nameof(CurrentF16Selected));
             }
         }
@@ -60,22 +64,40 @@ namespace Rosenholz.ViewModel
             {
                 return _latestItem;
             }
+            set
+            {
+                _latestItem = value;
+                OnPropertyChanged(nameof(LatestItem));
+            }
+        }
+
+        private void UpdateLatestItem()
+        {
+            string retval = $"I_000_00";
+            var elements = F16.Storage.ReadData();
+            if (elements.Count > 0)
+            {
+                LatestItem = F16.Storage.ReadData().ElementAt(0).F16F22Reference.F22String;
+            }
         }
 
 
-
-        public IList<F16> F16Items
+        public ObservableCollection<F16> F16Items
         {
             get { return _f16List; }
-            set { _f16List = value; }
+            set
+            {
+                _f16List = value;
+                OnPropertyChanged(nameof(F16Items));
+            }
         }
 
 
         public void LoadF16Items()
         {
             var a = F16.Storage.ReadData();
-
-            F16Items = a;
+            F16Items = new ObservableCollection<F16>(a);
+            UpdateLatestItem();
         }
 
         #region Show
@@ -136,7 +158,7 @@ namespace Rosenholz.ViewModel
             var text = (string)parameter;
             CreateF16 model = new CreateF16(text);
             model.ShowDialog();
-
+            LoadF16Items();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
