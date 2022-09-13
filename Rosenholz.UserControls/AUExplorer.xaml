@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Rosenholz.UserControls"
+             xmlns:local="clr-namespace:Rosenholz.UserControls.AUExplorerFiles"
+             xmlns:uc="clr-namespace:Rosenholz.UserControls"
+             xmlns:classes="clr-namespace:Rosenholz.UserControls.AUExplorerFiles"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -15,9 +17,24 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <TreeView Grid.Row="0" Grid.Column="0" Name="AuReferenceGridView" ItemsSource="{Binding }" Background="AliceBlue"></TreeView>
-            <local:ButtonPanel Grid.Row="0" Grid.Column="1"></local:ButtonPanel>
-            <local:TextEditor Grid.Row="0" Grid.Column="2"></local:TextEditor>
+            <TreeView Grid.Row="0" Grid.Column="0" Name="AuReferenceGridView" Margin="5">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        <Setter Property="KeyboardNavigation.AcceptsReturn" Value="True" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type classes:FileSystemObjectInfo}" ItemsSource="{Binding Path=Children}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Path=ImageSource, UpdateSourceTrigger=PropertyChanged}" Margin="0,1,8,1"></Image>
+                            <TextBlock Text="{Binding Path=FileSystemInfo.Name}"></TextBlock>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+            <uc:ButtonPanel Grid.Row="0" Grid.Column="1"></uc:ButtonPanel>
+            <uc:TextEditor Grid.Row="0" Grid.Column="2"></uc:TextEditor>
             <!--https://wpf-tutorial.com/rich-text-controls/how-to-creating-a-rich-text-editor/-->
         </Grid>
     </Grid>

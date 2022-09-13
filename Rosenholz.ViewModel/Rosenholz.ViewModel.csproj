@@ -63,6 +63,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AUExplorerViewModel.cs" />
     <Compile Include="F16ViewModel.cs" />
     <Compile Include="F22ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

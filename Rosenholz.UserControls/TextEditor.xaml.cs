@@ -19,6 +19,7 @@ namespace Rosenholz.UserControls
 {
     /// <summary>
     /// Interaction logic for TextEditor.xaml
+    /// https://wpf-tutorial.com/rich-text-controls/how-to-creating-a-rich-text-editor/
     /// </summary>
     public partial class TextEditor : UserControl
     {
