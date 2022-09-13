@@ -14,7 +14,9 @@
         </Grid.RowDefinitions>
         <ListView Name="UserGrid" Grid.Row="1" Margin="4,130,12,13"  
                   ItemsSource="{Binding F22Items,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding CurrentF22Selected}">
+                  SelectedItem="{Binding CurrentF22Selected}"
+                  Background="#2D2D30"
+                  Foreground="White">
             <ListView.View>
                 <GridView x:Name="grdTest">
                     <GridViewColumn Header="AUReference" DisplayMemberBinding="{Binding AUReference.AUReferenceString}" Width="80" />

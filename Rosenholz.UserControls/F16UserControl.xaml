@@ -16,7 +16,9 @@
         </Grid.RowDefinitions>
         <ListView Name="F16Grid" Grid.Row="1" Margin="4,130,12,13"  
                   ItemsSource="{Binding F16Items, UpdateSourceTrigger=PropertyChanged}"  
-                  SelectedItem="{Binding CurrentF16Selected}" >
+                  SelectedItem="{Binding CurrentF16Selected}"
+                  Background="#2D2D30"
+                  Foreground="White">
             <ListView.View>
                 <GridView x:Name="grdTest">
                     <GridViewColumn Header="F16F22Reference" DisplayMemberBinding="{Binding F16F22Reference.F22String}" Width="80" />

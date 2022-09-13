@@ -10,6 +10,10 @@ namespace Rosenholz.ViewModel
     public class AUExplorerViewModel : INotifyPropertyChanged
     {
 
+
+
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {

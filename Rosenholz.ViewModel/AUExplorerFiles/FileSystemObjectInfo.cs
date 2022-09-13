@@ -169,8 +169,13 @@ namespace Rosenholz.UserControls.AUExplorerFiles
             if (FileSystemInfo is DirectoryInfo)
             {
                 var directories = ((DirectoryInfo)FileSystemInfo).GetDirectories();
+
                 foreach (var directory in directories.OrderBy(d => d.Name))
                 {
+#warning Erste Stelle mit Filterung auf spezifischen Pfad.
+                    if (Path.GetDirectoryName(directory.FullName).Equals(Path.GetDirectoryName("B:\\OneDrive - Siemens AG\\mfs\\ZAV\\22\\AU_019_22\\")))
+                        continue;
+
                     if ((directory.Attributes & FileAttributes.System) != FileAttributes.System &&
                         (directory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                     {

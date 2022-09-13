@@ -51,6 +51,7 @@ namespace Rosenholz.UserControls
             var drives = DriveInfo.GetDrives();
             DriveInfo
                 .GetDrives()
+                //.Where(x => x.VolumeLabel == "B:\\" || x.VolumeLabel == "C:\\" || x.VolumeLabel == "D:\\")
                 .ToList()
                 .ForEach(drive =>
                 {
@@ -59,7 +60,9 @@ namespace Rosenholz.UserControls
                     fileSystemObject.AfterExplore += FileSystemObject_AfterExplore;
                     AuReferenceGridView.Items.Add(fileSystemObject);
                 });
-            PreSelect(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            //PreSelect(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            PreSelect(@"B:\OneDrive - Siemens AG\mfs\ZAV\22\AU_019_22");
+
         }
 
         private void PreSelect(string path)

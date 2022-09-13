@@ -69,15 +69,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AUExplorerFiles\BaseObject.cs" />
-    <Compile Include="AUExplorerFiles\DummyFileSystemObjectInfo.cs" />
-    <Compile Include="AUExplorerFiles\Enums.cs" />
-    <Compile Include="AUExplorerFiles\FileManager.cs" />
-    <Compile Include="AUExplorerFiles\FileSystemObjectInfo.cs" />
-    <Compile Include="AUExplorerFiles\FolderManager.cs" />
-    <Compile Include="AUExplorerFiles\Interop.cs" />
-    <Compile Include="AUExplorerFiles\PropertyNotifier.cs" />
-    <Compile Include="AUExplorerFiles\ShellManager.cs" />
     <Compile Include="AUExplorer.xaml.cs">
       <DependentUpon>AUExplorer.xaml</DependentUpon>
     </Compile>

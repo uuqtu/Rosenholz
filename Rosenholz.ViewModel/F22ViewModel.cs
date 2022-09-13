@@ -55,13 +55,21 @@ namespace Rosenholz.ViewModel
             set
             {
                 _currentF22Selected = value;
-                AUContextChangeEvent.Invoke(_currentF22Selected.AUReference);
+                //Notwendig, da nach einem Speichervorgang die Liste neu geladen wird und damit die Referenz auf das Current Element verloren geht.
+                if (_currentF22Selected != null)
+                    AUContextChangeEvent.Invoke(_currentF22Selected.AUReference);
+                //Löse dann ein Event mit null aus, dass sich auch die TreeView zuruecksetzen kann
+#warning in der Treeview dann auch berücksichtigen, dass das passieren kann.
+                else
+                    AUContextChangeEvent.Invoke(null);
+
                 OnPropertyChanged(nameof(CurrentF22Selected));
             }
         }
 
         public void SelectItems(F16F22Reference reference)
         {
+            var tmp = reference;
             var a = F22.Storage.SelectData(reference);
             F22Items = new ObservableCollection<F22>(a);
         }
