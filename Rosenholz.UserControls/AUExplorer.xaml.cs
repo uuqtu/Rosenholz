@@ -27,7 +27,7 @@ namespace Rosenholz.UserControls
         public AUExplorer()
         {
             InitializeComponent();
-            InitializeFileSystemObjects();
+           // InitializeFileSystemObjects();
         }
 
         #region Events
@@ -46,8 +46,14 @@ namespace Rosenholz.UserControls
 
         #region Methods
 
-        private void InitializeFileSystemObjects()
+        public void InitializeFileSystemObjects(Model.AUReference reference)
         {
+            string folderpath = System.IO.Path.Combine(Settings.Settings.Instance.BasePath,
+                                             Rosenholz.Model.FolderManager.Instance.GetRelativeAUFolderLocation(reference.AUReferenceString));
+
+            FileSystemObjectInfo.FolderPath = folderpath;
+
+            AuReferenceGridView.Items.Clear();
             var drives = DriveInfo.GetDrives();
             DriveInfo
                 .GetDrives()
@@ -61,7 +67,7 @@ namespace Rosenholz.UserControls
                     AuReferenceGridView.Items.Add(fileSystemObject);
                 });
             //PreSelect(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            PreSelect(@"B:\OneDrive - Siemens AG\mfs\ZAV\22\AU_019_22");
+            PreSelect(folderpath);
 
         }
 

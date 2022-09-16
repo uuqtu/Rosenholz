@@ -12,6 +12,8 @@ namespace Rosenholz.UserControls.AUExplorerFiles
 {
     public class FileSystemObjectInfo : BaseObject
     {
+        public static string FolderPath;
+
         public FileSystemObjectInfo(FileSystemInfo info)
         {
             if (this is DummyFileSystemObjectInfo)
@@ -172,8 +174,12 @@ namespace Rosenholz.UserControls.AUExplorerFiles
 
                 foreach (var directory in directories.OrderBy(d => d.Name))
                 {
-#warning Erste Stelle mit Filterung auf spezifischen Pfad.
-                    if (Path.GetDirectoryName(directory.FullName).Equals(Path.GetDirectoryName("B:\\OneDrive - Siemens AG\\mfs\\ZAV\\22\\AU_019_22\\")))
+                    var dirinf = new DirectoryInfo(FolderPath);
+                    var childs = dirinf.GetDirectories().ToList();
+                    childs.Add(dirinf);
+
+                    //Damit nur der Folder angezeigt wird, der die Files beinhält.
+                    if (!childs.Any(x => x.FullName.Contains(Path.Combine(directory.FullName))))
                         continue;
 
                     if ((directory.Attributes & FileAttributes.System) != FileAttributes.System &&
@@ -209,6 +215,21 @@ namespace Rosenholz.UserControls.AUExplorerFiles
                 var files = ((DirectoryInfo)FileSystemInfo).GetFiles();
                 foreach (var file in files.OrderBy(d => d.Name))
                 {
+
+                    //Damit nur die Files angezeigt werden die im Folder sind, der angezeigt werden soll.
+                    try
+                    {
+                        if (file.Directory?.FullName.Contains(Path.Combine(FolderPath)) != true)
+                            continue;
+                    }
+                    catch (Exception)
+                    {
+                        //if (!file.Directory?.Parent?.FullName.Contains(Path.Combine(FolderPath)))
+                        //    continue;
+                    }
+
+
+
                     if ((file.Attributes & FileAttributes.System) != FileAttributes.System &&
                         (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                     {

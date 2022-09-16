@@ -44,6 +44,9 @@ namespace Rosenholz.Model
             string folderPath = Path.Combine(_basePath, _parentPrefixForAuFolder, DateTime.Now.ToString("yy"), aUName);
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
+            string archPath = Path.Combine(_basePath, _parentPrefixForAuFolder, DateTime.Now.ToString("yy"), aUName, "_archive");
+            if (!Directory.Exists(archPath))
+                Directory.CreateDirectory(archPath);
         }
 
         public string GetAUFolder(string aUName)
@@ -54,7 +57,8 @@ namespace Rosenholz.Model
 
         public string GetRelativeAUFolderLocation(string aUName)
         {
-            string folderPath = Path.Combine(_parentPrefixForAuFolder, DateTime.Now.ToString("yy"), aUName);
+            var refval = new AUReference(aUName);
+            string folderPath = Path.Combine(_parentPrefixForAuFolder, refval.YearString, refval.AUReferenceString);
             return folderPath;
         }
 

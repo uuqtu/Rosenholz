@@ -42,25 +42,24 @@ namespace Rosenholz.View
             f22ViewModelObject.AUContextChangeEvent += F22ViewModelObject_AUContextChangeEvent;
             f22ViewModelObject.SelectItems(reference);
             f22ViewModelObject.CurrentF16Reference = reference;
-            F22ViewControl.DataContext = f22ViewModelObject;           
+            F22ViewControl.DataContext = f22ViewModelObject;
         }
 
 
         private void F22ViewControl_Loaded(object sender, RoutedEventArgs e)
         {
             f22ViewModelObject = new ViewModel.F22ViewModel();
-            
 
         }
 
         private void F22ViewModelObject_AUContextChangeEvent(AUReference reference)
         {
-           
+            AUExplorer.InitializeFileSystemObjects(reference);
         }
 
         private void AUExplorer_Loaded(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }
