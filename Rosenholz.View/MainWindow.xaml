@@ -9,17 +9,26 @@
         Background="#1C1C1C"
         Title="MainWindow" Height="650" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="Rosenholz">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
 
-        <uc:F16UserControl x:Name = "F16ViewControl" Loaded = "F16UserControl_Loaded" Grid.Column="0" Grid.Row="0"/>
-        <uc:F22UserControl x:Name = "F22ViewControl"  Loaded="F22ViewControl_Loaded" Grid.Column="1" Grid.Row="0"/>
-        <uc:AUExplorer     x:Name = "AUExplorer"     Loaded="AUExplorer_Loaded" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"></uc:AUExplorer>
+                    <uc:F16UserControl x:Name = "F16ViewControl" Loaded = "F16UserControl_Loaded" Grid.Column="0" Grid.Row="0"/>
+                    <uc:F22UserControl x:Name = "F22ViewControl"  Loaded="F22ViewControl_Loaded" Grid.Column="1" Grid.Row="0"/>
+                    <uc:AUExplorer     x:Name = "AUExplorer"     Loaded="AUExplorer_Loaded" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"></uc:AUExplorer>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Tasks">
+                
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
