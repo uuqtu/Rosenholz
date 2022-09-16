@@ -131,7 +131,7 @@ namespace Rosenholz.Windows
             {
                 var a = AUReference.NextAU(AUReferenceCurrent);
                 AUReferenceToSet = a;
-                LinkToSet = FolderManager.Instance.GetAUFolder(AUReferenceToSet);
+                LinkToSet = FolderManager.Instance.GetRelativeAUFolderLocation(AUReferenceToSet);
                 return a;
             }
         }

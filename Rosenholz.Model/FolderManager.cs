@@ -52,6 +52,14 @@ namespace Rosenholz.Model
             return folderPath;
         }
 
+        public string GetRelativeAUFolderLocation(string aUName)
+        {
+            string folderPath = Path.Combine(_parentPrefixForAuFolder, DateTime.Now.ToString("yy"), aUName);
+            return folderPath;
+        }
+
+
+
 
 
 
