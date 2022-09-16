@@ -39,7 +39,12 @@ namespace Rosenholz.Windows
             var Items = F22.Storage.ReadData();
 
             F16F22ReferenceCurrent = currentF16Reference.F22String;
-            AUReferenceCurrent = Items[0].AUReference.AUReferenceString;
+            
+            //Damit es auch bei Erstanlage funktioniert.
+            if (Items?.Count != 0)
+                AUReferenceCurrent = Items[0].AUReference.AUReferenceString;
+            else
+                AUReferenceCurrent = $"AU_000_{int.Parse(DateTime.Now.ToString("yy"))}";            
         }
 
         public string DossierToSet
@@ -57,7 +62,7 @@ namespace Rosenholz.Windows
         {
             get
             { return _linkToset; }
-            set
+            internal set
             {
                 _linkToset = value;
                 OnPropertyChanged(nameof(LinkToSet));
@@ -126,6 +131,7 @@ namespace Rosenholz.Windows
             {
                 var a = AUReference.NextAU(AUReferenceCurrent);
                 AUReferenceToSet = a;
+                LinkToSet = FolderManager.Instance.GetAUFolder(AUReferenceToSet);
                 return a;
             }
         }
@@ -161,6 +167,8 @@ namespace Rosenholz.Windows
         {
             var F16ToCreate = new F22(AUReferenceToSet, F16F22ReferenceCurrent, PseudonymToSet, CreatetToSet, DossierToSet, LinkToSet);
             F22.Storage.InsertData(F16ToCreate);
+            FolderManager.Instance.CreateAUFolder(F16ToCreate.AUReference.AUReferenceString);
+
             this.Close();
         }
 

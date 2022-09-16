@@ -22,7 +22,7 @@ namespace Rosenholz.Model
 
         public void CreateTable()
         {
-            using (var con = new SQLiteConnectionHelper("f16.db"))
+            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F16Location))
             {
                 string command =
                     "CREATE TABLE IF NOT EXISTS F16 (" +
@@ -38,7 +38,7 @@ namespace Rosenholz.Model
 
         public void InsertData(F16 Insertee)
         {
-            using (var con = new SQLiteConnectionHelper("f16.db"))
+            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F16Location))
             {
                 string command =
                     "INSERT INTO F16 (F16F22REFERENCE, KEYWORD, LABEL, PURPOSE)" +
@@ -53,7 +53,7 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<F16> values = new List<F16>();
 
-            using (var con = new SQLiteConnectionHelper("f16.db"))
+            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F16Location))
             {
                 data = con.ReadData("SELECT * FROM F16");
             }

@@ -102,6 +102,7 @@ namespace Rosenholz.Model
 
         public static string NextF22(string f22)
         {
+            
             F16F22Reference actual = new F16F22Reference(f22);
 
             string position = Roman.To(actual.PositionCounter);

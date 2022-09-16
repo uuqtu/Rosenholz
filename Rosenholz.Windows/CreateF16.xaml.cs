@@ -25,6 +25,7 @@ namespace Rosenholz.Windows
         private string _keywordToSet;
         private string _labelToSet;
         private string _purposeToSet;
+        private int _f16Count;
 
         public string F16f22ReferenceToSet
         {
@@ -97,16 +98,20 @@ namespace Rosenholz.Windows
         {
             get
             {
+                //Passiert nur beim ersten Anlegen eines Elements
+                if (_f16Count == 0)
+                    CurrentF22Reference = $"{Settings.Settings.Instance.Position}_000_00";
                 var a = F16F22Reference.NextF22(CurrentF22Reference);
                 F16f22ReferenceToSet = a;
                 return a;
             }
         }
-        public CreateF16(string currentF22)
+        public CreateF16(string currentF22, int count)
         {
             InitializeComponent();
             DataContext = this;
             CurrentF22Reference = currentF22;
+            _f16Count = count;
         }
 
 

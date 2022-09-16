@@ -19,7 +19,7 @@ namespace Rosenholz.Model
 
         public void CreateTable()
         {
-            using (var con = new SQLiteConnectionHelper("f22.db"))
+            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F22Location))
             {
                 string command =
                     "CREATE TABLE IF NOT EXISTS F22 (" +
@@ -37,7 +37,7 @@ namespace Rosenholz.Model
 
         public void InsertData(F22 Insertee)
         {
-            using (var con = new SQLiteConnectionHelper("f22.db"))
+            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F22Location))
             {
                 string command =
                     "INSERT INTO F22 (AUREFERENCE, F16F22REFERENCE, PSEUDONYM, CREATED, LINK, DOSSIER)" +
@@ -52,7 +52,7 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<F22> values = new List<F22>();
 
-            using (var con = new SQLiteConnectionHelper("f22.db"))
+            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F22Location))
             {
                 data = con.ReadData("SELECT * FROM F22");
             }
@@ -78,7 +78,7 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<F22> values = new List<F22>();
 
-            using (var con = new SQLiteConnectionHelper("f22.db"))
+            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F22Location))
             {
                 data = con.ReadData($"SELECT * FROM F22 WHERE F16F22REFERENCE = '{reference.F22String}'");
             }

@@ -156,7 +156,7 @@ namespace Rosenholz.ViewModel
         public void AddF16Execute(object parameter)
         {
             var text = (string)parameter;
-            CreateF16 model = new CreateF16(text);
+            CreateF16 model = new CreateF16(text, F16Items.Count);
             model.ShowDialog();
             LoadF16Items();
         }

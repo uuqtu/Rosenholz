@@ -60,7 +60,7 @@ namespace Rosenholz.Settings
             {
                 string iniValue = ini.IniReadOrPreallocateValue("FilePaths",
                                                                 nameof(F22Location),
-                                                                "2");
+                                                                @"C:\Users\z0035hes\Desktop\MFS\f22.db");
                 _f22Location = iniValue;
                 return _f22Location;
             }
@@ -77,13 +77,30 @@ namespace Rosenholz.Settings
             {
                 string iniValue = ini.IniReadOrPreallocateValue("FilePaths",
                                                                 nameof(F16Location),
-                                                                "2");
+                                                                @"C:\Users\z0035hes\Desktop\MFS\f16.db");
                 _f16Location = iniValue;
                 return _f16Location;
             }
             set
             {
                 ini.IniWriteValue("FilePaths", nameof(F16Location), value);
+            }
+        }
+
+        private string _basePath;
+        public string BasePath
+        {
+            get
+            {
+                string iniValue = ini.IniReadOrPreallocateValue("FilePaths",
+                                                                nameof(BasePath),
+                                                                @"C:\Users\z0035hes\Desktop\MFS");
+                _basePath = iniValue;
+                return _basePath;
+            }
+            set
+            {
+                ini.IniWriteValue("FilePaths", nameof(BasePath), value);
             }
         }
 
