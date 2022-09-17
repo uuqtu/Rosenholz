@@ -104,6 +104,23 @@ namespace Rosenholz.Settings
             }
         }
 
+        private string _fileTypeFilters;
+        public string FileTypeFilters
+        {
+            get
+            {
+                string iniValue = ini.IniReadOrPreallocateValue("FilePaths",
+                                                                nameof(FileTypeFilters),
+                                                                @"*.tex|*.txt|*.exe|*.*");
+                _fileTypeFilters = iniValue;
+                return _fileTypeFilters;
+            }
+            set
+            {
+                ini.IniWriteValue("Filters", nameof(FileTypeFilters), value);
+            }
+        }
+
 
         #endregion
     }

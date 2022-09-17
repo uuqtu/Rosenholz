@@ -41,10 +41,10 @@ namespace Rosenholz.UserControls
 
         public void OnCurrentFolderChanged(string path)
         {
-           
+            this.FolderExplorerView.CurrentFolder = path;
 
         }
-       
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
