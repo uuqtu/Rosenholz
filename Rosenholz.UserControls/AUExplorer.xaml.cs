@@ -49,6 +49,7 @@ namespace Rosenholz.UserControls
             this.FolderExplorerView.CurrentFolder = path;
             this.TextEditor.CurrentFolder = path;
             this.TextEditor.Open_Executed(null, null);
+            this.ButtonPanel.CurrentFolder = path;
         }
 
 
