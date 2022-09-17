@@ -18,7 +18,7 @@
             </Grid.ColumnDefinitions>
 
             <uc2:FolderView Grid.Row="0" Grid.Column="0" Background="#2D2D30" x:Name ="FolderExplorerView"
-                            SnapsToDevicePixels="True" Filter="*.tex|*.txt|*.exe|*.*" CurrentFolder="{Binding CurrentFolder, NotifyOnSourceUpdated=True}" RecentLocations="{Binding RecentFiles}"
+                            SnapsToDevicePixels="True" Filter="*.tex|*.txt|*.exe|*.*" RecentLocations="{Binding RecentFiles}"
                             OnFileOpen="FolderView_OnFileOpen"></uc2:FolderView>
 
             <!--<TreeView Grid.Row="0" Grid.Column="0" Name="AuReferenceGridView" Margin="5" Background="#2D2D30" Foreground="White">

@@ -100,9 +100,6 @@
     <Compile Include="F22UserControl.xaml.cs">
       <DependentUpon>F22UserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FolderExplorer\FolderComboBox.xaml.cs">
-      <DependentUpon>FolderComboBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FolderExplorer\FolderListView.xaml.cs">
       <DependentUpon>FolderListView.xaml</DependentUpon>
     </Compile>
@@ -128,7 +125,7 @@
       <DependentUpon>TextEditor.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
@@ -152,10 +149,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="F22UserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="FolderExplorer\FolderComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -198,21 +191,21 @@
     <None Include="Ressources\text_underline.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\075b_UpFolder_16x16_72.png">
+    <EmbeddedResource Include="Images\075b_UpFolder_16x16_72.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\Back.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Back.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
     <Resource Include="Images\Backna.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Desktop.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\forward.png">
+    <EmbeddedResource Include="Images\forward.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
     <Resource Include="Images\forwardna.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
