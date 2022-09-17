@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rosenholz.View"
         xmlns:uc="clr-namespace:Rosenholz.UserControls;assembly=Rosenholz.UserControls"
+        xmlns:uc2="clr-namespace:Rosenholz.UserControls.FolderExplorer;assembly=Rosenholz.UserControls"
         mc:Ignorable="d"
         Background="#1C1C1C"
         Title="MainWindow" Height="650" Width="800">
@@ -23,7 +24,8 @@
 
                     <uc:F16UserControl x:Name = "F16ViewControl" Loaded = "F16UserControl_Loaded" Grid.Column="0" Grid.Row="0"/>
                     <uc:F22UserControl x:Name = "F22ViewControl"  Loaded="F22ViewControl_Loaded" Grid.Column="1" Grid.Row="0"/>
-                    <uc:AUExplorer     x:Name = "AUExplorer"     Loaded="AUExplorer_Loaded" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"></uc:AUExplorer>
+                    <!--<uc:AUExplorer     x:Name = "AUExplorer"     Loaded="AUExplorer_Loaded" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"></uc:AUExplorer>-->
+                    <uc2:FolderView></uc2:FolderView>
                 </Grid>
             </TabItem>
             <TabItem Header="Tasks">

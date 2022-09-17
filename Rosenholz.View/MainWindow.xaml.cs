@@ -54,7 +54,7 @@ namespace Rosenholz.View
 
         private void F22ViewModelObject_AUContextChangeEvent(AUReference reference)
         {
-            AUExplorer.InitializeFileSystemObjects(reference);
+            //AUExplorer.InitializeFileSystemObjects(reference);
         }
 
         private void AUExplorer_Loaded(object sender, RoutedEventArgs e)
