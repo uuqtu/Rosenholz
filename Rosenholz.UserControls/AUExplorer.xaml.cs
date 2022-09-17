@@ -29,20 +29,26 @@ namespace Rosenholz.UserControls
         public AUExplorer()
         {
             InitializeComponent();
-            // InitializeFileSystemObjects();
-            FolderExplorerView.CurrentFolder = @"D:\OneDrive - Siemens AG\unix";
-
         }
 
         private void FolderView_OnFileOpen(object sender, FolderExplorer.FListView.FileOpenEventArgs e)
         {
-            Process.Start(e.FileName);
+            try
+            {
+
+                Process.Start(e.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void OnCurrentFolderChanged(string path)
         {
             this.FolderExplorerView.CurrentFolder = path;
-
+            this.TextEditor.CurrentFolder = path;
+            this.TextEditor.Open_Executed(null, null);
         }
 
 

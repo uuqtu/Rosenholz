@@ -5,33 +5,38 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rosenholz.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             MouseLeave="UserControl_MouseLeave">
     <UserControl.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Open" Executed="Open_Executed" />
         <CommandBinding Command="ApplicationCommands.Save" Executed="Save_Executed" />
     </UserControl.CommandBindings>
     <DockPanel>
         <ToolBar DockPanel.Dock="Top">
-            <Button Command="ApplicationCommands.Open">
-                <Image Source="/Ressources/folder.png" Width="16" Height="16" />
-            </Button>
+            <!--<Button Command="ApplicationCommands.Open">
+                <Image Source="/Rosenholz.UserControls;component/Ressources/folder.png" Width="16" Height="16" />
+            </Button>-->
             <Button Command="ApplicationCommands.Save">
-                <Image Source="/Ressources/disk.png" Width="16" Height="16" />
+                <Image Source="/Rosenholz.UserControls;component/Ressources/disk.png" Width="16" Height="16" />
+            </Button>
+            <Separator />
+            <Button Command="{Binding AddTask}">
+                <Image Source="/Rosenholz.UserControls;component/Ressources/task.png" Width="16" Height="16" />
             </Button>
             <Separator />
             <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold">
-                <Image Source="/Ressources/text_bold.png" Width="16" Height="16" />
+                <Image Source="/Rosenholz.UserControls;component/Ressources/text_bold.png" Width="16" Height="16" />
             </ToggleButton>
             <ToggleButton Command="EditingCommands.ToggleItalic" Name="btnItalic">
-                <Image Source="/Ressources/text_italic.png" Width="16" Height="16" />
+                <Image Source="/Rosenholz.UserControls;component/Ressources/text_italic.png" Width="16" Height="16" />
             </ToggleButton>
             <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnUnderline">
-                <Image Source="/Ressources/text_underline.png" Width="16" Height="16" />
+                <Image Source="/Rosenholz.UserControls;component/Ressources/text_underline.png" Width="16" Height="16" />
             </ToggleButton>
             <Separator />
             <ComboBox Name="cmbFontFamily" Width="150" SelectionChanged="cmbFontFamily_SelectionChanged" />
             <ComboBox Name="cmbFontSize" Width="50" IsEditable="True" TextBoxBase.TextChanged="cmbFontSize_TextChanged" />
         </ToolBar>
-        <RichTextBox Name="rtbEditor" SelectionChanged="rtbEditor_SelectionChanged" Background="#2D2D30" />
+        <RichTextBox Name="rtbEditor" SelectionChanged="rtbEditor_SelectionChanged" Background="#2D2D30" Foreground="White"/>
     </DockPanel>
 </UserControl>

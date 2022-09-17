@@ -31,15 +31,19 @@
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">
             <Button Name="cmdBack"  DockPanel.Dock="Left" Style="{StaticResource FlatButtonStyle}" 
                     Command="{x:Static my:FListView.BackCommand}" CommandTarget="{Binding ElementName=lstFiles}">
-                <!--<my:AutoGrayImage  Width="16" Height="16" Style="{StaticResource toolbarImageStyle}" Source2="/Images/Back.png"/>-->
+                <my:AutoGrayImage  Width="16" Height="16" Style="{StaticResource toolbarImageStyle}" Source2="/Rosenholz.UserControls;component/Images/back.png"/>
             </Button>
             <Button Name="cmdForward" DockPanel.Dock="Left" Style="{StaticResource FlatButtonStyle}" 
                     Command="{x:Static my:FListView.ForwardCommand}" CommandTarget="{Binding ElementName=lstFiles}">
-                <!--<my:AutoGrayImage  Width="16" Height="16" Style="{StaticResource toolbarImageStyle}" Source2="pack://application:,,,/Images/Forward.png"/>-->
+                <my:AutoGrayImage  Width="16" Height="16" Style="{StaticResource toolbarImageStyle}" Source2="/Rosenholz.UserControls;component/Images/forward.png"/>
             </Button>
             <Button Name="cmdUp" DockPanel.Dock="Left" Style="{StaticResource FlatButtonStyle}"
                     Command="{x:Static my:FListView.UpCommand}" CommandTarget="{Binding ElementName=lstFiles}">
-                <!--<my:AutoGrayImage  Width="16" Height="16" Source2="pack://application:,,,/Images/075b_UpFolder_16x16_72.png"/>-->
+                <my:AutoGrayImage  Width="16" Height="16" Source2="/Rosenholz.UserControls;component/Images/075b_UpFolder_16x16_72.png"/>
+            </Button>
+            <Button Name="cmdRefrest" DockPanel.Dock="Left" Style="{StaticResource FlatButtonStyle}"
+                    Command="{x:Static my:FListView.RefreshCommand}" CommandTarget="{Binding ElementName=lstFiles}">
+                <my:AutoGrayImage  Width="16" Height="16" Source2="/Rosenholz.UserControls;component/Images/refresh.png"/>
             </Button>
             <ComboBox Name="cmbFilter" DockPanel.Dock="Right" ItemsSource="{Binding ElementName=FV, Path=Filter, Converter={StaticResource FilterStringToList}}" 
                       SelectedIndex="{Binding ElementName=FV, Path=FilterIndex}" Width="60"

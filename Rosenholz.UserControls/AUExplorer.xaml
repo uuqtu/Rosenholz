@@ -22,7 +22,7 @@
                             OnFileOpen="FolderView_OnFileOpen"></uc2:FolderView>
 
             <uc:ButtonPanel Grid.Row="0" Grid.Column="1"></uc:ButtonPanel>
-            <uc:TextEditor Grid.Row="0" Grid.Column="2"></uc:TextEditor>
+            <uc:TextEditor x:Name="TextEditor" Grid.Row="0" Grid.Column="2"></uc:TextEditor>
             <!--https://wpf-tutorial.com/rich-text-controls/how-to-creating-a-rich-text-editor/-->
         </Grid>
     </Grid>

@@ -93,6 +93,7 @@ namespace Rosenholz.UserControls.FolderExplorer
         public static RoutedCommand BackCommand = new RoutedCommand();
         public static RoutedCommand ForwardCommand = new RoutedCommand();
         public static RoutedCommand UpCommand = new RoutedCommand();
+        public static RoutedCommand RefreshCommand = new RoutedCommand();
         #endregion
 
         FileListViewVM TheVM = null;
@@ -105,6 +106,7 @@ namespace Rosenholz.UserControls.FolderExplorer
             CommandBindings.Add(new CommandBinding(BackCommand, (s, e) => TheVM.Back(), (s, e) => e.CanExecute = (TheVM.RecentFolders.Count > 1)));
             CommandBindings.Add(new CommandBinding(ForwardCommand, (s, e) => TheVM.Forward(), (s, e) => e.CanExecute = (TheVM.FutureFolders.Count > 0)));
             CommandBindings.Add(new CommandBinding(UpCommand, (s, e) => TheVM.Up(), (s, e) => e.CanExecute = (CurrentFolder != null ? CurrentFolder.Split(new char[] { System.IO.Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).Length > 1 : false)));
+            CommandBindings.Add(new CommandBinding(RefreshCommand, (s, e) => TheVM.PopulateView(), (s, e) => e.CanExecute = true)); ;
         }
 
         protected void HandleDoubleClickOrReturn(object sender, MouseButtonEventArgs e)
