@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rosenholz.UserControls"             
              xmlns:uc="clr-namespace:Rosenholz.UserControls"
-             xmlns:classes="clr-namespace:Rosenholz.UserControls.AUExplorerFiles;assembly=Rosenholz.ViewModel"
+             xmlns:uc2="clr-namespace:Rosenholz.UserControls.FolderExplorer"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -17,7 +17,11 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <TreeView Grid.Row="0" Grid.Column="0" Name="AuReferenceGridView" Margin="5" Background="#2D2D30" Foreground="White">
+            <uc2:FolderView Grid.Row="0" Grid.Column="0" Background="#2D2D30" x:Name ="FolderExplorerView"
+                            SnapsToDevicePixels="True" Filter="*.tex|*.txt|*.exe|*.*" CurrentFolder="{Binding CurrentFolder, NotifyOnSourceUpdated=True}" RecentLocations="{Binding RecentFiles}"
+                            OnFileOpen="FolderView_OnFileOpen"></uc2:FolderView>
+
+            <!--<TreeView Grid.Row="0" Grid.Column="0" Name="AuReferenceGridView" Margin="5" Background="#2D2D30" Foreground="White">
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
@@ -32,7 +36,7 @@
                         </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.Resources>
-            </TreeView>
+            </TreeView>-->
             <uc:ButtonPanel Grid.Row="0" Grid.Column="1"></uc:ButtonPanel>
             <uc:TextEditor Grid.Row="0" Grid.Column="2"></uc:TextEditor>
             <!--https://wpf-tutorial.com/rich-text-controls/how-to-creating-a-rich-text-editor/-->
