@@ -27,7 +27,7 @@ namespace Rosenholz.Windows
         private string _labelToSet;
         private string _purposeToSet;
         private int _f16Count;
-
+        private List<F16> _items;
         public string F16f22ReferenceToSet
         {
             get
@@ -107,12 +107,13 @@ namespace Rosenholz.Windows
                 return a;
             }
         }
-        public CreateF16(string currentF22, int count)
+        public CreateF16(string currentF22, List<F16> items)
         {
             InitializeComponent();
             DataContext = this;
             CurrentF22Reference = currentF22;
-            _f16Count = count;
+            _f16Count = items.Count;
+            _items = items;
         }
 
 
@@ -143,10 +144,15 @@ namespace Rosenholz.Windows
 
         private bool CanExecuteSaveNewF16(object parameter)
         {
+
+            var keyWordExists = _items.Any(i => i.Keyword == KeywordToSet);
+
+
             return !string.IsNullOrWhiteSpace(F16f22ReferenceToSet) &&
                    !string.IsNullOrWhiteSpace(KeywordToSet) &&
                    !string.IsNullOrWhiteSpace(LabelToSet) &&
-                   !string.IsNullOrWhiteSpace(PurposeToSet);
+                   !string.IsNullOrWhiteSpace(PurposeToSet) &&
+                   !keyWordExists;
         }
 
         private void SaveNewF16Execute(object parameter)

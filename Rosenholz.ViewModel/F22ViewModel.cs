@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Rosenholz.ViewModel
 {
@@ -104,6 +106,71 @@ namespace Rosenholz.ViewModel
                 SelectItems(CurrentF16Reference);
             }
         }
+
+        private RelayCommand _writeF22ItemsCommand
+          ;
+        public RelayCommand WriteF22ItemsCommand
+        {
+            get
+            {
+                if (_writeF22ItemsCommand == null)
+                {
+                    _writeF22ItemsCommand = new RelayCommand(
+                        (parameter) => WriteF22ItemsCommandExecute(parameter),
+                        (parameter) => CanExecuteWriteF22ItemsCommand(parameter)
+                    );
+                }
+                return _writeF22ItemsCommand;
+            }
+        }
+
+        public void WriteF22ItemsCommandExecute(object parameter)
+        {
+            var text = (string)parameter;
+            var items = F22Storage.Instance.ReadData();
+            string dir = Path.GetDirectoryName(Settings.Settings.Instance.F22Location);
+
+            var positions = items.Select(p => p.F16F22Reference.PositionCounterString).Distinct();
+            var references = items.Select(f => f.F16F22Reference.F22String).Distinct();
+
+            foreach (var position in positions)
+            {
+                foreach (var reference in references)
+                {
+                    var refe = new F16F22Reference(reference);
+                    string path = Path.Combine(dir, position, refe.YearString);
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                }
+            }
+
+
+            foreach (var reference in references)
+            {
+                var refe = new F16F22Reference(reference);
+                var elements = F22Storage.Instance.ReadAUElements(refe.F22String);
+
+                List<string> stringList = new List<string>();
+
+                foreach (var element in elements)
+                {
+                    stringList.Add($"{element.AUReference.AUReferenceString}: {element.Pseudonym}");
+                }
+
+                File.WriteAllLines(Path.Combine(dir, refe.PositionCounterString, refe.YearString, $"{refe.F22String}.txt"), stringList.ToArray());
+            }
+        }
+
+        public bool CanExecuteWriteF22ItemsCommand(object parameter)
+        {
+            //            var text = (string)parameter;
+            //#pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
+            //            var val = F16Items.ToList().Any(s => s.F16F22Reference.F22String.Equals(parameter));
+            //#pragma warning restore CS0253 // Possible unintended reference comparison; right hand side needs cast
+
+            return true;
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)

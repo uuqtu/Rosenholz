@@ -1,10 +1,14 @@
 ﻿using Rosenholz.Model;
+using Rosenholz.Model.RomanNumerals;
 using Rosenholz.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -123,15 +127,43 @@ namespace Rosenholz.ViewModel
         {
             var text = (string)parameter;
             var items = F16Storage.Instance.ReadData();
+            string dir = Path.GetDirectoryName(Settings.Settings.Instance.F16Location);
 
+
+            string literals = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            foreach (char literal in literals)
+            {
+                string path = Path.Combine(dir, literal.ToString());
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+            }
+
+            foreach (var item in items)
+            {
+                string fileName = item.Keyword;
+                string label = item.Label;
+                string purpose = item.Purpose;
+                string f22 = item.F16F22Reference.F22String;
+
+                foreach (char c in System.IO.Path.GetInvalidFileNameChars())
+                {
+                    fileName = fileName.Replace(c, '_');
+                }
+
+                string[] lines = { $"Stichwort: {fileName}", $"Genaue Bezeichnung: {label}", $"Gegenstand: {purpose}", $"F22: {f22}" };
+
+                var character = fileName[0];
+
+                File.WriteAllLines(Path.Combine(dir, character.ToString(), $"{fileName}.txt"), lines);
+            }
         }
-
         public bool CanExecuteWriteF16ItemsCommand(object parameter)
         {
-//            var text = (string)parameter;
-//#pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
-//            var val = F16Items.ToList().Any(s => s.F16F22Reference.F22String.Equals(parameter));
-//#pragma warning restore CS0253 // Possible unintended reference comparison; right hand side needs cast
+            //            var text = (string)parameter;
+            //#pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
+            //            var val = F16Items.ToList().Any(s => s.F16F22Reference.F22String.Equals(parameter));
+            //#pragma warning restore CS0253 // Possible unintended reference comparison; right hand side needs cast
 
             return true;
         }
@@ -158,10 +190,43 @@ namespace Rosenholz.ViewModel
         public void AddF16Execute(object parameter)
         {
             var text = (string)parameter;
-            CreateF16 model = new CreateF16(text, F16Items.Count);
+            CreateF16 model = new CreateF16(text, F16Items.ToList());
             model.ShowDialog();
             LoadF16Items();
         }
+
+        private RelayCommand _archiveF16Command;
+        public RelayCommand ArchiveF16Command
+        {
+            get
+            {
+                if (_archiveF16Command == null)
+                {
+                    _archiveF16Command = new RelayCommand(
+                        (parameter) => ArchiveF16Execute(parameter),
+                        (parameter) => true
+                    );
+                }
+                return _archiveF16Command;
+            }
+        }
+
+        public void ArchiveF16Execute(object parameter)
+        {
+            var text = (string)parameter;
+            string dir = Path.GetDirectoryName(Settings.Settings.Instance.F16Location);
+
+            if (!Directory.Exists(Path.Combine(dir, "_archive")))
+                Directory.CreateDirectory(Path.Combine(dir, "_archive"));
+
+            string location = Path.Combine(dir, "_archive", $"f16_{DateTime.Now.ToFileTimeUtc()}.zip");
+
+            using (ZipArchive zip = ZipFile.Open(location, ZipArchiveMode.Create))
+            {
+                zip.CreateEntryFromFile(Settings.Settings.Instance.F16Location, Path.GetFileName(Settings.Settings.Instance.F16Location));
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)

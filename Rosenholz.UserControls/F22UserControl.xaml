@@ -38,5 +38,12 @@
         <Button Content="Create F22 Entry" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="310,7,0,0" Name="btnSave"   
                 VerticalAlignment="Top" Width="141"  
                 Command="{Binding Path=AddF22EntryCommand}"/>
+
+        <Button Content="Export F22 Entry" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="510,7,0,0" Name="btnSave2"   
+                VerticalAlignment="Top" Width="141"  
+                Command="{Binding Path=WriteF22ItemsCommand}"/>
+
+
+
     </Grid>
 </UserControl>
