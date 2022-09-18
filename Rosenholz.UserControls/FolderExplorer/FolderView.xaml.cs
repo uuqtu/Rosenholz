@@ -106,7 +106,8 @@ namespace Rosenholz.UserControls.FolderExplorer
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            CurrentFolder = Directory.GetCurrentDirectory();
+            CurrentFolder = Settings.Settings.Instance.BasePath;
+            //Directory.GetCurrentDirectory();
         }
 
         private void lstFiles_OnFileOpen(object sender, FListView.FileOpenEventArgs e)
