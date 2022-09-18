@@ -36,7 +36,7 @@ namespace Rosenholz.Windows
             DataContext = this;
             CreatetToSet = DateTime.Now.ToString();
 
-            var Items = F22.Storage.ReadData();
+            var Items = F22Storage.Instance.ReadData();
 
             F16F22ReferenceCurrent = currentF16Reference.F22String;
             
@@ -166,7 +166,7 @@ namespace Rosenholz.Windows
         private void SaveNewF22EntryExecute(object parameter)
         {
             var F16ToCreate = new F22(AUReferenceToSet, F16F22ReferenceCurrent, PseudonymToSet, CreatetToSet, DossierToSet, LinkToSet);
-            F22.Storage.InsertData(F16ToCreate);
+            F22Storage.Instance.InsertData(F16ToCreate);
             FolderManager.Instance.CreateAUFolder(F16ToCreate.AUReference.AUReferenceString);
 
             this.Close();

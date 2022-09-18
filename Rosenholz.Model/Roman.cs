@@ -1,90 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rosenholz.Model
+namespace Rosenholz.Model.RomanNumerals
 {
     public static class Roman
     {
-        public static readonly Dictionary<char, int> RomanNumberDictionary;
-        public static readonly Dictionary<int, string> NumberRomanDictionary;
+        public static List<string> romanNumerals = new List<string>() { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+        public static List<int> numerals = new List<int>() { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
 
-        static Roman()
+        public static string ToRoman(int number)
         {
-            RomanNumberDictionary = new Dictionary<char, int>
-        {
-            { 'I', 1 },
-            { 'V', 5 },
-            { 'X', 10 },
-            { 'L', 50 },
-            { 'C', 100 },
-            { 'D', 500 },
-            { 'M', 1000 },
-        };
-
-            NumberRomanDictionary = new Dictionary<int, string>
-        {
-            { 1000, "M" },
-            { 900, "CM" },
-            { 500, "D" },
-            { 400, "CD" },
-            { 100, "C" },
-            { 90, "XC" },
-            { 50, "L" },
-            { 40, "XL" },
-            { 10, "X" },
-            { 9, "IX" },
-            { 5, "V" },
-            { 4, "IV" },
-            { 1, "I" },
-        };
+            var romanNumeral = string.Empty;
+            while (number > 0)
+            {
+                // find biggest numeral that is less than equal to number
+                var index = numerals.FindIndex(x => x <= number);
+                // subtract it's value from your number
+                number -= numerals[index];
+                // tack it onto the end of your roman numeral
+                romanNumeral += romanNumerals[index];
+            }
+            return romanNumeral;
         }
 
-        public static string To(int number)
+        public static int FromRoman(string roman)
         {
-            var roman = new StringBuilder();
-
-            foreach (var item in NumberRomanDictionary)
+            roman = roman.ToLower();
+            string literals = "mdclxvi";
+            int value = 0, index = 0;
+            foreach (char literal in literals)
             {
-                while (number >= item.Key)
-                {
-                    roman.Append(item.Value);
-                    number -= item.Key;
-                }
+                value = romanValue(literals.Length - literals.IndexOf(literal) - 1);
+                index = roman.IndexOf(literal);
+                if (index > -1)
+                    return FromRoman(roman.Substring(index + 1)) + (index > 0 ? value - FromRoman(roman.Substring(0, index)) : value);
             }
-
-            return roman.ToString();
+            return 0;
         }
 
-        public static int From(string roman)
+        private static int romanValue(int index)
         {
-            int total = 0;
-
-            int current, previous = 0;
-            char currentRoman, previousRoman = '\0';
-
-            for (int i = 0; i < roman.Length; i++)
-            {
-                currentRoman = roman[i];
-
-                previous = previousRoman != '\0' ? RomanNumberDictionary[previousRoman] : '\0';
-                current = RomanNumberDictionary[currentRoman];
-
-                if (previous != 0 && current > previous)
-                {
-                    total = total - (2 * previous) + current;
-                }
-                else
-                {
-                    total += current;
-                }
-
-                previousRoman = currentRoman;
-            }
-
-            return total;
+            int basefactor = ((index % 2) * 4 + 1); // either 1 or 5...
+                                                    // ...multiplied with the exponentation of 10, if the literal is `x` or higher
+            return index > 1 ? (int)(basefactor * System.Math.Pow(10.0, index / 2)) : basefactor;
         }
     }
 }

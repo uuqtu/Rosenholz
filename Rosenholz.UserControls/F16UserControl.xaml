@@ -50,9 +50,9 @@
         <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="80,90,0,0" x:Name="txtCity" VerticalAlignment="Top" Width="178" 
                  IsReadOnly="True" Text="{Binding ElementName=F16Grid,Path=SelectedItem.F16F22Reference.F22String, Mode=OneWay}" />
 
-        <Button Content="Show F22" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="310,63,0,0" Name="btnShowF22"   
+        <Button Content="Export F16" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="310,63,0,0" Name="btnShowF22"   
                 VerticalAlignment="Top" Width="141"  
-                Command="{Binding Path=ShowF22}"
+                Command="{Binding Path=WriteF16ItemsCommand}"
                 CommandParameter="{Binding ElementName=F16Grid,Path=SelectedItem.F16F22Reference.F22String, Mode=OneWay}"  />
 
         <Button Content="Create F16" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="310,91,0,0" Name="btnSave"   

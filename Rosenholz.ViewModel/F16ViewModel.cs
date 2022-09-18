@@ -74,10 +74,10 @@ namespace Rosenholz.ViewModel
         private void UpdateLatestItem()
         {
             string retval = $"I_000_00";
-            var elements = F16.Storage.ReadData();
+            var elements = F16Storage.Instance.ReadData();
             if (elements.Count > 0)
             {
-                LatestItem = F16.Storage.ReadData().ElementAt(0).F16F22Reference.F22String;
+                LatestItem = F16Storage.Instance.ReadData().ElementAt(0).F16F22Reference.F22String;
             }
         }
 
@@ -95,43 +95,45 @@ namespace Rosenholz.ViewModel
 
         public void LoadF16Items()
         {
-            var a = F16.Storage.ReadData();
+            var a = F16Storage.Instance.ReadData();
             F16Items = new ObservableCollection<F16>(a);
             UpdateLatestItem();
         }
 
         #region Show
 
-        private RelayCommand _showF22;
-        public RelayCommand ShowF22
+        private RelayCommand _writeF16ItemsCommand
+            ;
+        public RelayCommand WriteF16ItemsCommand
         {
             get
             {
-                if (_showF22 == null)
+                if (_writeF16ItemsCommand == null)
                 {
-                    _showF22 = new RelayCommand(
-                        (parameter) => ShowF22Command(parameter),
-                        (parameter) => IsValidF22(parameter)
+                    _writeF16ItemsCommand = new RelayCommand(
+                        (parameter) => WriteF16ItemsCommandExecute(parameter),
+                        (parameter) => CanExecuteWriteF16ItemsCommand(parameter)
                     );
                 }
-                return _showF22;
+                return _writeF16ItemsCommand;
             }
         }
 
-        public void ShowF22Command(object parameter)
+        public void WriteF16ItemsCommandExecute(object parameter)
         {
             var text = (string)parameter;
+            var items = F16Storage.Instance.ReadData();
 
         }
 
-        public bool IsValidF22(object parameter)
+        public bool CanExecuteWriteF16ItemsCommand(object parameter)
         {
-            var text = (string)parameter;
-#pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
-            var val = F16Items.ToList().Any(s => s.F16F22Reference.F22String.Equals(parameter));
-#pragma warning restore CS0253 // Possible unintended reference comparison; right hand side needs cast
+//            var text = (string)parameter;
+//#pragma warning disable CS0253 // Possible unintended reference comparison; right hand side needs cast
+//            var val = F16Items.ToList().Any(s => s.F16F22Reference.F22String.Equals(parameter));
+//#pragma warning restore CS0253 // Possible unintended reference comparison; right hand side needs cast
 
-            return val;
+            return true;
         }
 
         #endregion

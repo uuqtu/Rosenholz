@@ -13,8 +13,7 @@ namespace Rosenholz.Model
         private string _label;
         private string _purpose;
         private F16F22Reference _f16f22reference;
-        public static F16Storage Storage = new F16Storage();
-
+       
         public F16()
         {
             

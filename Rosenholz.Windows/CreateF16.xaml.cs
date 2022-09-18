@@ -1,4 +1,5 @@
 ﻿using Rosenholz.Model;
+using Rosenholz.Model.RomanNumerals;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -100,7 +101,7 @@ namespace Rosenholz.Windows
             {
                 //Passiert nur beim ersten Anlegen eines Elements
                 if (_f16Count == 0)
-                    CurrentF22Reference = $"{Settings.Settings.Instance.Position}_000_00";
+                    CurrentF22Reference = $"{Roman.ToRoman(int.Parse(Settings.Settings.Instance.Position))}_000_00";
                 var a = F16F22Reference.NextF22(CurrentF22Reference);
                 F16f22ReferenceToSet = a;
                 return a;
@@ -151,7 +152,7 @@ namespace Rosenholz.Windows
         private void SaveNewF16Execute(object parameter)
         {
             var F16ToCreate = new F16(KeywordToSet, LabelToSet, PurposeToSet, F16f22ReferenceToSet);
-            F16.Storage.InsertData(F16ToCreate);
+            F16Storage.Instance.InsertData(F16ToCreate);
             this.Close();
         }
 

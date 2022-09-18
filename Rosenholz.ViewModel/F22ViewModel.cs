@@ -70,7 +70,7 @@ namespace Rosenholz.ViewModel
         public void SelectItems(F16F22Reference reference)
         {
             var tmp = reference;
-            var a = F22.Storage.SelectData(reference);
+            var a = F22Storage.Instance.SelectData(reference);
             F22Items = new ObservableCollection<F22>(a);
         }
 

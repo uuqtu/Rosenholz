@@ -1,4 +1,5 @@
-﻿using Rosenholz.Settings;
+﻿using Rosenholz.Model.RomanNumerals;
+using Rosenholz.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,7 @@ namespace Rosenholz.Model
         public F16F22Reference(string f16f22)
         {
             string[] splitted = f16f22.Split('_');
-            PositionCounter = Roman.From(splitted[0]);
+            PositionCounter = Roman.FromRoman(splitted[0]);
             ItemCounter = int.Parse(splitted[1]);
             Year = int.Parse(splitted[2]);
         }
@@ -64,7 +65,7 @@ namespace Rosenholz.Model
             }
         }
 
-        public string PositionCounterString => Roman.To(PositionCounter);
+        public string PositionCounterString => Roman.ToRoman(PositionCounter);
         public string ItemCounterString => ItemCounter.ToString("D3");
         public string YearString => Year.ToString();
         public string F22String => GetF22String();
@@ -105,7 +106,7 @@ namespace Rosenholz.Model
             
             F16F22Reference actual = new F16F22Reference(f22);
 
-            string position = Roman.To(actual.PositionCounter);
+            string position = Roman.ToRoman(actual.PositionCounter);
             string item;
             string year;
 

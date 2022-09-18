@@ -14,8 +14,7 @@ namespace Rosenholz.Model
         private string _pseudonym;
         private string _created;
         private string _dossier;
-        private string _link;
-        public static F22Storage Storage = new F22Storage();
+        private string _link;       
 
         public F22()
         {

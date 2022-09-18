@@ -1,24 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Rosenholz.Model
 {
-    public class F22Storage
+    public sealed class F22Storage
     {
-        public F22Storage()
-        {
-            CreateTable();
 
+        private static readonly F22Storage instance = new F22Storage();
+
+        // Explicit static constructor to tell C# compiler
+        // not to mark type as beforefieldinit
+        static F22Storage()
+        {
         }
 
+        private F22Storage()
+        {
+            CreateTable();
+        }
+
+
+        public static F22Storage Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
 
 
         public void CreateTable()
         {
+            string dir = Path.GetDirectoryName(Settings.Settings.Instance.F22Location);
+
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
+
             using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F22Location))
             {
                 string command =
@@ -41,7 +64,7 @@ namespace Rosenholz.Model
             {
                 string command =
                     "INSERT INTO F22 (AUREFERENCE, F16F22REFERENCE, PSEUDONYM, CREATED, LINK, DOSSIER)" +
-                    "VALUES ('" + Insertee.AUReference.AUReferenceString + "','" + Insertee.F16F22Reference.F22String + "','" + Insertee.Pseudonym + "','" + Insertee.Created +"','" + Insertee.Link + "','" + Insertee.Dossier + "');";
+                    "VALUES ('" + Insertee.AUReference.AUReferenceString + "','" + Insertee.F16F22Reference.F22String + "','" + Insertee.Pseudonym + "','" + Insertee.Created + "','" + Insertee.Link + "','" + Insertee.Dossier + "');";
 
                 con.InsertData(command);
             }
