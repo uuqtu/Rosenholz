@@ -8,13 +8,12 @@
              xmlns:viewmodel="clr-namespace:Rosenholz.ViewModel;assembly=Rosenholz.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="0,0,0,20">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <ListView Name="F16Grid" Grid.Row="1" Margin="4,130,12,13"  
+        <ListView Grid.Row="1" Grid.Column="0"  Name="F16Grid" 
                   ItemsSource="{Binding F16Items, UpdateSourceTrigger=PropertyChanged}"  
                   SelectedItem="{Binding CurrentF16Selected}"
                   Background="#2D2D30"
@@ -29,14 +28,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Keyword" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="12,7,0,0" Name="label1" VerticalAlignment="Top" />
+        <!--<Label Content="Keyword" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="12,7,0,0" Name="label1" VerticalAlignment="Top" />
         <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="80,7,0,0" Name="txtKeyword" VerticalAlignment="Top" Width="178" 
                  IsReadOnly="True" Text="{Binding ElementName=F16Grid,Path=SelectedItem.Keyword}" />
-
-        <Label Content="Latest" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="271,7,0,0" Name="label6" VerticalAlignment="Top" />
-        <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="321,7,0,0" Name="txtKeyword2" VerticalAlignment="Top" Width="178" 
-                 IsReadOnly="True" Text="{Binding Path=LatestItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-
 
         <Label Content="Purpose" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="12,35,0,0" Name="label2" VerticalAlignment="Top" />
         <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="80,35,0,0" Name="txtPurpose" VerticalAlignment="Top" Width="178" 
@@ -48,21 +42,40 @@
 
         <Label Content="Reference" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="12,90,0,0" Name="label4" VerticalAlignment="Top" />
         <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="80,90,0,0" x:Name="txtCity" VerticalAlignment="Top" Width="178" 
-                 IsReadOnly="True" Text="{Binding ElementName=F16Grid,Path=SelectedItem.F16F22Reference.F22String, Mode=OneWay}" />
+                 IsReadOnly="True" Text="{Binding ElementName=F16Grid,Path=SelectedItem.F16F22Reference.F22String, Mode=OneWay}" />-->
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
 
-        <Button Content="Archive F16" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="310,33,0,0" Name="btnSArchiveF22"   
-                VerticalAlignment="Top" Width="141"  
+            <!--<Label Grid.Row="0" Grid.Column="0" Content="Latest" Height="28" HorizontalAlignment="Left" Name="label6" VerticalAlignment="Top" />-->
+            <TextBox Grid.Row="0" Grid.Column="0"  Height="23" HorizontalAlignment="Left" Name="txtKeyword2" VerticalAlignment="Top" Width="178" 
+                 IsReadOnly="True" Text="{Binding Path=LatestItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+
+            <Button  Grid.Row="1" Grid.Column="0" Content="Archive F16" Height="23" HorizontalAlignment="Left"  Name="btnSArchiveF22"   
+                VerticalAlignment="Top"  Width="178" 
                 Command="{Binding Path=ArchiveF16Command}"
                 CommandParameter="{Binding ElementName=F16Grid,Path=SelectedItem.F16F22Reference.F22String, Mode=OneWay}"  />
 
-        <Button Content="Export F16" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="310,63,0,0" Name="btnShowF22"   
-                VerticalAlignment="Top" Width="141"  
+            <Button  Grid.Row="2" Grid.Column="0" Content="Export F16" Height="23" HorizontalAlignment="Left" Name="btnShowF22"   
+                VerticalAlignment="Top" Width="178" 
                 Command="{Binding Path=WriteF16ItemsCommand}"
                 CommandParameter="{Binding ElementName=F16Grid,Path=SelectedItem.F16F22Reference.F22String, Mode=OneWay}"  />
 
-        <Button Content="Create F16" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="310,91,0,0" Name="btnSave"   
-                VerticalAlignment="Top" Width="141"  
+            <Button  Grid.Row="3" Grid.Column="0" Content="Create F16"  Height="23" HorizontalAlignment="Left"  Name="btnSave"   
+                VerticalAlignment="Top" Width="178" 
                 Command="{Binding Path=AddF16Command}"
                 CommandParameter="{Binding Path=LatestItem, Mode=OneWay}"  />
+        </Grid>
+        
+
     </Grid>
 </UserControl>

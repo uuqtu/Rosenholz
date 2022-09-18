@@ -32,13 +32,13 @@
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=F16f22ReferenceToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label   Grid.Row="3" Grid.Column="0" Content="Keyword"></Label>
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=KeywordToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="3" Grid.Column="1" Background="Yellow" Text="{Binding Path=KeywordToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label   Grid.Row="4" Grid.Column="0" Content="Label"></Label>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=LabelToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="4" Grid.Column="1" Background="Yellow" Text="{Binding Path=LabelToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label   Grid.Row="5" Grid.Column="0" Content="Purpose"></Label>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=PurposeToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="5" Grid.Column="1" Background="Yellow" Text="{Binding Path=PurposeToSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Button Grid.Row="6" Grid.Column="0" Content="Abort" Command="{Binding Abort}"></Button>
         <Button Grid.Row="6" Grid.Column="1" Content="Save" Command="{Binding SaveNewF16}"></Button>

@@ -105,7 +105,12 @@ namespace Rosenholz.ViewModel
             {
                 CreateF22Entry model = new CreateF22Entry(CurrentF16Reference);
                 model.ShowDialog();
-                SelectItems(CurrentF16Reference);
+
+                if (model.Aborted == false)
+                {
+                    SelectItems(CurrentF16Reference);
+                    AUContextChangeEvent(model?.NewAUReference);
+                }
             }
         }
 

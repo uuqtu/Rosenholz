@@ -6,13 +6,12 @@
              xmlns:local="clr-namespace:Rosenholz.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="0,0,0,20">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <ListView Name="UserGrid" Grid.Row="1" Margin="4,130,12,13"  
+        <ListView Name="UserGrid" Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding F22Items,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding CurrentF22Selected}"
                   Background="#2D2D30"
@@ -20,34 +19,44 @@
             <ListView.View>
                 <GridView x:Name="grdTest">
                     <GridViewColumn Header="AUReference" DisplayMemberBinding="{Binding AUReference.AUReferenceString}" Width="80" />
-                    <GridViewColumn Header="F16F22Reference"  DisplayMemberBinding="{Binding F16F22Reference.F22String}"  Width="100"/>
-                    <GridViewColumn Header="Pseudonym" DisplayMemberBinding="{Binding Pseudonym}"  Width="100" />
-                    <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created}" Width="100" />
+                    <!--<GridViewColumn Header="F16F22Reference"  DisplayMemberBinding="{Binding F16F22Reference.F22String}"  Width="100"/>-->
+                    <GridViewColumn Header="Pseudonym" DisplayMemberBinding="{Binding Pseudonym}"  Width="650" />
                     <GridViewColumn Header="Dossier" DisplayMemberBinding="{Binding Dossier}" Width="100" />
-                    <GridViewColumn Header="Link" DisplayMemberBinding="{Binding Link}" Width="100" />
+                    <!--<GridViewColumn Header="Link" DisplayMemberBinding="{Binding Link}" Width="100" />-->
+                    <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created}" Width="100" />
 
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Keyword" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="12,7,0,0" Name="label1" VerticalAlignment="Top" />
-        <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="80,7,0,0" Name="txtKeyword" VerticalAlignment="Top" Width="178" 
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--<Label Grid.Row="0" Grid.Column="0" Content="Keyword" Height="28" HorizontalAlignment="Left"  Name="label1" VerticalAlignment="Top" Width="178"/>-->
+            <TextBox Grid.Row="0" Grid.Column="0" Height="23" HorizontalAlignment="Left" Name="txtKeyword" VerticalAlignment="Top" Width="178" 
                  IsReadOnly="True" Text="{Binding Path=CurrentF16Reference.F22String, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
-
-
-        <Button Content="Create F22 Entry" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="310,7,0,0" Name="btnSave"   
-                VerticalAlignment="Top" Width="141"  
+            <Button Grid.Row="1" Grid.Column="0" Content="Create F22 Entry" Height="23" HorizontalAlignment="Left" Name="btnSave"   
+                VerticalAlignment="Top"  Width="178"  
                 Command="{Binding Path=AddF22EntryCommand}"/>
 
-        <Button Content="Export F22 Entry" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="460,7,0,0" Name="btnSave2"   
-                VerticalAlignment="Top" Width="141"  
+            <Button Grid.Row="2" Grid.Column="0" Content="Export F22 Entry" Height="23" HorizontalAlignment="Left" Name="btnSave2"   
+                VerticalAlignment="Top"  Width="178"  
                 Command="{Binding Path=WriteF22ItemsCommand}"/>
 
-        <Button Content="Archive F22 Entry" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="610,7,0,0" Name="btnArchive2"   
-                VerticalAlignment="Top" Width="141"  
+            <Button Grid.Row="3" Grid.Column="0" Content="Archive F22 Entry"  Height="23" HorizontalAlignment="Left" Name="btnArchive2"   
+                VerticalAlignment="Top"  Width="178" 
                 Command="{Binding Path=ArchiveF22Command}"/>
-
-
+        </Grid>
 
     </Grid>
 </UserControl>

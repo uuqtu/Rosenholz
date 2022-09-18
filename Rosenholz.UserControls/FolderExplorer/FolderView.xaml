@@ -23,8 +23,7 @@
         </Style>
     </UserControl.Resources>
     <DockPanel Name="MainPanel">
-        <TextBox Text="{Binding ElementName=FV, Path=CurrentFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False"
-                 DockPanel.Dock="Top"></TextBox>
+        <Label  DockPanel.Dock="Top" Height="30" FontSize="15" Content="{Binding ElementName=FV, Path=CurrentFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="#2D2D30" HorizontalContentAlignment="Center"></Label>
         <!--<my:FolderComboBox x:Name="cmbFolder" CurrentFolder="{Binding ElementName=FV, Path=CurrentFolder, Mode=TwoWay}" 
                            DockPanel.Dock="Top" RecentLocations="{Binding ElementName=FV, Path=RecentLocations}"/>-->
         <!-- -->

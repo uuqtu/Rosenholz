@@ -11,19 +11,21 @@
         <CommandBinding Command="ApplicationCommands.Open" Executed="Open_Executed" />
         <CommandBinding Command="ApplicationCommands.Save" Executed="Save_Executed" />
     </UserControl.CommandBindings>
+
     <DockPanel>
-        <ToolBar DockPanel.Dock="Top">
+        <Label  DockPanel.Dock="Top" Height="30" FontSize="15" Content="{Binding SavePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="#2D2D30" HorizontalContentAlignment="Center"></Label>
+        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
             <!--<Button Command="ApplicationCommands.Open">
                 <Image Source="/Rosenholz.UserControls;component/Ressources/folder.png" Width="16" Height="16" />
             </Button>-->
             <Button Command="ApplicationCommands.Save">
                 <Image Source="/Rosenholz.UserControls;component/Ressources/disk.png" Width="16" Height="16" />
             </Button>
-            <Separator />
+            <!--<Separator />-->
             <Button Command="{Binding AddTask}">
                 <Image Source="/Rosenholz.UserControls;component/Ressources/task.png" Width="16" Height="16" />
             </Button>
-            <Separator />
+            <!--<Separator />-->
             <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold">
                 <Image Source="/Rosenholz.UserControls;component/Ressources/text_bold.png" Width="16" Height="16" />
             </ToggleButton>
@@ -33,10 +35,10 @@
             <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnUnderline">
                 <Image Source="/Rosenholz.UserControls;component/Ressources/text_underline.png" Width="16" Height="16" />
             </ToggleButton>
-            <Separator />
+            <!--<Separator />-->
             <ComboBox Name="cmbFontFamily" Width="150" SelectionChanged="cmbFontFamily_SelectionChanged" />
             <ComboBox Name="cmbFontSize" Width="50" IsEditable="True" TextBoxBase.TextChanged="cmbFontSize_TextChanged" />
-        </ToolBar>
+        </DockPanel>
         <RichTextBox Name="rtbEditor" SelectionChanged="rtbEditor_SelectionChanged" Background="#2D2D30" Foreground="White"/>
     </DockPanel>
 </UserControl>

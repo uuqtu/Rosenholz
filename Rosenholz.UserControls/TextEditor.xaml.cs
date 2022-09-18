@@ -25,6 +25,17 @@ namespace Rosenholz.UserControls
     /// </summary>
     public partial class TextEditor : UserControl, INotifyPropertyChanged
     {
+        private string _savePath;
+        public string SavePath
+        {
+            get { return _savePath; }
+            set
+            {
+                _savePath = value;
+                OnPropertyChanged(nameof(SavePath));
+            }
+        }
+
         private string _currentFolder;
         public string CurrentFolder
         {
@@ -61,8 +72,10 @@ namespace Rosenholz.UserControls
 
         public void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if(CurrentFolder == null)
+            if (CurrentFolder == null)
                 rtbEditor.Document.Blocks.Clear();
+
+            
 
             if (CurrentFolder?.Contains(Settings.Settings.Instance.BasePath) != true)
                 return;
@@ -89,6 +102,8 @@ namespace Rosenholz.UserControls
                 fileStream.Close();
                 fileStream.Dispose();
             }
+
+            SavePath = notePath;
 
             //    OpenFileDialog dlg = new OpenFileDialog();
             //dlg.Filter = "Rich Text Format (*.rtf)|*.rtf|All files (*.*)|*.*";
