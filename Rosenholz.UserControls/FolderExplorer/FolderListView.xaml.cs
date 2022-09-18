@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace Rosenholz.UserControls.FolderExplorer
 {
@@ -94,6 +96,7 @@ namespace Rosenholz.UserControls.FolderExplorer
         public static RoutedCommand ForwardCommand = new RoutedCommand();
         public static RoutedCommand UpCommand = new RoutedCommand();
         public static RoutedCommand RefreshCommand = new RoutedCommand();
+        public static RoutedCommand NewFolderCommand = new RoutedCommand();
         #endregion
 
         FileListViewVM TheVM = null;
@@ -107,6 +110,15 @@ namespace Rosenholz.UserControls.FolderExplorer
             CommandBindings.Add(new CommandBinding(ForwardCommand, (s, e) => TheVM.Forward(), (s, e) => e.CanExecute = (TheVM.FutureFolders.Count > 0)));
             CommandBindings.Add(new CommandBinding(UpCommand, (s, e) => TheVM.Up(), (s, e) => e.CanExecute = (CurrentFolder != null ? CurrentFolder.Split(new char[] { System.IO.Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).Length > 1 : false)));
             CommandBindings.Add(new CommandBinding(RefreshCommand, (s, e) => TheVM.PopulateView(), (s, e) => e.CanExecute = true)); ;
+            CommandBindings.Add(new CommandBinding(NewFolderCommand, (s, e) => CreateNewFolder(), (s, e) => e.CanExecute = true)); ;
+        }
+
+        public void CreateNewFolder()
+        {
+            string newFolder = "Test";
+
+            if (!Directory.Exists(Path.Combine(CurrentFolder, newFolder)))
+                Directory.CreateDirectory(Path.Combine(CurrentFolder, newFolder));
         }
 
         protected void HandleDoubleClickOrReturn(object sender, MouseButtonEventArgs e)

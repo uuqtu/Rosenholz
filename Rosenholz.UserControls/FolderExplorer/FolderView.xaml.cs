@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace Rosenholz.UserControls.FolderExplorer
 {
@@ -116,6 +117,38 @@ namespace Rosenholz.UserControls.FolderExplorer
                 OnFileOpen(this, e);
         }
 
+        private void lstFiles_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                MessageBox.Show("Dieses File kann hier nicht abgelegt werden.");
+            }
+        }
+
+        private void lstFiles_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                var importList = new List<string>();
+                foreach (string s in files)
+                {
+                    if (Directory.Exists(s))
+                        foreach (var f in Directory.GetFiles(s, "*.*", SearchOption.AllDirectories))
+                            importList.Add(f);
+                    else if (File.Exists(s))
+                        importList.Add(s);
+                }
+
+                foreach (var item in importList)
+                {
+                    string folderName = new DirectoryInfo(CurrentFolder).Name;
+
+                    File.Copy(item, Path.Combine(CurrentFolder, $"{folderName}_{Path.GetFileName(item)}"));
+                }
+
+            }
+        }
     }
 
     [ValueConversion(typeof(int), typeof(bool))]

@@ -41,6 +41,10 @@
                     Command="{x:Static my:FListView.UpCommand}" CommandTarget="{Binding ElementName=lstFiles}">
                 <my:AutoGrayImage  Width="16" Height="16" Source2="/Rosenholz.UserControls;component/Images/075b_UpFolder_16x16_72.png"/>
             </Button>
+            <Button Name="cmdNewFolder" DockPanel.Dock="Left" Style="{StaticResource FlatButtonStyle}"
+                    Command="{x:Static my:FListView.NewFolderCommand}" CommandTarget="{Binding ElementName=lstFiles}">
+                <my:AutoGrayImage  Width="16" Height="16" Source2="/Rosenholz.UserControls;component/Images/new.png"/>
+            </Button>
             <Button Name="cmdRefrest" DockPanel.Dock="Left" Style="{StaticResource FlatButtonStyle}"
                     Command="{x:Static my:FListView.RefreshCommand}" CommandTarget="{Binding ElementName=lstFiles}">
                 <my:AutoGrayImage  Width="16" Height="16" Source2="/Rosenholz.UserControls;component/Images/refresh.png"/>
@@ -55,6 +59,6 @@
         <my:FListView x:Name="lstFiles" CurrentFolder="{Binding ElementName=FV, Path=CurrentFolder, Mode=TwoWay}" Filter="{Binding ElementName=FV, Path=Filter}" 
                          FilterIndex="{Binding ElementName=FV, Path=FilterIndex}" ShowFolders="{Binding ElementName=FV, Path=ShowFolders}" 
                          ShowIcons="{Binding ElementName=FV, Path=ShowIcons}" ShowHidden="{Binding ElementName=FV, Path=ShowHidden}"
-                         OnFileOpen="lstFiles_OnFileOpen"/>
+                         OnFileOpen="lstFiles_OnFileOpen" AllowDrop="True" DragEnter="lstFiles_DragEnter" Drop="lstFiles_Drop"/>
     </DockPanel>
 </UserControl>
