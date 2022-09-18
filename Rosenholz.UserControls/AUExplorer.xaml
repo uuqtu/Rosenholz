@@ -11,17 +11,17 @@
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="4*" />
 
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
 
             <uc2:FolderView Grid.Row="0" Grid.Column="0" Background="#2D2D30" x:Name ="FolderExplorerView"
                             SnapsToDevicePixels="True" Filter="*.tex|*.txt|*.exe|*.*" RecentLocations="{Binding RecentFiles}"
                             OnFileOpen="FolderView_OnFileOpen"></uc2:FolderView>
 
-            <uc:ButtonPanel x:Name="ButtonPanel" Grid.Row="0" Grid.Column="1"></uc:ButtonPanel>
+            <uc:ButtonPanel x:Name="ButtonPanel" Grid.Row="0" Grid.Column="1"  Background="#2D2D30"></uc:ButtonPanel>
             <uc:TextEditor x:Name="TextEditor" Grid.Row="0" Grid.Column="2"></uc:TextEditor>
             <!--https://wpf-tutorial.com/rich-text-controls/how-to-creating-a-rich-text-editor/-->
         </Grid>

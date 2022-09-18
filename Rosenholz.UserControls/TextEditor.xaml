@@ -14,7 +14,7 @@
 
     <DockPanel>
         <Label  DockPanel.Dock="Top" Height="30" FontSize="15" Content="{Binding SavePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="#2D2D30" HorizontalContentAlignment="Center"></Label>
-        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+        <DockPanel DockPanel.Dock="Top" LastChildFill="True" Background="#2D2D30">
             <!--<Button Command="ApplicationCommands.Open">
                 <Image Source="/Rosenholz.UserControls;component/Ressources/folder.png" Width="16" Height="16" />
             </Button>-->

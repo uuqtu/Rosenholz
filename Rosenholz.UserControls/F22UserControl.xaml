@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rosenholz.UserControls"
              mc:Ignorable="d" 
+              Background="#2D2D30"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,7 +16,7 @@
                   ItemsSource="{Binding F22Items,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding CurrentF22Selected}"
                   Background="#2D2D30"
-                  Foreground="White">
+                  Foreground="Green">
             <ListView.View>
                 <GridView x:Name="grdTest">
                     <GridViewColumn Header="AUReference" DisplayMemberBinding="{Binding AUReference.AUReferenceString}" Width="80" />

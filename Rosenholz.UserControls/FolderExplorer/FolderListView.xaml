@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             Background="#2D2D30"
+             Foreground="White"
              d:DesignHeight="300" d:DesignWidth="300"
              ItemsSource="{Binding CurrentItems}"
              SnapsToDevicePixels="True"
@@ -34,7 +36,7 @@
                                            Margin="0 0 5 0" Source="{Binding Path=DisplayIcon}" SnapsToDevicePixels="True" 
                                            DockPanel.Dock="Left" Width="16" Height="16" 
                                            />
-                            <TextBlock Text="{Binding DisplayName}" Width="Auto" Foreground="Black" SnapsToDevicePixels="True" />
+                            <TextBlock Text="{Binding DisplayName}" Width="Auto" Foreground="White" SnapsToDevicePixels="True" />
                         </DockPanel>
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>

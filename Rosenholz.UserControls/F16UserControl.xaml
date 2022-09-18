@@ -7,6 +7,7 @@
              xmlns:model="clr-namespace:Rosenholz.Model;assembly=Rosenholz.Model"
              xmlns:viewmodel="clr-namespace:Rosenholz.ViewModel;assembly=Rosenholz.ViewModel"
              mc:Ignorable="d" 
+              Background="#2D2D30"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,7 +18,7 @@
                   ItemsSource="{Binding F16Items, UpdateSourceTrigger=PropertyChanged}"  
                   SelectedItem="{Binding CurrentF16Selected}"
                   Background="#2D2D30"
-                  Foreground="White">
+                   Foreground="Green">
             <ListView.View>
                 <GridView x:Name="grdTest">
                     <GridViewColumn Header="F16F22Reference" DisplayMemberBinding="{Binding F16F22Reference.F22String}" Width="80" />

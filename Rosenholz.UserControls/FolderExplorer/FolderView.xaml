@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:my="clr-namespace:Rosenholz.UserControls.FolderExplorer"
              mc:Ignorable="d" 
+              Background="#2D2D30"
              d:DesignHeight="300" d:DesignWidth="200" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Style x:Key="FlatButtonStyle" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" TargetType="Button">
