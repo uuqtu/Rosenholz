@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Rosenholz.ViewModel
@@ -170,6 +172,47 @@ namespace Rosenholz.ViewModel
 
             return true;
         }
+
+        private RelayCommand _archiveF22Command;
+        public RelayCommand ArchiveF22Command
+        {
+            get
+            {
+                if (_archiveF22Command == null)
+                {
+                    _archiveF22Command = new RelayCommand(
+                        (parameter) => ArchiveF16Execute(parameter),
+                        (parameter) => true
+                    );
+                }
+                return _archiveF22Command;
+            }
+        }
+
+        public void ArchiveF16Execute(object parameter)
+        {
+            var text = (string)parameter;
+            string dir = Path.GetDirectoryName(Settings.Settings.Instance.F22Location);
+
+            if (!Directory.Exists(Path.Combine(dir, "_archive")))
+                Directory.CreateDirectory(Path.Combine(dir, "_archive"));
+
+            string location = Path.Combine(dir, "_archive", $"f22_{DateTime.Now.ToFileTimeUtc()}.zip");
+
+            using (ZipArchive zip = ZipFile.Open(location, ZipArchiveMode.Create))
+            {
+                try
+                {
+                    zip.CreateEntryFromFile(Settings.Settings.Instance.F22Location, Path.GetFileName(Settings.Settings.Instance.F22Location));
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -39,9 +39,13 @@
                 VerticalAlignment="Top" Width="141"  
                 Command="{Binding Path=AddF22EntryCommand}"/>
 
-        <Button Content="Export F22 Entry" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="510,7,0,0" Name="btnSave2"   
+        <Button Content="Export F22 Entry" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="460,7,0,0" Name="btnSave2"   
                 VerticalAlignment="Top" Width="141"  
                 Command="{Binding Path=WriteF22ItemsCommand}"/>
+
+        <Button Content="Archive F22 Entry" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="610,7,0,0" Name="btnArchive2"   
+                VerticalAlignment="Top" Width="141"  
+                Command="{Binding Path=ArchiveF22Command}"/>
 
 
 

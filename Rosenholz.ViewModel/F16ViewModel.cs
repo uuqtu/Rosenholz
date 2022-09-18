@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Rosenholz.ViewModel
@@ -223,7 +224,15 @@ namespace Rosenholz.ViewModel
 
             using (ZipArchive zip = ZipFile.Open(location, ZipArchiveMode.Create))
             {
-                zip.CreateEntryFromFile(Settings.Settings.Instance.F16Location, Path.GetFileName(Settings.Settings.Instance.F16Location));
+                try
+                {
+                    zip.CreateEntryFromFile(Settings.Settings.Instance.F16Location, Path.GetFileName(Settings.Settings.Instance.F16Location));
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
