@@ -7,7 +7,7 @@
         xmlns:uc="clr-namespace:Rosenholz.UserControls;assembly=Rosenholz.UserControls"
         mc:Ignorable="d"
         Background="#1C1C1C"
-        WindowState="Minimized"
+        WindowState="Maximized"
         Title="MainWindow" Height="650" Width="800">
     <Grid>
         <TabControl>
@@ -28,7 +28,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Tasks">
-                
+
             </TabItem>
         </TabControl>
     </Grid>
