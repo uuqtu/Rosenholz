@@ -121,6 +121,44 @@ namespace Rosenholz.Settings
             }
         }
 
+        private string _taskLocation;
+
+        public string TaskLocation
+        {
+            get
+            {
+                string iniValue = ini.IniReadOrPreallocateValue("FilePaths",
+                                                                nameof(TaskLocation),
+                                                                @"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db");
+                _taskLocation = iniValue;
+                return _taskLocation;
+            }
+            set
+            {
+                ini.IniWriteValue("FilePaths", nameof(TaskLocation), value);
+            }
+        }
+
+        private string _taskItemLocation;
+
+        public string TaskItemLocation
+        {
+            get
+            {
+                string iniValue = ini.IniReadOrPreallocateValue("FilePaths",
+                                                                nameof(TaskItemLocation),
+                                                                @"C:\Users\z0035hes\Desktop\MFS\ZTV\taskitems.db");
+                _taskItemLocation = iniValue;
+                return _taskItemLocation;
+            }
+            set
+            {
+                ini.IniWriteValue("FilePaths", nameof(TaskItemLocation), value);
+            }
+        }
+
+
+
 
         #endregion
     }

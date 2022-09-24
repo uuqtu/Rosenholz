@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -142,11 +143,37 @@ namespace Rosenholz.UserControls.FolderExplorer
 
                 foreach (var item in importList)
                 {
-                    string folderName = new DirectoryInfo(CurrentFolder).Name;
+                    string folderName = "";
+                    try
+                    {
+                        string pattern = @"[A][U]_[0-9]{3,4}_\d\d";
+                        Match match = Regex.Match(CurrentFolder, pattern);
+                        folderName = match.Value;
+                        if (!match.Success)
+                        {
+                            return;
+                        }
+                    }
+                    catch (RegexMatchTimeoutException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
 
-                    File.Copy(item, Path.Combine(CurrentFolder, $"{folderName}_{Path.GetFileName(item)}"));
+                    //Funktioniert nicht in Unteroderndn
+                    //string folderName = new DirectoryInfo(CurrentFolder).Name;
+                    try
+                    {
+                        File.Copy(item, Path.Combine(CurrentFolder, $"{folderName}_{Path.GetFileName(item)}"));
+                    }
+                    catch (Exception ex)
+                    {
+                        var rslt = MessageBox.Show(ex.Message, "Error while File.Copy - Override?", MessageBoxButton.YesNo);
+                        if (rslt == MessageBoxResult.Yes)
+                            File.Copy(item, Path.Combine(CurrentFolder, $"{folderName}_{Path.GetFileName(item)}"), true);
+                        else
+                            MessageBox.Show("Did not copy.");
+                    }
                 }
-
             }
         }
     }

@@ -119,10 +119,11 @@ namespace Rosenholz.UserControls.FolderExplorer
             box.ShowDialog();
             var newFolder = box.InputString;
 
-            if (!Directory.Exists(Path.Combine(CurrentFolder, newFolder)))
-                Directory.CreateDirectory(Path.Combine(CurrentFolder, newFolder));
-
-
+            if (!string.IsNullOrWhiteSpace(newFolder))
+            {
+                if (!Directory.Exists(Path.Combine(CurrentFolder, newFolder)))
+                    Directory.CreateDirectory(Path.Combine(CurrentFolder, newFolder));
+            }
         }
 
         protected void HandleDoubleClickOrReturn(object sender, MouseButtonEventArgs e)

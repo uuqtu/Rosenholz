@@ -92,6 +92,9 @@
     <Compile Include="Roman.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SQLiteConnectionHelper.cs" />
+    <Compile Include="TaskItemModel.cs" />
+    <Compile Include="TaskModel.cs" />
+    <Compile Include="TaskStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
