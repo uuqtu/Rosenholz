@@ -185,6 +185,10 @@
       <Project>{fea34100-3c69-4263-b564-936412f8a199}</Project>
       <Name>Rosenholz.ViewModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rosenholz.Windows\Rosenholz.Windows.csproj">
+      <Project>{55e0b254-cf97-480c-8c8e-b73fc8ca70d6}</Project>
+      <Name>Rosenholz.Windows</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

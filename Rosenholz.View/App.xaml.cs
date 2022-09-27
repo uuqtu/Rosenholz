@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rosenholz.Windows;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,18 @@ namespace Rosenholz.View
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            if(false)
+             {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+            }
+            else
+            {
+                InitialSettings otherWindow = new InitialSettings();
+                otherWindow.Show();
+            }
+        }
     }
 }
