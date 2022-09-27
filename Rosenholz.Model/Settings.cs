@@ -47,6 +47,26 @@ namespace Rosenholz.Settings
             tmp = instance.FileTypeFilters;
             tmp = instance.TaskLocation;
             tmp = instance.TaskItemLocation;
+            tmp = instance.AppBaseLocation;
+        }
+
+
+        private string _appBaseLocation;
+
+        public string AppBaseLocation
+        {
+            get
+            {
+                string iniValue = ini.IniReadOrPreallocateValue("FilePaths",
+                                                                nameof(AppBaseLocation),
+                                                                AppDomain.CurrentDomain.BaseDirectory);
+                _appBaseLocation = iniValue;
+                return _appBaseLocation;
+            }
+            set
+            {
+                ini.IniWriteValue("FilePaths", nameof(AppBaseLocation), value);
+            }
         }
 
         #region Mail

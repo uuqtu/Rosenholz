@@ -81,7 +81,6 @@
     <Compile Include="InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RelayCommand.cs" />
     <Page Include="CreateF16.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

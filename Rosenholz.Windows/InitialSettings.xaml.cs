@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rosenholz.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -100,6 +101,18 @@ namespace Rosenholz.Windows
             }
         }
 
+        public string AppBaseLocation
+        {
+            get { return Settings.Settings.Instance.AppBaseLocation; }
+            set
+            {
+                Settings.Settings.Instance.AppBaseLocation = value;
+                OnPropertyChanged(nameof(AppBaseLocation));
+            }
+        }
+
+        
+
         private RelayCommand _closeSettingsCommand;
         public RelayCommand CloseSettingsCommand
         {
@@ -116,6 +129,7 @@ namespace Rosenholz.Windows
             }
         }
 
+        
 
 
         private bool CanEcexuteCloseSettings()
@@ -125,7 +139,6 @@ namespace Rosenholz.Windows
 
         public void CloseSettingsExecute()
         {
-            //File.Copy()
             this.Close();
         }
 

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rosenholz.UserControls"
              mc:Ignorable="d" 
+             Foreground="White" Background="#2D2D30"
              d:DesignHeight="450" d:DesignWidth="800"
              MouseLeave="UserControl_MouseLeave">
     <UserControl.CommandBindings>
@@ -13,7 +14,7 @@
     </UserControl.CommandBindings>
 
     <DockPanel>
-        <Label  DockPanel.Dock="Top" Height="30" FontSize="15" Content="{Binding SavePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="#2D2D30" HorizontalContentAlignment="Center"></Label>
+        <TextBlock  DockPanel.Dock="Top" Height="30" FontSize="15" Text="{Binding SavePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="#2D2D30" HorizontalAlignment="Center"></TextBlock>
         <DockPanel DockPanel.Dock="Top" LastChildFill="True" Background="#2D2D30">
             <!--<Button Command="ApplicationCommands.Open">
                 <Image Source="/Rosenholz.UserControls;component/Ressources/folder.png" Width="16" Height="16" />

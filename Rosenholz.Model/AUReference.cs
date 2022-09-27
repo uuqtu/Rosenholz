@@ -130,6 +130,14 @@ namespace Rosenholz.Model
             return match;
         }
 
+        public static (bool Result, string Value) GetAUStringFromPath(string path)
+        {
+            string pattern = @"[A][U]_[0-9]{3,4}_\d\d";
+            Match match = Regex.Match(path, pattern);
+
+            return (match.Success, match.Value);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {

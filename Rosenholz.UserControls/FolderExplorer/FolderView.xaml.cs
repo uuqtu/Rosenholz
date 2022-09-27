@@ -1,4 +1,5 @@
-﻿using Rosenholz.UserControls.FolderExplorer;
+﻿using Rosenholz.Model;
+using Rosenholz.UserControls.FolderExplorer;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace Rosenholz.UserControls.FolderExplorer
               new PropertyMetadata(""));
         public string CurrentFolder
         {
-            get { return (string)GetValue(CurrentFolderProperty); }
+            get { return (string)GetValue(@CurrentFolderProperty); }
             set { SetValue(CurrentFolderProperty, value); }
         }
 
@@ -146,10 +147,10 @@ namespace Rosenholz.UserControls.FolderExplorer
                     string folderName = "";
                     try
                     {
-                        string pattern = @"[A][U]_[0-9]{3,4}_\d\d";
-                        Match match = Regex.Match(CurrentFolder, pattern);
-                        folderName = match.Value;
-                        if (!match.Success)
+                        var folder = AUReference.GetAUStringFromPath(CurrentFolder);
+
+                        folderName = folder.Value;
+                        if (!folder.Result)
                         {
                             return;
                         }

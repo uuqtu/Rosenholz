@@ -16,10 +16,11 @@ namespace Rosenholz.View
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            InitialSettings otherWindow = new InitialSettings();
-            otherWindow.ShowDialog();
+            InitialSettings settingsWindow = new InitialSettings();
             MainWindow mainWindow = new MainWindow();
-            mainWindow.ShowDialog();
+
+            settingsWindow.ShowDialog();            
+            mainWindow.Show();
         }
     }
 }

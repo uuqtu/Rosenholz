@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Rosenholz.Model;
 using Rosenholz.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace Rosenholz.UserControls
         private string _savePath;
         public string SavePath
         {
-            get { return _savePath; }
+            get { return @_savePath; }
             set
             {
                 _savePath = value;
@@ -39,7 +40,7 @@ namespace Rosenholz.UserControls
         private string _currentFolder;
         public string CurrentFolder
         {
-            get { return _currentFolder; }
+            get { return @_currentFolder; }
             set
             {
                 _currentFolder = value;
@@ -142,8 +143,8 @@ namespace Rosenholz.UserControls
             //}
         }
 
-        private ViewModel.RelayCommand _addTask;
-        public ViewModel.RelayCommand AddTask
+        private RelayCommand _addTask;
+        public RelayCommand AddTask
         {
             get
             {

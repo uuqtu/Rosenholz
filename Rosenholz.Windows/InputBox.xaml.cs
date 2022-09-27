@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rosenholz.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -59,7 +60,7 @@ namespace Rosenholz.Windows
 
 
         private RelayCommand _close;
-        public RelayCommand Close
+        public new RelayCommand Close
         {
             get
             {
