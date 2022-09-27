@@ -20,10 +20,12 @@ namespace Rosenholz.Settings
         // not to mark type as beforefieldinit
         static Settings()
         {
+        
         }
 
         private Settings()
         {
+
         }
 
         public static Settings Instance
@@ -31,8 +33,20 @@ namespace Rosenholz.Settings
             get
             {
                 ini = new IniFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.ini"));
+                Prepare();
                 return instance;
             }
+        }
+
+        public static void Prepare()
+        {
+            string tmp = instance.Position;
+            tmp = instance.F22Location;
+            tmp = instance.F16Location;
+            tmp = instance.BasePath;
+            tmp = instance.FileTypeFilters;
+            tmp = instance.TaskLocation;
+            tmp = instance.TaskItemLocation;
         }
 
         #region Mail
@@ -154,6 +168,24 @@ namespace Rosenholz.Settings
             set
             {
                 ini.IniWriteValue("FilePaths", nameof(TaskItemLocation), value);
+            }
+        }
+
+        private string _templateLocation;
+
+        public string TemplateLocation
+        {
+            get
+            {
+                string iniValue = ini.IniReadOrPreallocateValue("FilePaths",
+                                                                nameof(TemplateLocation),
+                                                                @"C:\Users\z0035hes\Desktop\MFS\ZTV\taskitems.db");
+                _templateLocation = iniValue;
+                return _templateLocation;
+            }
+            set
+            {
+                ini.IniWriteValue("FilePaths", nameof(TemplateLocation), value);
             }
         }
 

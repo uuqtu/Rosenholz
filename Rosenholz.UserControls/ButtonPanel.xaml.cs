@@ -40,6 +40,7 @@ namespace Rosenholz.UserControls
             }
         }
 
+        #region Open Folder
         private RelayCommand _openFolderCommand;
         public RelayCommand OpenFolderCommand
         {
@@ -65,6 +66,38 @@ namespace Rosenholz.UserControls
         {
             Process.Start(CurrentFolder);
         }
+        #endregion
+        #region Create New PowerPoint
+
+        private RelayCommand _createNewPowerPointCommand;
+        public RelayCommand CreateNewPowerPointCommand
+        {
+            get
+            {
+                if (_createNewPowerPointCommand == null)
+                {
+                    _createNewPowerPointCommand = new RelayCommand(
+                        (parameter) => CreateNewPowerPointExecute(),
+                        (parameter) => CanEcexuteCreateNewPowerPoint()
+                    );
+                }
+                return _createNewPowerPointCommand;
+            }
+        }
+
+
+
+        private bool CanEcexuteCreateNewPowerPoint()
+        {
+            return !string.IsNullOrWhiteSpace(CurrentFolder);
+        }
+
+        public void CreateNewPowerPointExecute()
+        {
+            //File.Copy()
+            Process.Start(CurrentFolder);
+        }
+        #endregion
 
 
         public event PropertyChangedEventHandler PropertyChanged;
