@@ -103,22 +103,28 @@ namespace Rosenholz.Model
 
         public static string NextF22(string f22)
         {
-            
+
             F16F22Reference actual = new F16F22Reference(f22);
 
-            string position = Roman.ToRoman(actual.PositionCounter);
+            string position = Roman.ToRoman(int.Parse(Settings.Settings.Instance.Position));
             string item;
             string year;
 
-            if(actual.Year == int.Parse(DateTime.Now.ToString("yy")))
+            // Wenn es eine neue Position gibt, dann fange wieder bei 1 an zu zählen.
+            if (actual.PositionCounter < int.Parse(position))
             {
-                 item = (actual.ItemCounter + 1).ToString("D3");
-                 year = DateTime.Now.ToString("yy");
+                return F16F22Reference.ConvertToF22Reference(position, "001", DateTime.Now.ToString("yy"));
             }
-            else if(actual.Year < int.Parse(DateTime.Now.ToString("yy")))
+
+            if (actual.Year == int.Parse(DateTime.Now.ToString("yy")))
             {
-                 item = "001";
-                 year = DateTime.Now.ToString("yy");
+                item = (actual.ItemCounter + 1).ToString("D3");
+                year = DateTime.Now.ToString("yy");
+            }
+            else if (actual.Year < int.Parse(DateTime.Now.ToString("yy")))
+            {
+                item = "001";
+                year = DateTime.Now.ToString("yy");
             }
             else
             {
