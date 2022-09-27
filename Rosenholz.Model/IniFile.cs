@@ -10,7 +10,7 @@ namespace Rosenholz.Settings
     /// <summary>
     /// Create a New INI file to store or load data
     /// </summary>
-    internal class IniFile
+    public class IniFile
     {
         public string path;
 

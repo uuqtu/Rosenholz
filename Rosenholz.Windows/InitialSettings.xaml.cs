@@ -1,7 +1,10 @@
 ﻿using Rosenholz.Model;
+using Rosenholz.Settings;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,10 +24,23 @@ namespace Rosenholz.Windows
     /// </summary>
     public partial class InitialSettings : Window, INotifyPropertyChanged
     {
+        private ObservableCollection<string> _iniFiles;
+        public ObservableCollection<string> IniFiles { get { return _iniFiles; } set { _iniFiles = value; OnPropertyChanged(nameof(IniFiles)); } }
         public InitialSettings()
         {
+            GetIniFiles();
+            SelectedIniFileItem = IniFiles[0];
+
             InitializeComponent();
             DataContext = this;
+        }
+
+
+        public void GetIniFiles()
+        {
+            var dir = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.ini");
+
+            IniFiles = new ObservableCollection<string>(dir.ToList());
         }
 
 
@@ -111,7 +127,7 @@ namespace Rosenholz.Windows
             }
         }
 
-        
+
 
         private RelayCommand _closeSettingsCommand;
         public RelayCommand CloseSettingsCommand
@@ -129,7 +145,7 @@ namespace Rosenholz.Windows
             }
         }
 
-        
+
 
 
         private bool CanEcexuteCloseSettings()
@@ -141,6 +157,66 @@ namespace Rosenholz.Windows
         {
             this.Close();
         }
+
+        private RelayCommand _createNewSettingsCommand;
+        public RelayCommand CreateNewSettingsCommand
+        {
+            get
+            {
+                if (_createNewSettingsCommand == null)
+                {
+                    _createNewSettingsCommand = new RelayCommand(
+                        (parameter) => CreateNewSettingsExecute(),
+                        (parameter) => CanEcexuteCreateNewSettings()
+                    );
+                }
+                return _createNewSettingsCommand;
+            }
+        }
+
+
+
+
+        private bool CanEcexuteCreateNewSettings()
+        {
+            return true;
+        }
+
+        public void CreateNewSettingsExecute()
+        {
+            InputBox box = new InputBox("Wie soll die SettingsDatei heißen?");
+            box.ShowDialog();
+            var str = box.InputString;
+            IniFile var = new IniFile(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{str}.ini"));
+            GetIniFiles();
+        }
+
+
+        private string _selectedIniFileItem;
+        public string SelectedIniFileItem
+        {
+            get
+            {
+                return _selectedIniFileItem;
+            }
+            set
+            {
+                var param = _selectedIniFileItem = value;
+                Settings.Settings.Location = param;
+                OnPropertyChanged(nameof(SelectedIniFileItem));
+                Position = Position;
+                F22Location = F22Location;
+                F16Location = F16Location;
+                BasePath = BasePath;
+                FileTypeFilters = FileTypeFilters;
+                TaskLocation = TaskLocation;
+                TaskItemLocation = TaskItemLocation;
+                AppBaseLocation = AppBaseLocation;
+            }
+        }
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

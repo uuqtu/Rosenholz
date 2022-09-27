@@ -12,7 +12,7 @@ namespace Rosenholz.Settings
     //MVVM-Link: https://www.c-sharpcorner.com/UploadFile/raj1979/simple-mvvm-pattern-in-wpf/
     public sealed class Settings
     {
-
+        public static string Location = "";
         private static IniFile ini = null;
         private static readonly Settings instance = new Settings();
 
@@ -20,7 +20,7 @@ namespace Rosenholz.Settings
         // not to mark type as beforefieldinit
         static Settings()
         {
-        
+
         }
 
         private Settings()
@@ -32,7 +32,7 @@ namespace Rosenholz.Settings
         {
             get
             {
-                ini = new IniFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"settings_{Environment.MachineName}.ini"));
+                ini = new IniFile(Path.Combine(Location));
                 Prepare();
                 return instance;
             }
