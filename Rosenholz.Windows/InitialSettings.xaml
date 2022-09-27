@@ -5,78 +5,81 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rosenholz.Windows"
         mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
         Background="#1C1C1C"
         WindowStartupLocation="CenterScreen"
-        Title="InitialSettings" Height="500" Width="700">
+        BorderThickness="5"
+        BorderBrush="blue"
+        Title="InitialSettings" Height="290" Width="700">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="0" Grid.Row="0"
+        <Label Background="#1C1C1C" Foreground="White" Grid.Column="0" Grid.Row="0" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">AppBaseLocation</Label>
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="0" Grid.Row="1"
+        <Label Background="#1C1C1C" Foreground="White" Grid.Column="0" Grid.Row="1" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">Position</Label>
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="0" Grid.Row="2"
+        <Label Background="#1C1C1C" Foreground="White" Grid.Column="0" Grid.Row="2" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">F22Location</Label>
-        <Label Grid.Column="0" Grid.Row="3" Background="#1C1C1C" Foreground="White"
+        <Label Grid.Column="0" Grid.Row="3" Background="#1C1C1C" Foreground="White" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">F16Location</Label>
-        <Label Grid.Column="0" Grid.Row="4" Background="#1C1C1C" Foreground="White"
+        <Label Grid.Column="0" Grid.Row="4" Background="#1C1C1C" Foreground="White" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">BasePath</Label>
-        <Label Grid.Column="0" Grid.Row="5" Background="#1C1C1C" Foreground="White"
+        <Label Grid.Column="0" Grid.Row="5" Background="#1C1C1C" Foreground="White" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">FileTypeFilters</Label>
-        <Label Grid.Column="0" Grid.Row="6" Background="#1C1C1C" Foreground="White"
+        <Label Grid.Column="0" Grid.Row="6" Background="#1C1C1C" Foreground="White" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">TaskLocation</Label>
-        <Label Grid.Column="0" Grid.Row="7" Background="#1C1C1C" Foreground="White"
+        <Label Grid.Column="0" Grid.Row="7" Background="#1C1C1C" Foreground="White" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">TaskItemLocation</Label>
-        <Label Grid.Column="0" Grid.Row="8" Background="#1C1C1C" Foreground="White"
+        <Label Grid.Column="0" Grid.Row="8" Background="#1C1C1C" Foreground="White" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">Position</Label>
-        <Label Grid.Column="0" Grid.Row="9" Background="#1C1C1C" Foreground="White"
+        <Label Grid.Column="0" Grid.Row="9" Background="#1C1C1C" Foreground="White" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">Position</Label>
 
         <TextBox Grid.Column="1" Grid.Row="0" Background="#1C1C1C" Foreground="White"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
                  Text="{Binding AppBaseLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Column="1" Grid.Row="1" Background="#1C1C1C" Foreground="White"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
                  Text="{Binding Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch"
+        <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
                  VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
                  Text="{Binding F22Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch"
+        <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
                  VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
                  Text="{Binding F16Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch"
+        <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
                  VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
                  Text="{Binding BasePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch"
+        <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
                  VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
                  Text="{Binding FileTypeFilters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch"
+        <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
                  VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
                  Text="{Binding TaskLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Column="1" Grid.Row="7" HorizontalAlignment="Stretch"
+        <TextBox Grid.Column="1" Grid.Row="7" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
                  VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
                  Text="{Binding TaskItemLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Column="1" Grid.Row="8" HorizontalAlignment="Stretch" 
+        <TextBox Grid.Column="1" Grid.Row="8" HorizontalAlignment="Stretch"  VerticalContentAlignment="Center"
                  VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
                  Text="{Binding Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Column="1" Grid.Row="9" HorizontalAlignment="Stretch" 
+        <TextBox Grid.Column="1" Grid.Row="9" HorizontalAlignment="Stretch"  VerticalContentAlignment="Center"
                  VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
                  Text="{Binding Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
