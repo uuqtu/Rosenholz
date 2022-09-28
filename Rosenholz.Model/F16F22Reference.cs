@@ -106,12 +106,13 @@ namespace Rosenholz.Model
 
             F16F22Reference actual = new F16F22Reference(f22);
 
+            int positionNumber = int.Parse(Settings.Settings.Instance.Position);
             string position = Roman.ToRoman(int.Parse(Settings.Settings.Instance.Position));
             string item;
             string year;
 
             // Wenn es eine neue Position gibt, dann fange wieder bei 1 an zu zählen.
-            if (actual.PositionCounter < int.Parse(position))
+            if (actual.PositionCounter < positionNumber)
             {
                 return F16F22Reference.ConvertToF22Reference(position, "001", DateTime.Now.ToString("yy"));
             }
