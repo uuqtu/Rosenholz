@@ -22,8 +22,8 @@
             <ListView.View>
                 <GridView x:Name="grdTest">
                     <GridViewColumn Header="F16F22Reference" DisplayMemberBinding="{Binding F16F22Reference.F22String}" Width="80" />
-                    <GridViewColumn Header="Keyword"  DisplayMemberBinding="{Binding Keyword}"  Width="100"/>
-                    <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"  Width="200" />
+                    <GridViewColumn Header="Keyword"  DisplayMemberBinding="{Binding Keyword}"  Width="250"/>
+                    <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"  Width="300" />
                     <GridViewColumn Header="Purpose" DisplayMemberBinding="{Binding Purpose}" Width="500" />
 
                 </GridView>
