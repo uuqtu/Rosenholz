@@ -40,7 +40,7 @@
         <Button Grid.Column="0" Grid.Row="4" Margin="10,0,10,0" Content="New Visio" Command="{Binding CreateNewVisioCommand}" Height="23"></Button>
         <Button Grid.Column="0" Grid.Row="5" Margin="10,0,10,0" Content="New Text File" Command="{Binding CreateNewTextFileCommand}" Height="23"></Button>
         <Button Grid.Column="0" Grid.Row="6" Margin="10,0,10,0" Content="New SQL File" Command="{Binding CreateNewSQLFileCommand}" Height="23"></Button>
-        <Button Grid.Column="0" Grid.Row="7" Margin="10,0,10,0" Content="New R File" Command="{Binding CreateNewRFileCommand}" Height="23"></Button>
+        <Button Grid.Column="0" Grid.Row="7" Margin="10,0,10,0" Content="New R Project" Command="{Binding CreateNewRFileCommand}" Height="23"></Button>
         <Button Grid.Column="0" Grid.Row="8" Margin="10,0,10,0" Content="New " Height="23"></Button>
         <Button Grid.Column="0" Grid.Row="9" Margin="10,0,10,0" Content="New Powerpoint" Height="23"></Button>
         <Button Grid.Column="0" Grid.Row="10" Margin="10,0,10,0" Content="New Powerpoint" Height="23"></Button>

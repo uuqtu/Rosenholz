@@ -217,7 +217,7 @@ namespace Rosenholz.UserControls
             }
         }
 
-      
+
         private bool CanEcexuteCreateNewVisio()
         {
             return !string.IsNullOrWhiteSpace(CurrentFolder);
@@ -358,10 +358,17 @@ namespace Rosenholz.UserControls
                 var rslt = Model.AUReference.GetAUStringFromPath(CurrentFolder);
                 if (rslt.Result)
                 {
+                    string proj = System.IO.Path.Combine(CurrentFolder, $"{rslt.Value}.Rproj");
+                    if (!File.Exists(proj))
+                    {
+                        File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "rproject.Rproj"),
+                            proj);
+                    }
+
                     string t = System.IO.Path.Combine(CurrentFolder, $"{rslt.Value}_{wdow.InputString}.R");
                     File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "RFile.R"),
                              t);
-                    Process.Start(t);
+                    Process.Start(proj);
                 }
             }
         }
