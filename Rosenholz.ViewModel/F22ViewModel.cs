@@ -87,17 +87,17 @@ namespace Rosenholz.ViewModel
                 {
                     _addF22EntryCommand = new RelayCommand(
                         (parameter) => AddF22EntryExecute(),
-                        (parameter) => CanEcexuteF22ntryAdd(parameter)
+                        (parameter) => CanEcexuteF22EntryAdd(parameter)
                     );
                 }
                 return _addF22EntryCommand;
             }
         }
 
-        private bool CanEcexuteF22ntryAdd(object parameter)
+        private bool CanEcexuteF22EntryAdd(object parameter)
         {
             return !string.IsNullOrWhiteSpace(CurrentF16Reference?.F22String) &&
-                   !(CurrentF16Reference?.F22String?.Equals("I_000_00") == true);
+                   !(CurrentF16Reference?.F22String?.Contains("I_000_0") == true);
         }
 
         public void AddF22EntryExecute()

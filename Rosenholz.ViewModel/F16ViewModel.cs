@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Rosenholz.ViewModel
@@ -20,16 +21,42 @@ namespace Rosenholz.ViewModel
     public class F16ViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<F16> _f16List;
+        private string _textFilter;
         private string _reference;
         private string _latestItem;
         private F16 _currentF16Selected = null;
         public event F22ContextChanged F22ContextChangeEvent;
 
 
+        private ListCollectionView _collectionView;
+        public ICollectionView CollectionView
+        {
+            get { return this._collectionView; }
+        }
+
         public F16ViewModel()
         {
 
         }
+
+        public string TextFilter
+        {
+            get { return this._textFilter; }
+            set
+            {
+                _textFilter = value;
+                OnPropertyChanged(nameof(TextFilter));
+
+                //https://stackoverflow.com/questions/15473048/create-a-textboxsearch-to-filter-from-listview-wpf
+                if (String.IsNullOrEmpty(value))
+                    CollectionView.Filter = null;
+                else
+                    CollectionView.Filter = new Predicate<object>(o => ((F16)o).Keyword?.ToLower()?.Contains(value.ToLower()) == true ||
+                                                                       ((F16)o).Label?.ToLower()?.Contains(value.ToLower()) == true ||
+                                                                       ((F16)o).Purpose?.ToLower()?.Contains(value.ToLower()) == true);
+            }
+        }
+
 
 
         public string Reference
@@ -102,6 +129,7 @@ namespace Rosenholz.ViewModel
         {
             var a = F16Storage.Instance.ReadData();
             F16Items = new ObservableCollection<F16>(a);
+            _collectionView = new ListCollectionView(F16Items);
             UpdateLatestItem();
         }
 

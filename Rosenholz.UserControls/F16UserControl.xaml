@@ -15,7 +15,7 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <ListView Grid.Row="1" Grid.Column="0"  Name="F16Grid" 
-                  ItemsSource="{Binding F16Items, UpdateSourceTrigger=PropertyChanged}"  
+                  ItemsSource="{Binding CollectionView, UpdateSourceTrigger=PropertyChanged}"  
                   SelectedItem="{Binding CurrentF16Selected}"
                   Background="#2D2D30"
                    Foreground="Green">
@@ -54,6 +54,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
             <!--<Label Grid.Row="0" Grid.Column="0" Content="Latest" Height="28" HorizontalAlignment="Left" Name="label6" VerticalAlignment="Top" />-->
@@ -75,6 +77,9 @@
                 VerticalAlignment="Top" Width="178" 
                 Command="{Binding Path=AddF16Command}"
                 CommandParameter="{Binding Path=LatestItem, Mode=OneWay}"  />
+
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding TextFilter,UpdateSourceTrigger=PropertyChanged}"/>
+
         </Grid>
         
 
