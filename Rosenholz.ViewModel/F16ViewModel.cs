@@ -26,12 +26,10 @@ namespace Rosenholz.ViewModel
         private string _latestItem;
         private F16 _currentF16Selected = null;
         public event F22ContextChanged F22ContextChangeEvent;
-
-
-        private ListCollectionView _collectionView;
-        public ICollectionView CollectionView
+        private ListCollectionView _f16CollectionView;
+        public ICollectionView F16CollectionView
         {
-            get { return this._collectionView; }
+            get { return this._f16CollectionView; }
         }
 
         public F16ViewModel()
@@ -49,9 +47,9 @@ namespace Rosenholz.ViewModel
 
                 //https://stackoverflow.com/questions/15473048/create-a-textboxsearch-to-filter-from-listview-wpf
                 if (String.IsNullOrEmpty(value))
-                    CollectionView.Filter = null;
+                    F16CollectionView.Filter = null;
                 else
-                    CollectionView.Filter = new Predicate<object>(o => ((F16)o).Keyword?.ToLower()?.Contains(value.ToLower()) == true ||
+                    F16CollectionView.Filter = new Predicate<object>(o => ((F16)o).Keyword?.ToLower()?.Contains(value.ToLower()) == true ||
                                                                        ((F16)o).Label?.ToLower()?.Contains(value.ToLower()) == true ||
                                                                        ((F16)o).Purpose?.ToLower()?.Contains(value.ToLower()) == true);
             }
@@ -105,7 +103,7 @@ namespace Rosenholz.ViewModel
 
         private void UpdateLatestItem()
         {
-            string retval = $"I_000_00";
+            string retval = $"I_000_0";
             var elements = F16Storage.Instance.ReadData();
             if (elements.Count > 0)
             {
@@ -129,7 +127,7 @@ namespace Rosenholz.ViewModel
         {
             var a = F16Storage.Instance.ReadData();
             F16Items = new ObservableCollection<F16>(a);
-            _collectionView = new ListCollectionView(F16Items);
+            _f16CollectionView = new ListCollectionView(F16Items);
             UpdateLatestItem();
         }
 
