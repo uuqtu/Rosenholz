@@ -180,7 +180,7 @@
     <Resource Include="Images\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Templates\ecxel.xlsx">
+    <Content Include="Templates\excel.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\powerpoint.pptx">

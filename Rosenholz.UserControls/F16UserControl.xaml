@@ -63,7 +63,7 @@
                  IsReadOnly="True" Text="{Binding Path=LatestItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
-            <Button  Grid.Row="1" Grid.Column="0" Content="Archive F16" Height="23" HorizontalAlignment="Left"  Name="btnSArchiveF22"   
+            <Button  Grid.Row="3" Grid.Column="0" Content="Archive F16" Height="23" HorizontalAlignment="Left"  Name="btnSArchiveF22"   
                 VerticalAlignment="Top"  Width="178" 
                 Command="{Binding Path=ArchiveF16Command}"
                 CommandParameter="{Binding ElementName=F16Grid,Path=SelectedItem.F16F22Reference.F22String, Mode=OneWay}"  />
@@ -73,7 +73,7 @@
                 Command="{Binding Path=WriteF16ItemsCommand}"
                 CommandParameter="{Binding ElementName=F16Grid,Path=SelectedItem.F16F22Reference.F22String, Mode=OneWay}"  />
 
-            <Button  Grid.Row="3" Grid.Column="0" Content="Create F16"  Height="23" HorizontalAlignment="Left"  Name="btnSave"   
+            <Button  Grid.Row="1" Grid.Column="0" Content="Create F16"  Height="23" HorizontalAlignment="Left"  Name="btnSave"   
                 VerticalAlignment="Top" Width="178" 
                 Command="{Binding Path=AddF16Command}"
                 CommandParameter="{Binding Path=LatestItem, Mode=OneWay}"  />

@@ -164,7 +164,7 @@ namespace Rosenholz.UserControls.FolderExplorer
                     //string folderName = new DirectoryInfo(CurrentFolder).Name;
                     try
                     {
-                        File.Copy(item, Path.Combine(CurrentFolder, $"{folderName}_{Path.GetFileName(item)}"));
+                        File.Copy(item, Path.Combine(CurrentFolder, $"{folderName}_{DateTime.Now.ToString("MM_dd")}__{Path.GetFileName(item)}"));
                     }
                     catch (Exception ex)
                     {
