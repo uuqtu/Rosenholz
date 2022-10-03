@@ -7,6 +7,22 @@
              mc:Ignorable="d" 
               Background="#2D2D30"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="White" Background="Transparent">
+                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Left" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -22,7 +38,7 @@
                     <GridViewColumn Header="AU" DisplayMemberBinding="{Binding AUReference.AUReferenceString}" Width="70" />
                     <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created}" Width="100" />
                     <!--<GridViewColumn Header="F16F22Reference"  DisplayMemberBinding="{Binding F16F22Reference.F22String}"  Width="100"/>-->
-                    <GridViewColumn Header="Pseudonym" DisplayMemberBinding="{Binding Pseudonym}"  Width="650" />
+                    <GridViewColumn Header="Pseudonym" DisplayMemberBinding="{Binding Pseudonym}"  Width="450" />
                     <GridViewColumn Header="Dossier" DisplayMemberBinding="{Binding Dossier}" Width="440" />
                     <!--<GridViewColumn Header="Link" DisplayMemberBinding="{Binding Link}" Width="100" />-->
 
