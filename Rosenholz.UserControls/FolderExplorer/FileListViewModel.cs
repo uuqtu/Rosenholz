@@ -189,7 +189,7 @@ namespace Rosenholz.UserControls.FolderExplorer
                             _DisplayIcon = IconExtractor.GetFileIcon(FullPath).ToImageSource();
 
                     }
-                    catch (Exception e)
+                    catch
                     {
 
                     }
