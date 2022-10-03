@@ -101,6 +101,7 @@ namespace Rosenholz.ViewModel
             var a = F22Storage.Instance.SelectData(reference);
             F22Items = new ObservableCollection<F22>(a);
             _f22CollectionView = new ListCollectionView(F22Items);
+            OnPropertyChanged(nameof(F22CollectionView));
         }
 
         private RelayCommand _addF22EntryCommand;

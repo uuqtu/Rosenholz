@@ -128,6 +128,7 @@ namespace Rosenholz.ViewModel
             var a = F16Storage.Instance.ReadData();
             F16Items = new ObservableCollection<F16>(a);
             _f16CollectionView = new ListCollectionView(F16Items);
+            OnPropertyChanged(nameof(F16CollectionView));
             UpdateLatestItem();
         }
 

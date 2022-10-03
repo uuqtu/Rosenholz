@@ -375,6 +375,36 @@ namespace Rosenholz.UserControls
         }
         #endregion
 
+        #region CopyLinkClipboard New RFile
+
+        private RelayCommand _copyLinkToClipboardCommand;
+        public RelayCommand CopyLinkToClipboardCommand
+        {
+            get
+            {
+                if (_copyLinkToClipboardCommand == null)
+                {
+                    _copyLinkToClipboardCommand = new RelayCommand(
+                        (parameter) => CopyLinkToClipboardExecute(),
+                        (parameter) => CanEcexuteCopyLinkToClipboard()
+                    );
+                }
+                return _copyLinkToClipboardCommand;
+            }
+        }
+
+
+        private bool CanEcexuteCopyLinkToClipboard()
+        {
+            return !string.IsNullOrWhiteSpace(CurrentFolder);
+        }
+
+        public void CopyLinkToClipboardExecute()
+        {
+           Clipboard.SetText(CurrentFolder);
+        }
+        #endregion
+
 
 
 
