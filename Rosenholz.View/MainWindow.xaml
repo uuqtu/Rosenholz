@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rosenholz.View"
         xmlns:uc="clr-namespace:Rosenholz.UserControls;assembly=Rosenholz.UserControls"
+        xmlns:uc2="clr-namespace:Rosenholz.Task.UserControls;assembly=Rosenholz.Task.UserControls"
         mc:Ignorable="d"
         Background="#1C1C1C"
         WindowState="Maximized"
@@ -41,7 +42,7 @@
 
                     <StackPanel Grid.Row="0" Grid.Column="0">
                         <Label>Eingabefenster</Label>
-                        <uc:TaskEntryUserControl></uc:TaskEntryUserControl>
+                        <uc2:TaskEntryUserControl></uc2:TaskEntryUserControl>
                     </StackPanel>
 
                     <StackPanel Grid.Row="0" Grid.Column="1">

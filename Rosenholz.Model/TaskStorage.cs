@@ -167,7 +167,7 @@ namespace Rosenholz.Model
                           Created = DateTime.Parse(Convert.ToString(rw["CREATED"])),
                           Title = Convert.ToString(rw["TITLE"]),
                           Description = Convert.ToString(rw["DESCRIPTION"]),
-                          TargetDate = Convert.ToString(rw["TARGETDATE"]),
+                          TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
                           FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
                           F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
                           F22Reference = Convert.ToString(rw["F22REFERENCE"]),

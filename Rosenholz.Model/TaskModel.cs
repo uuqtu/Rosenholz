@@ -14,7 +14,7 @@ namespace Rosenholz.Model
         private DateTime _created;
         private string _title;
         private string _description;
-        private string _targetDate;
+        private DateTime _targetDate;
         private TaskState _taskState;
         private DateTime _focusDate;
         private ObservableCollection<TaskItemModel> _taskItemItems;
@@ -23,7 +23,7 @@ namespace Rosenholz.Model
         private string _f22Reference;
         private string _auReference;
 
-        public TaskModel(Guid id, DateTime created, string title, string description, string targetDate, TaskState taskState, DateTime focusDate, ObservableCollection<TaskItemModel> taskItemItems, string f16f22Reference, string f22Reference, string auReference)
+        public TaskModel(Guid id, DateTime created, string title, string description, DateTime targetDate, TaskState taskState, DateTime focusDate, ObservableCollection<TaskItemModel> taskItemItems, string f16f22Reference, string f22Reference, string auReference)
         {
             Id = id;
             Created = created;
@@ -33,15 +33,17 @@ namespace Rosenholz.Model
             TaskState = taskState;
             FocusDate = focusDate;
             TaskItemItems = taskItemItems;
-            _f16f22Reference = f16f22Reference;
+            F16F22Reference = f16f22Reference;
             F22Reference = f22Reference;
-            _auReference = auReference;
+            AUReference = auReference;
         }
 
         public TaskModel()
         {
             _id = Guid.NewGuid();
             _created = DateTime.Now;
+            _targetDate = DateTime.Now;
+            _focusDate = DateTime.Now;
             _taskState = TaskState.New;
         }
 
@@ -57,13 +59,14 @@ namespace Rosenholz.Model
         public DateTime Created { get { return _created; } set { _created = value; OnPropertyChanged(nameof(Created)); } }
         public string Title { get { return _title; } set { _title = value; OnPropertyChanged(nameof(Title)); } }
         public string Description { get { return _description; } set { _description = value; OnPropertyChanged(nameof(Description)); } }
-        public string TargetDate { get { return _targetDate; } set { _targetDate = value; OnPropertyChanged(nameof(TargetDate)); } }
+        public DateTime TargetDate { get { return _targetDate; } set { _targetDate = value; OnPropertyChanged(nameof(TargetDate)); } }
         public TaskState TaskState { get { return _taskState; } set { _taskState = value; OnPropertyChanged(nameof(TaskState)); } }
         public DateTime FocusDate { get { return _focusDate; } set { _focusDate = value; OnPropertyChanged(nameof(FocusDate)); } }
         public string F16F22Reference { get { return _f16f22Reference; } set { _f16f22Reference = value; OnPropertyChanged(nameof(F16F22Reference)); } }
         public string F22Reference { get { return _f22Reference; } set { _f22Reference = value; OnPropertyChanged(nameof(F22Reference)); } }
         public string AUReference { get { return _auReference; } set { _auReference = value; OnPropertyChanged(nameof(AUReference)); } }
         public ObservableCollection<TaskItemModel> TaskItemItems { get { return _taskItemItems; } set { _taskItemItems = value; OnPropertyChanged(nameof(TaskItemItems)); } }
+        public string TaskStateString => TaskState.ToString();
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)

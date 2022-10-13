@@ -401,7 +401,38 @@ namespace Rosenholz.UserControls
 
         public void CopyLinkToClipboardExecute()
         {
-           Clipboard.SetText(CurrentFolder);
+            Clipboard.SetText(CurrentFolder);
+        }
+        #endregion
+
+        #region Create New Task
+
+        private RelayCommand _createNewTaskCommand;
+        public RelayCommand CreateNewTaskCommand
+        {
+            get
+            {
+                if (_createNewTaskCommand == null)
+                {
+                    _createNewTaskCommand = new RelayCommand(
+                        (parameter) => CreateNewTaskExecute(),
+                        (parameter) => CanEcexuteCreateNewTask()
+                    );
+                }
+                return _createNewTaskCommand;
+            }
+        }
+
+
+        private bool CanEcexuteCreateNewTask()
+        {
+            return !string.IsNullOrWhiteSpace(CurrentFolder);
+        }
+
+        public void CreateNewTaskExecute()
+        {
+            Rosenholz.Task.Windows.InputTask t = new Rosenholz.Task.Windows.InputTask(CurrentFolder);
+            t.ShowDialog();
         }
         #endregion
 

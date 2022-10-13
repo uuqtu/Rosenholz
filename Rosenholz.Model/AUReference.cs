@@ -66,6 +66,25 @@ namespace Rosenholz.Model
         public string YearString => Year.ToString();
         public string AUReferenceString => GetAUString();
 
+        public static string GetMetadataF22Reference(string auref)
+        {
+            var elem = Rosenholz.Model.F22Storage.Instance.ReadData();
+            var tst = elem.First(x => x.AUReference.Equals(auref));
+            return tst.F16F22Reference.F22String;
+        }
+
+
+
+        public static string GetMetadataF1622Reference(string auref)
+        {
+            var elem = Rosenholz.Model.F22Storage.Instance.ReadData();
+            var tst = elem.First(x => x.AUReference.AUReferenceString.Equals(auref));
+#warning hier muss noch was hin
+            //var elem2 = Rosenholz.Model.F16Storage.Instance.ReadData();
+            //var tst = elem.First(x => x.AUReference.Equals(auref));
+            return tst.F16F22Reference.F22String;
+        }
+
 
         public string GetAUReferenceString()
         {

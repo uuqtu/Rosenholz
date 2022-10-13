@@ -13,10 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Rosenholz.UserControls
+namespace Rosenholz.Task.UserControls
 {
     /// <summary>
-    /// Interaktionslogik für TaskUserControl.xaml
+    /// Interaktionslogik für TaskEntryUserControl.xaml
     /// </summary>
     public partial class TaskEntryUserControl : UserControl
     {

@@ -121,9 +121,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="TaskEntryUserControl.xaml.cs">
-      <DependentUpon>TaskEntryUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TaskViewerUserControl.xaml.cs">
       <DependentUpon>TaskViewerUserControl.xaml</DependentUpon>
     </Compile>
@@ -166,10 +163,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TaskEntryUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="TaskViewerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -183,6 +176,10 @@
     <ProjectReference Include="..\Rosenholz.Model\Rosenholz.Model.csproj">
       <Project>{c2d92b4d-b9b3-486f-b889-79474a319c7e}</Project>
       <Name>Rosenholz.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rosenholz.Task.Windows\Rosenholz.Task.Windows.csproj">
+      <Project>{9fa4647a-0d1f-4f06-8940-cca2a2706e5c}</Project>
+      <Name>Rosenholz.Task.Windows</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rosenholz.ViewModel\Rosenholz.ViewModel.csproj">
       <Project>{fea34100-3c69-4263-b564-936412f8a199}</Project>
