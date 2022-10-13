@@ -23,6 +23,36 @@ namespace Rosenholz.Model
         private string _f22Reference;
         private string _auReference;
 
+        public TaskModel(Guid id, DateTime created, string title, string description, string targetDate, TaskState taskState, DateTime focusDate, ObservableCollection<TaskItemModel> taskItemItems, string f16f22Reference, string f22Reference, string auReference)
+        {
+            Id = id;
+            Created = created;
+            Title = title;
+            Description = description;
+            TargetDate = targetDate;
+            TaskState = taskState;
+            FocusDate = focusDate;
+            TaskItemItems = taskItemItems;
+            _f16f22Reference = f16f22Reference;
+            F22Reference = f22Reference;
+            _auReference = auReference;
+        }
+
+        public TaskModel()
+        {
+            _id = Guid.NewGuid();
+            _created = DateTime.Now;
+            _taskState = TaskState.New;
+        }
+
+        public TaskModel(string titel)
+        {
+            _title = titel;
+            _id = Guid.NewGuid();
+            _created = DateTime.Now;
+            _taskState = TaskState.New;
+        }
+
         public Guid Id { get { return _id; } set { _id = value; OnPropertyChanged(nameof(Id)); } }
         public DateTime Created { get { return _created; } set { _created = value; OnPropertyChanged(nameof(Created)); } }
         public string Title { get { return _title; } set { _title = value; OnPropertyChanged(nameof(Title)); } }
@@ -59,6 +89,7 @@ namespace Rosenholz.Model
         Focused = 1,
         Terminated = 2,
         Closed = 3,
-        Archived = 4
+        Archived = 4,
+        New = 99
     }
 }

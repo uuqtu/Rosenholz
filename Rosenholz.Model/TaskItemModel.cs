@@ -15,6 +15,16 @@ namespace Rosenholz.Model
         private string _responsible;
         private Guid _referenceId;
 
+
+        public TaskItemModel()
+        {
+        }
+        public TaskItemModel(Guid guidParent)
+        {
+            _referenceId = guidParent;
+        }
+
+
         public DateTime Created
         { get { return _created; } set { _created = value; } }
 

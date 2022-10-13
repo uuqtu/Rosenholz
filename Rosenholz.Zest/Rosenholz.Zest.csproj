@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rosenholz.Model\Rosenholz.Model.csproj" />
+    <ProjectReference Include="..\Rosenholz.UserControls\Rosenholz.UserControls.csproj" />
+    <ProjectReference Include="..\Rosenholz.ViewModel\Rosenholz.ViewModel.csproj" />
+    <ProjectReference Include="..\Rosenholz.View\Rosenholz.View.csproj" />
+    <ProjectReference Include="..\Rosenholz.Windows\Rosenholz.Windows.csproj" />
+  </ItemGroup>
+
+</Project>
