@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Rosenholz.Task.Windows
     /// <summary>
     /// Interaktionslogik für InputTask.xaml
     /// </summary>
-    public partial class InputTask : Window
+    public partial class InputTask : Window, INotifyPropertyChanged
     {
         public Rosenholz.ViewModel.TaskEntryViewModel vmo { get; set; } = null;
         private string _aufRef;
@@ -40,6 +41,16 @@ namespace Rosenholz.Task.Windows
         {
             Rosenholz.Model.TaskStorage.Instance.InsertTask(vmo.Entry);
             this.Close();
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

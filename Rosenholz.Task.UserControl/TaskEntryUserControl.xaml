@@ -35,11 +35,11 @@
         <Label Grid.Column="2" Grid.Row="3">Referenz F16</Label>
         <Label Grid.Column="2" Grid.Row="4">Referenz AU</Label>
 
-        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Entry.Created, StringFormat='yyyy-MM-dd@HH:mm',UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Entry.Created, StringFormat='[yyyy-MM-dd]@[HH:mm]',UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
         <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Entry.Title , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
         <TextBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Text="{Binding Entry.Description , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Entry.FocusDate, StringFormat='yyyy-MM-dd@HH:mm', UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-        <TextBox Grid.Column="3" Grid.Row="0" Text="{Binding Entry.TargetDate, StringFormat='yyyy-MM-dd@HH:mm',UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Entry.FocusDate, StringFormat='[yyyy-MM-dd]@[HH:mm]', UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+        <TextBox Grid.Column="3" Grid.Row="0" Text="{Binding Entry.TargetDate, StringFormat='[yyyy-MM-dd]@[HH:mm]',UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
 
 
         <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding Entry.TaskStateString, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></TextBox>
