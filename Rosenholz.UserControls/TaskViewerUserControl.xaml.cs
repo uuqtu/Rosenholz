@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Rosenholz.UserControls
 {
     /// <summary>
-    /// Interaktionslogik für TaskUserControl.xaml
+    /// Interaktionslogik für TaskViewerUserControl.xaml
     /// </summary>
-    public partial class TaskUserControl : UserControl
+    public partial class TaskViewerUserControl : UserControl
     {
-        public TaskUserControl()
+        public TaskViewerUserControl()
         {
             InitializeComponent();
         }
