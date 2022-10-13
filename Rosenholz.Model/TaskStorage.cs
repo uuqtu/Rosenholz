@@ -36,17 +36,33 @@ namespace Rosenholz.Model
 
         public void CreateTable()
         {
+
+#if DEBUG
+            string dir = @"C:\Users\z0035hes\Desktop\MFS\ZTV";
+#else
             string dir = Path.GetDirectoryName(Settings.Settings.Instance.TaskLocation);
+#endif
+
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
+
+
+#if DEBUG
+            dir = @"C:\Users\z0035hes\Desktop\MFS\ZTV";
+#else
             dir = Path.GetDirectoryName(Settings.Settings.Instance.TaskItemLocation);
+#endif
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
-            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
+#else
+                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
+#endif
             {
                 string command =
                     "CREATE TABLE IF NOT EXISTS TASKS (" +
@@ -65,7 +81,12 @@ namespace Rosenholz.Model
                 con.CreateTable(command);
             }
 
-            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\taskitems.db"))
+#else
+                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
+#endif
+
             {
                 string command =
                     "CREATE TABLE IF NOT EXISTS TASKITEMS (" +
@@ -81,7 +102,11 @@ namespace Rosenholz.Model
 
         public void InsertTask(TaskModel Insertee)
         {
-            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
+#else
+                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
+#endif
             {
                 string command =
                     "INSERT INTO TASKS (ID, TASKSTATE, CREATED, TITLE, DESCRIPTION, TARGETDATE, FOCUSDATE, F16F22REFERENCE, F22REFERENCE, AUREFERENCE)" +
@@ -102,7 +127,12 @@ namespace Rosenholz.Model
 
         public void InsertTaskItem(TaskItemModel Insertee)
         {
-            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\taskitems.db"))
+#else
+                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
+#endif
+
             {
                 string command =
                     "INSERT INTO TASKITEMS (CREATED, STATUS, RESPONSIBLE, REFERENCEID)" +
@@ -120,7 +150,11 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<TaskModel> values = new List<TaskModel>();
 
-            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
+#else
+                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
+#endif
             {
                 data = con.ReadData("SELECT * FROM TASKS");
             }
@@ -155,9 +189,13 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<TaskItemModel> values = new List<TaskItemModel>();
 
-            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\taskitems.db"))
+#else
+                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
+#endif
             {
-                data = con.ReadData("SELECT * FROM TASKITEMS");
+                data = con.ReadData($"SELECT * FROM TASKITEMS WHERE REFERENCEID = '{task.Id}'");
             }
 
             values = (from rw in data.AsEnumerable()

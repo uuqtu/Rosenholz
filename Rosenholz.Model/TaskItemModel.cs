@@ -21,6 +21,7 @@ namespace Rosenholz.Model
         }
         public TaskItemModel(Guid guidParent)
         {
+            _created = DateTime.Now;
             _referenceId = guidParent;
         }
 

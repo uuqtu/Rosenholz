@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.UserControls", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.Windows", "Rosenholz.Windows\Rosenholz.Windows.csproj", "{55E0B254-CF97-480C-8C8E-B73FC8CA70D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.Zest", "Rosenholz.Zest\Rosenholz.Zest.csproj", "{8ABAD7EC-414C-4C46-82EE-FE0C1EAC2858}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.Zesz", "Rosenholz.Zesz\Rosenholz.Zesz.csproj", "{28258E82-320A-4938-A3A9-53D83704339C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{55E0B254-CF97-480C-8C8E-B73FC8CA70D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55E0B254-CF97-480C-8C8E-B73FC8CA70D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55E0B254-CF97-480C-8C8E-B73FC8CA70D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8ABAD7EC-414C-4C46-82EE-FE0C1EAC2858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8ABAD7EC-414C-4C46-82EE-FE0C1EAC2858}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8ABAD7EC-414C-4C46-82EE-FE0C1EAC2858}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8ABAD7EC-414C-4C46-82EE-FE0C1EAC2858}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28258E82-320A-4938-A3A9-53D83704339C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28258E82-320A-4938-A3A9-53D83704339C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28258E82-320A-4938-A3A9-53D83704339C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28258E82-320A-4938-A3A9-53D83704339C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
