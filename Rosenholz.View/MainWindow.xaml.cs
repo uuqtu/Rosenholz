@@ -121,7 +121,14 @@ namespace Rosenholz.View
             Tevm = new Rosenholz.ViewModel.TaskEntryViewModel();
             TaskView.DataContext = Tevm;
             Tevm.TaskSourceChangedEvent += Tevm_TaskSourceChangedEvent;
-            Tevm.ChildRequredEvent += Tevm_ChildRequredEvent; ;
+            Tevm.ChildRequredEvent += Tevm_ChildRequredEvent;
+            Tevm.TaskModelViewRequiredEvent += Tevm_TaskModelViewRequiredEvent;
+        }
+
+        private void Tevm_TaskModelViewRequiredEvent(TaskModel child)
+        {
+            Rosenholz.Task.Windows.ShowChildTaskWindow childview = new Rosenholz.Task.Windows.ShowChildTaskWindow(child);
+            childview.ShowDialog();
         }
 
         private void Tevm_ChildRequredEvent(TaskModel parent)

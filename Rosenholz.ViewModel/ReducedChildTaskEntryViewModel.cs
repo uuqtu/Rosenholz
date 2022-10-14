@@ -19,6 +19,8 @@ namespace Rosenholz.ViewModel
         {
             _parent = parent;
             _entry = new TaskModel();
+            _entry.AUReference = parent.AUReference;
+            _entry.F16F22Reference = parent.F16F22Reference;
             _entry.IsChild = true;
         }
 

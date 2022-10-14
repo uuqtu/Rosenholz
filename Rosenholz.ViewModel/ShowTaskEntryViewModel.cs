@@ -6,26 +6,17 @@ using System.Data.Entity.Core.Objects;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace Rosenholz.ViewModel
 {
-
-    public delegate void TaskSourceChanged();
-    public delegate void ChildRequred(TaskModel parent);
-    public delegate void TaskModelViewRequired(TaskModel parent);
-    public class TaskEntryViewModel : INotifyPropertyChanged
+    public class ShowTaskEntryViewModel : INotifyPropertyChanged
     {
-        private TaskModel _entry = null;
-        private string _status;
-        public event TaskSourceChanged TaskSourceChangedEvent;
-        public event ChildRequred ChildRequredEvent;
-        public event TaskModelViewRequired TaskModelViewRequiredEvent;
-        /// <summary>
-        /// In den verlinkten Aufgaben angewählte Aufgabe
-        /// </summary>
+        private TaskModel _entry;
+        public string _status;
         public TaskModel CurrentChildSelected { get; set; }
         public string Status { get { return _status; } set { _status = value; OnPropertyChanged(nameof(Status)); } }
         private string _openCloseButtonText => (Entry?.TaskState != TaskState.Closed) ? "Aufgabe schließen" : "Aufgabe wiedereröffnen";
@@ -34,9 +25,9 @@ namespace Rosenholz.ViewModel
             get { return _openCloseButtonText; }
         }
 
-
-        public TaskEntryViewModel()
+        public ShowTaskEntryViewModel(TaskModel entry)
         {
+            _entry = entry;
         }
 
         public TaskModel Entry
@@ -46,41 +37,8 @@ namespace Rosenholz.ViewModel
             {
                 _entry = value;
                 OnPropertyChanged(nameof(Entry));
-                OnPropertyChanged(nameof(OpenCloseButtonText));
             }
         }
-
-        #region Update Task 
-        private RelayCommand _updateTaskCommand;
-        public RelayCommand UpdateTaskCommand
-        {
-            get
-            {
-                if (_updateTaskCommand == null)
-                {
-                    _updateTaskCommand = new RelayCommand(
-                        (parameter) => UpdateTaskExecute(parameter),
-                        (parameter) => CanEcexuteTaskupdate(parameter)
-                    );
-                }
-                return _updateTaskCommand;
-            }
-        }
-
-        private bool CanEcexuteTaskupdate(object parameter)
-        {
-            return true;
-        }
-
-        public void UpdateTaskExecute(object window)
-        {
-            if (Entry != null)
-            {
-                Rosenholz.Model.TaskStorage.Instance.UpdateTask(Entry, Entry.TaskState, Entry.Title, Entry.Description, Entry.TargetDate, Entry.FocusDate);
-                TaskSourceChangedEvent?.Invoke();
-            }
-        }
-        #endregion
 
         #region Task Item Entry 
         private RelayCommand _addTaskItemEntryCommand;
@@ -120,6 +78,38 @@ namespace Rosenholz.ViewModel
                 Rosenholz.Model.TaskStorage.Instance.InsertTaskItem(tim);
             }
             Status = "";
+        }
+        #endregion
+
+        #region Update Task 
+        private RelayCommand _updateTaskCommand;
+        public RelayCommand UpdateTaskCommand
+        {
+            get
+            {
+                if (_updateTaskCommand == null)
+                {
+                    _updateTaskCommand = new RelayCommand(
+                        (parameter) => UpdateTaskExecute(parameter),
+                        (parameter) => CanEcexuteTaskupdate(parameter)
+                    );
+                }
+                return _updateTaskCommand;
+            }
+        }
+
+        private bool CanEcexuteTaskupdate(object parameter)
+        {
+            return true;
+        }
+
+        public void UpdateTaskExecute(object window)
+        {
+            if (Entry != null)
+            {
+                Rosenholz.Model.TaskStorage.Instance.UpdateTask(Entry, Entry.TaskState, Entry.Title, Entry.Description, Entry.TargetDate, Entry.FocusDate);
+                //TaskSourceChangedEvent?.Invoke();
+            }
         }
         #endregion
 
@@ -180,12 +170,21 @@ namespace Rosenholz.ViewModel
             else
                 Rosenholz.Model.TaskStorage.Instance.UpdateTaskState(Entry, TaskState.New);
             Entry = null;
-            TaskSourceChangedEvent?.Invoke();
 
+            if (window is Window)
+            {
+                (window as Window).Close();
+            }
         }
         #endregion
 
-        #region Aufgabe archivieren
+        #region Dummy, damit Felder grau.
+
+        private bool Dummy(object parameter)
+        {
+            return !(Entry == null);
+        }
+
         private RelayCommand _archiveTaskCommand;
         public RelayCommand ArchiveTaskCommand
         {
@@ -194,29 +193,16 @@ namespace Rosenholz.ViewModel
                 if (_archiveTaskCommand == null)
                 {
                     _archiveTaskCommand = new RelayCommand(
-                        (parameter) => archiveTaskExecute(parameter),
-                        (parameter) => CanEcexutearchiveTask(parameter)
+                        (parameter) => Dummy(parameter),
+                        (parameter) => false
                     );
                 }
                 return _archiveTaskCommand;
             }
         }
 
-        private bool CanEcexutearchiveTask(object parameter)
-        {
-            return !(Entry == null);
-        }
 
-        public void archiveTaskExecute(object window)
-        {
-            Rosenholz.Model.TaskStorage.Instance.UpdateTaskState(Entry, TaskState.Archived);
-            Entry = null;
-            TaskSourceChangedEvent?.Invoke();
 
-        }
-        #endregion
-
-        #region View leeren 
         private RelayCommand _clearTaskViewCommand;
         public RelayCommand ClearTaskViewCommand
         {
@@ -225,28 +211,14 @@ namespace Rosenholz.ViewModel
                 if (_clearTaskViewCommand == null)
                 {
                     _clearTaskViewCommand = new RelayCommand(
-                        (parameter) => ClearTaskViewExecute(parameter),
-                        (parameter) => CanEcexuteclearTaskView(parameter)
+                        (parameter) => Dummy(parameter),
+                        (parameter) => false
                     );
                 }
                 return _clearTaskViewCommand;
             }
         }
 
-        private bool CanEcexuteclearTaskView(object parameter)
-        {
-            return !(Entry == null);
-        }
-
-        public void ClearTaskViewExecute(object window)
-        {
-            Entry = null;
-            TaskSourceChangedEvent?.Invoke();
-
-        }
-        #endregion
-
-        #region Neue verlinkte Aufgabe
         private RelayCommand _createNewLinkedTaskCommand;
         public RelayCommand CreateNewLinkedTaskCommand
         {
@@ -255,29 +227,14 @@ namespace Rosenholz.ViewModel
                 if (_createNewLinkedTaskCommand == null)
                 {
                     _createNewLinkedTaskCommand = new RelayCommand(
-                        (parameter) => CreateNewLinkedTaskExecute(parameter),
-                        (parameter) => CanEcexutecreateNewLinkedTask(parameter)
+                        (parameter) => Dummy(parameter),
+                        (parameter) => false
                     );
                 }
                 return _createNewLinkedTaskCommand;
             }
         }
 
-        private bool CanEcexutecreateNewLinkedTask(object parameter)
-        {
-            return !(Entry == null);
-        }
-
-        public void CreateNewLinkedTaskExecute(object window)
-        {
-            //Der Parent wird dem Kind übergeben, damit die Verbindung angelegt werden kann.
-            ChildRequredEvent?.Invoke(Entry);
-            Entry = null;
-            TaskSourceChangedEvent?.Invoke();
-        }
-        #endregion
-
-        #region Öffne verlinkte Aufgabe
         private RelayCommand _openLinkedTaskCommand;
         public RelayCommand OpenLinkedTaskCommand
         {
@@ -286,25 +243,16 @@ namespace Rosenholz.ViewModel
                 if (_openLinkedTaskCommand == null)
                 {
                     _openLinkedTaskCommand = new RelayCommand(
-                        (parameter) => OpenLinkedTaskExecute(parameter),
-                        (parameter) => CanEcexuteOpenLinkedTask(parameter)
+                        (parameter) => Dummy(parameter),
+                        (parameter) => false
                     );
                 }
                 return _openLinkedTaskCommand;
             }
         }
-
-        private bool CanEcexuteOpenLinkedTask(object parameter)
-        {
-            return !(CurrentChildSelected == null);
-        }
-
-        public void OpenLinkedTaskExecute(object window)
-        {
-            var a = CurrentChildSelected;
-            TaskModelViewRequiredEvent?.Invoke(a);
-        }
         #endregion
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)

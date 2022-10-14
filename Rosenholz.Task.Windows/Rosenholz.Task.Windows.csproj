@@ -61,6 +61,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ShowChildTaskWindow.xaml.cs">
+      <DependentUpon>ShowChildTaskWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="InputChildTaskWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -79,6 +82,10 @@
     <Compile Include="InputTask.xaml.cs">
       <DependentUpon>InputTask.xaml</DependentUpon>
     </Compile>
+    <Page Include="ShowChildTaskWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
