@@ -377,7 +377,6 @@ namespace Rosenholz.Model
 
         public void UpdateTask(TaskModel toUpdate, TaskState state, string title, string description, DateTime targetDatre, DateTime focusdate)
         {
-            DataTable data = null;
             List<TaskItemModel> values = new List<TaskItemModel>();
 
 #if DEBUG
@@ -402,7 +401,6 @@ namespace Rosenholz.Model
 
         public void UpdateTaskState(TaskModel toUpdate, TaskState state)
         {
-            DataTable data = null;
             List<TaskItemModel> values = new List<TaskItemModel>();
 
 #if DEBUG
@@ -423,7 +421,6 @@ namespace Rosenholz.Model
 
         public void UpdateFocusDate(TaskModel toUpdate, DateTime focusdate)
         {
-            DataTable data = null;
             List<TaskItemModel> values = new List<TaskItemModel>();
 
 #if DEBUG
