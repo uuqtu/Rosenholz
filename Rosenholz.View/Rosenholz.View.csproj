@@ -220,6 +220,10 @@
       <Project>{cb72c93e-f7c1-4536-b486-8b0a1982f0ec}</Project>
       <Name>Rosenholz.Task.UserControls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rosenholz.Task.Windows\Rosenholz.Task.Windows.csproj">
+      <Project>{9fa4647a-0d1f-4f06-8940-cca2a2706e5c}</Project>
+      <Name>Rosenholz.Task.Windows</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rosenholz.UserControls\Rosenholz.UserControls.csproj">
       <Project>{7bf75d80-1154-455f-bc12-07ed82ce87b9}</Project>
       <Name>Rosenholz.UserControls</Name>

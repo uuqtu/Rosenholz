@@ -14,11 +14,13 @@ namespace Rosenholz.ViewModel
 {
 
     public delegate void TaskSourceChanged();
+    public delegate void ChildRequred(TaskModel parent);
     public class TaskEntryViewModel : INotifyPropertyChanged
     {
         private TaskModel _entry = null;
         private string _status;
         public event TaskSourceChanged TaskSourceChangedEvent;
+        public event ChildRequred ChildRequredEvent;
 
         public string Status { get { return _status; } set { _status = value; OnPropertyChanged(nameof(Status)); } }
         private string _openCloseButtonText => (Entry?.TaskState != TaskState.Closed) ? "Aufgabe schließen" : "Aufgabe wiedereröffnen";
@@ -43,6 +45,7 @@ namespace Rosenholz.ViewModel
             }
         }
 
+        #region Update Task 
         private RelayCommand _updateTaskCommand;
         public RelayCommand UpdateTaskCommand
         {
@@ -72,6 +75,7 @@ namespace Rosenholz.ViewModel
                 TaskSourceChangedEvent?.Invoke();
             }
         }
+        #endregion
 
         #region Task Item Entry 
         private RelayCommand _addTaskItemEntryCommand;
@@ -261,6 +265,8 @@ namespace Rosenholz.ViewModel
 
         public void CreateNewLinkedTaskExecute(object window)
         {
+            //Der Parent wird dem Kind übergeben, damit die Verbindung angelegt werden kann.
+            ChildRequredEvent?.Invoke(Entry);
             Entry = null;
             TaskSourceChangedEvent?.Invoke();
         }

@@ -47,6 +47,7 @@ namespace Rosenholz.Model
             _targetDate = DateTime.Now;
             _focusDate = DateTime.Now;
             _taskState = TaskState.New;
+            _isChild = false;
         }
 
         public TaskModel(string titel)

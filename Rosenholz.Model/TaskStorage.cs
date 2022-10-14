@@ -151,7 +151,7 @@ namespace Rosenholz.Model
             }
         }
 
-        public void InsertChild(TaskItemModel parent, TaskItemModel child)
+        public void InsertChild(TaskModel parent, TaskModel child)
         {
 #if DEBUG
             using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\linkedtaskitems.db"))
@@ -162,8 +162,8 @@ namespace Rosenholz.Model
             {
                 string command =
                     "INSERT INTO LINKEDTASKITEMS (PARENT, CHILD)" +
-                    "VALUES ('" + parent.ReferenceId + "'," +
-                            "'" + child.ReferenceId + "');";
+                    "VALUES ('" + parent.Id + "'," +
+                            "'" + child.Id + "');";
 
                 con.InsertData(command);
             }
@@ -204,7 +204,7 @@ namespace Rosenholz.Model
                 data_childs = con.ReadData($"SELECT * FROM TASKS WHERE ISCHILD='{true.ToString()}'");
             }
 
-            values_childs = (from rw in data.AsEnumerable()
+            values_childs = (from rw in data_childs.AsEnumerable()
                              select new TaskModel()
                              {
                                  Id = Guid.Parse(Convert.ToString(rw["ID"])),
