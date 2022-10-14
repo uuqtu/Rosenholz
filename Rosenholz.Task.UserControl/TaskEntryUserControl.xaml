@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rosenholz.Task.UserControls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              Background="#1C1C1C" Foreground="White"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -38,7 +39,13 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Background="#1C1C1C" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">Titel</Label>
-        <TextBox Grid.Row="0" Grid.Column="1" Background="#1C1C1C" Foreground="White" Text="{Binding Entry.Title , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+        <TextBox Grid.Row="0" Grid.Column="1" Background="#1C1C1C" Foreground="White" Text="{Binding Entry.Title , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <!--<i:Interaction.Triggers>
+                <i:EventTrigger>
+
+                </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+        </TextBox>
 
         <Label Grid.Row="1" Grid.Column="0" Background="#1C1C1C" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">Beschreibung</Label>
         <TextBox Grid.Row="1" Grid.Column="1" Background="#1C1C1C" Foreground="White" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Entry.Description , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
@@ -61,7 +68,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Background="#1C1C1C" Foreground="White" Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Right" HorizontalContentAlignment="Right">Fokusdatum</Label>
-            <DatePicker Grid.Row="0" BorderThickness="0" Grid.Column="1" Focusable="False" Margin="0,3,0,0" Background="#1C1C1C" Foreground="Blue"
+            <DatePicker Grid.Row="0" BorderThickness="0" Grid.Column="1" Focusable="False" Margin="0,3,0,0" Background="#1C1C1C" Foreground="Blue" 
                         VerticalContentAlignment="Center" SelectedDate="{Binding Entry.FocusDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat='[yyyy-MM-dd]@[HH:mm]'}"></DatePicker>
 
 

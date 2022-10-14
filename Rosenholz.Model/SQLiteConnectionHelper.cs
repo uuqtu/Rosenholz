@@ -61,6 +61,13 @@ namespace Rosenholz.Model
             sqlite_cmd.ExecuteNonQuery();
         }
 
+        public void UpdateData(string command)
+        {
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = _sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = command;
+            sqlite_cmd.ExecuteNonQuery();
+        }
         public DataTable ReadData(string command)
         {
             SQLiteCommand sqlite_cmd;

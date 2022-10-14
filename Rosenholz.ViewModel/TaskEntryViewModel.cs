@@ -35,6 +35,33 @@ namespace Rosenholz.ViewModel
             }
         }
 
+        private RelayCommand _updateTaskCommand;
+        public RelayCommand UpdateTaskCommand
+        {
+            get
+            {
+                if (_updateTaskCommand == null)
+                {
+                    _updateTaskCommand = new RelayCommand(
+                        (parameter) => UpdateTaskExecute(parameter),
+                        (parameter) => CanEcexuteTaskupdate(parameter)
+                    );
+                }
+                return _updateTaskCommand;
+            }
+        }
+
+        private bool CanEcexuteTaskupdate(object parameter)
+        {
+            return true;
+        }
+
+        public void UpdateTaskExecute(object window)
+        {
+            Rosenholz.Model.TaskStorage.Instance.UpdateTask(Entry, Entry.TaskState, Entry.Title, Entry.Description, Entry.TargetDate, Entry.FocusDate);
+        }
+
+
         private RelayCommand _addTaskItemEntryCommand;
         public RelayCommand AddTaskItemEntryCommand
         {

@@ -168,7 +168,6 @@ namespace Rosenholz.Model
                 con.InsertData(command);
             }
         }
-
         /// <summary>
         /// Gets the Children to a parent
         /// </summary>
@@ -307,6 +306,31 @@ namespace Rosenholz.Model
             //values.Sort((x, y) => y.F16F22Reference.CompareTo(x.F16F22Reference));
 
             return values;
+        }
+
+        public void UpdateTask(TaskModel toUpdate, TaskState state, string title, string description, DateTime targetDatre, DateTime focusdate)
+        {
+            DataTable data = null;
+            List<TaskItemModel> values = new List<TaskItemModel>();
+
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
+#else
+                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
+#endif
+            {
+                string command =
+                    $"UPDATE TASKS " +
+                    $"SET TASKSTATE = '{state.ToString()}', " +
+                    $"TITLE = '{title}', " +
+                    $"DESCRIPTION = '{description}', " +
+                    $"TARGETDATE = '{targetDatre}', " +
+                    $"FOCUSDATE = '{focusdate}' " +
+                    $"WHERE " +
+                    $"ID = '{toUpdate.Id}'"; ;
+
+                con.UpdateData(command);
+            }
         }
 
     }
