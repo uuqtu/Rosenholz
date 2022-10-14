@@ -26,7 +26,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
-            <RowDefinition Height="80" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="6*" />
@@ -36,6 +37,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Background="#1C1C1C" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">Titel</Label>
@@ -50,7 +52,7 @@
 
         <Label Grid.Row="1" Grid.Column="0" Background="#1C1C1C" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">Beschreibung
         </Label>
-        <TextBox Grid.Row="1" Grid.Column="1" Background="#1C1C1C" Foreground="White" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Entry.Description , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Background="#1C1C1C" Foreground="White" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Entry.Description , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <interacitivy:Interaction.Triggers>
                 <interacitivy:EventTrigger EventName="TextChanged">
                     <interacitivy:InvokeCommandAction Command="{Binding UpdateTaskCommand}">
@@ -59,10 +61,7 @@
             </interacitivy:Interaction.Triggers>
         </TextBox>
 
-        <Separator Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="0,2,0,0"></Separator>
-        <Separator Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,2"></Separator>
-
-        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
+        <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
@@ -106,7 +105,7 @@
 
 
 
-        <Grid  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+        <Grid  Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
@@ -120,7 +119,7 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Label Background="#1C1C1C" Foreground="White" Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Right" HorizontalContentAlignment="Right">Referenz F16:</Label>
+            <Label Background="#1C1C1C" Foreground="White" Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Right" HorizontalContentAlignment="Right">Referenz F22:</Label>
             <Label Background="#1C1C1C" Foreground="White" Grid.Row="0" Grid.Column="1" Content="{Binding Entry.F16F22Reference, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" HorizontalContentAlignment="Left"></Label>
 
             <Label Background="#1C1C1C" Foreground="White" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" HorizontalContentAlignment="Right">Referenz AU:</Label>
@@ -130,9 +129,7 @@
             <Label Background="#1C1C1C" Foreground="White" Grid.Row="0" Grid.Column="5" Content="{Binding Entry.TaskStateString, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  HorizontalAlignment="Left" HorizontalContentAlignment="Left"></Label>
         </Grid>
 
-        <Separator Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2"></Separator>
-
-        <ListView Name="UserGrid" Grid.Row="4" Grid.ColumnSpan="2"
+        <ListView Name="UserGrid" Grid.Row="5" Grid.ColumnSpan="2"
                   ItemsSource="{Binding Entry.TaskItemItems,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding CurrentF22Selected}"                  
                   Background="#2D2D30"
@@ -140,24 +137,37 @@
             <ListView.View>
                 <GridView x:Name="grdTest">
                     <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created, StringFormat='[yyyy-MM-dd]@[HH:mm]'}" Width="150" />
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="900" />
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="400" />
                     <GridViewColumn Header="Respobsible" DisplayMemberBinding="{Binding Respobsible}"  Width="100" />
                 </GridView>
             </ListView.View>
         </ListView>
 
 
-        <Grid Grid.Row="5" Grid.ColumnSpan="2">
+        <Grid Grid.Row="6" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" ToolTip="Status" Margin="5,5,5,5" Foreground="Blue" Text="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <TextBox Grid.Column="1" ToolTip="Responsible"  Margin="5,5,5,5" Foreground="Blue"  Text="{Binding Responsible,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Button  Grid.Column="2" Margin="5,5,5,5" Command="{Binding AddTaskItemEntryCommand}">Speichern</Button>
+            <TextBox Grid.Column="0" Grid.ColumnSpan="3" Margin="5,5,5,5" Foreground="Blue" Height="20"
+                     Text="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="Mit @ kann der Responsible Teil angegeben werden.">
+                <interacitivy:Interaction.Triggers>
+                    <interacitivy:EventTrigger EventName="LostFocus">
+                        <interacitivy:InvokeCommandAction Command="{Binding AddTaskItemEntryCommand}">
+                        </interacitivy:InvokeCommandAction>
+                    </interacitivy:EventTrigger>
+                </interacitivy:Interaction.Triggers>
+            </TextBox>
         </Grid>
+
+        <Button Grid.Column="2" Grid.Row="0" Margin="5,5,5,5" Command="{Binding OpenAUFolderCommand}">Ordner öffnen</Button>
+        <Button Grid.Column="2" Grid.Row="1" Margin="5,5,5,5" Command="{Binding CloseTaskCommand}" Content ="{Binding OpenCloseButtonText}"></Button>
+        <Button Grid.Column="2" Grid.Row="2" Margin="5,5,5,5" Command="{Binding ArchiveTaskCommand}">Aufgabe archivieren</Button>
+        <Button Grid.Column="2" Grid.Row="3" Margin="5,5,5,5" Command="{Binding }">View leeren</Button>
+        <Button Grid.Column="2" Grid.Row="4" Margin="5,5,5,5" Command="{Binding }">Neue verlinkte Aufgabe</Button>
     </Grid>
 </UserControl>
 

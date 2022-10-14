@@ -24,6 +24,15 @@ namespace Rosenholz.View
     {
         public Rosenholz.Model.TaskModel CurrentlySelectedModel;
         Rosenholz.ViewModel.TaskEntryViewModel Tevm { get; set; } = null;
+        Rosenholz.ViewModel.TaskViewModel newTaskViewModel { get; set; } = null;
+        Rosenholz.ViewModel.TaskViewModel terminatedTaskViewModel { get; set; } = null;
+        Rosenholz.ViewModel.TaskViewModel focusedTaskViewModel { get; set; } = null;
+        Rosenholz.ViewModel.TaskViewModel dueTaskViewModel { get; set; } = null;
+        Rosenholz.ViewModel.TaskViewModel closedTaskViewModel { get; set; } = null;
+
+
+
+
         public Rosenholz.ViewModel.F22ViewModel f22ViewModelObject { get; set; } = null;
         public MainWindow()
         {
@@ -69,39 +78,39 @@ namespace Rosenholz.View
 
         private void NewTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Rosenholz.ViewModel.TaskViewModel taskViewModel = new Rosenholz.ViewModel.TaskViewModel();
-            taskViewModel.LoadItems(TaskState.New);
-            taskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
-            NewTaskViewUserControl.DataContext = taskViewModel;
+            newTaskViewModel = new Rosenholz.ViewModel.TaskViewModel();
+            newTaskViewModel.LoadItems(TaskState.New);
+            newTaskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
+            NewTaskViewUserControl.DataContext = newTaskViewModel;
         }
         private void TerminatedTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Rosenholz.ViewModel.TaskViewModel taskViewModel = new Rosenholz.ViewModel.TaskViewModel();
-            taskViewModel.LoadItems(TaskState.Terminated);
-            taskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
-            TerminatedTaskViewUserControl.DataContext = taskViewModel;
+            terminatedTaskViewModel = new Rosenholz.ViewModel.TaskViewModel();
+            terminatedTaskViewModel.LoadItems(TaskState.Terminated);
+            terminatedTaskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
+            TerminatedTaskViewUserControl.DataContext = terminatedTaskViewModel;
         }
         private void FocusedTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Rosenholz.ViewModel.TaskViewModel taskViewModel = new Rosenholz.ViewModel.TaskViewModel();
-            taskViewModel.LoadItems(TaskState.Focused);
-            taskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
-            FocusedTaskViewUserControl.DataContext = taskViewModel;
+            focusedTaskViewModel = new Rosenholz.ViewModel.TaskViewModel();
+            focusedTaskViewModel.LoadItems(TaskState.Focused);
+            focusedTaskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
+            FocusedTaskViewUserControl.DataContext = focusedTaskViewModel;
         }
 
         private void DueTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Rosenholz.ViewModel.TaskViewModel taskViewModel = new Rosenholz.ViewModel.TaskViewModel();
-            taskViewModel.LoadItems(TaskState.Due);
-            taskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
-            DueTaskViewUserControl.DataContext = taskViewModel;
+            dueTaskViewModel = new Rosenholz.ViewModel.TaskViewModel();
+            dueTaskViewModel.LoadItems(TaskState.Due);
+            dueTaskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
+            DueTaskViewUserControl.DataContext = dueTaskViewModel;
         }
         private void ClosedTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Rosenholz.ViewModel.TaskViewModel taskViewModel = new Rosenholz.ViewModel.TaskViewModel();
-            taskViewModel.LoadItems(TaskState.Closed);
-            taskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
-            ClosedTaskViewUserControl.DataContext = taskViewModel;
+            closedTaskViewModel = new Rosenholz.ViewModel.TaskViewModel();
+            closedTaskViewModel.LoadItems(TaskState.Closed);
+            closedTaskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
+            ClosedTaskViewUserControl.DataContext = closedTaskViewModel;
         }
 
 
@@ -110,9 +119,17 @@ namespace Rosenholz.View
         private void TaskView_Loaded(object sender, RoutedEventArgs e)
         {
             Tevm = new Rosenholz.ViewModel.TaskEntryViewModel();
-            TaskView.DataContext = Tevm;            
+            TaskView.DataContext = Tevm;
+            Tevm.TaskSourceChangedEvent += Tevm_TaskSourceChangedEvent;
         }
 
-
+        private void Tevm_TaskSourceChangedEvent()
+        {
+            newTaskViewModel.LoadItems(TaskState.New);
+            terminatedTaskViewModel.LoadItems(TaskState.Terminated);
+            focusedTaskViewModel.LoadItems(TaskState.Focused);
+            dueTaskViewModel.LoadItems(TaskState.Due);
+            closedTaskViewModel.LoadItems(TaskState.Closed);
+        }
     }
 }
