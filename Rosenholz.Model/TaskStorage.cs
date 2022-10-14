@@ -184,6 +184,45 @@ namespace Rosenholz.Model
             return values;
         }
 
+        public IList<TaskModel> ReadTasks(Rosenholz.Model.TaskState state)
+        {
+            DataTable data = null;
+            List<TaskModel> values = new List<TaskModel>();
+
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
+#else
+                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
+#endif
+            {
+                data = con.ReadData($"SELECT * FROM TASKS WHERE TASKSTATE='{state.ToString()}'");
+            }
+
+            values = (from rw in data.AsEnumerable()
+                      select new TaskModel()
+                      {
+                          Id = Guid.Parse(Convert.ToString(rw["ID"])),
+                          TaskState = Model.TaskModel.ParseTaskState(Convert.ToString(rw["TASKSTATE"])),
+                          Created = DateTime.Parse(Convert.ToString(rw["CREATED"])),
+                          Title = Convert.ToString(rw["TITLE"]),
+                          Description = Convert.ToString(rw["DESCRIPTION"]),
+                          TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
+                          FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
+                          F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
+                          F22Reference = Convert.ToString(rw["F22REFERENCE"]),
+                          AUReference = Convert.ToString(rw["AUREFERENCE"])
+                      }).ToList();
+
+            foreach (TaskModel task in values)
+            {
+                task.TaskItemItems = new ObservableCollection<TaskItemModel>(ReadTaskItems(task));
+            }
+
+            //values.Sort((x, y) => y.F16F22Reference.CompareTo(x.F16F22Reference));
+
+            return values;
+        }
+
         private IList<TaskItemModel> ReadTaskItems(TaskModel task)
         {
             DataTable data = null;

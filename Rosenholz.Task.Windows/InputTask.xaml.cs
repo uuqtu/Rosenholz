@@ -22,8 +22,8 @@ namespace Rosenholz.Task.Windows
     /// </summary>
     public partial class InputTask : Window, INotifyPropertyChanged
     {
-        private Rosenholz.ViewModel.TaskEntryViewModel _vmo;
-        public Rosenholz.ViewModel.TaskEntryViewModel Vmo { get { return _vmo; } set { _vmo = value; OnPropertyChanged(nameof(Vmo)); } }
+        private Rosenholz.ViewModel.ReducedTaskEntryViewModel _vmo;
+        public Rosenholz.ViewModel.ReducedTaskEntryViewModel Vmo { get { return _vmo; } set { _vmo = value; OnPropertyChanged(nameof(Vmo)); } }
         private string _aufRef;
         public InputTask(string auRef)
         {
@@ -33,7 +33,7 @@ namespace Rosenholz.Task.Windows
 
         private void TaskEntryUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Vmo = new ViewModel.TaskEntryViewModel();
+            Vmo = new ViewModel.ReducedTaskEntryViewModel();
             Vmo.Entry.AUReference = _aufRef;
             Vmo.Entry.F16F22Reference = Rosenholz.Model.AUReference.GetMetadataF1622Reference(_aufRef);
             Vmo.Entry.F22Reference = Rosenholz.Model.AUReference.GetMetadataF1622Reference(_aufRef);

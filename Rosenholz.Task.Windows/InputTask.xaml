@@ -7,6 +7,8 @@
         xmlns:uc="clr-namespace:Rosenholz.Task.UserControls;assembly=Rosenholz.Task.UserControls"
         mc:Ignorable="d"
         x:Name="InputTaskWindow"
+        Background="#1C1C1C"
+        Foreground="White"
         Title="InputTaskWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <uc:ReducedTaskEntryUserControl Loaded="TaskEntryUserControl_Loaded" Grid.Row="0" Grid.ColumnSpan="2"></uc:ReducedTaskEntryUserControl>
-        <Button Grid.Column="1" Grid.Row="1" Margin="5,5,5,5" Command="{Binding AddTaskEntryCommand, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+        <Button Background="#1C1C1C" Foreground="White" Grid.Column="1" Grid.Row="1" Margin="5,5,5,5" Command="{Binding AddTaskEntryCommand, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                                               CommandParameter="{Binding ElementName=InputTaskWindow}">Speichern</Button>
     </Grid>
 </Window>

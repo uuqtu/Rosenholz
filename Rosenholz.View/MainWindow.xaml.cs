@@ -22,6 +22,8 @@ namespace Rosenholz.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Rosenholz.Model.TaskModel CurrentlySelectedModel;
+        Rosenholz.ViewModel.TaskEntryViewModel Tevm { get; set; } = null;
         public Rosenholz.ViewModel.F22ViewModel f22ViewModelObject { get; set; } = null;
         public MainWindow()
         {
@@ -63,6 +65,37 @@ namespace Rosenholz.View
         private void AUExplorer_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void NextTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Rosenholz.ViewModel.TaskViewModel taskViewModel = new Rosenholz.ViewModel.TaskViewModel();
+            taskViewModel.LoadItems(TaskState.New);
+            taskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
+            NextTaskViewUserControl.DataContext = taskViewModel;
+
+        }
+
+        private void DueTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Rosenholz.ViewModel.TaskViewModel taskViewModel = new Rosenholz.ViewModel.TaskViewModel();
+            taskViewModel.LoadItems(TaskState.Focused);
+            taskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
+            DueTaskViewUserControl.DataContext = taskViewModel;
+        }
+
+        private void TerminatedTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Rosenholz.ViewModel.TaskViewModel taskViewModel = new Rosenholz.ViewModel.TaskViewModel();
+            taskViewModel.LoadItems(TaskState.Terminated);
+            taskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
+            TerminatedTaskViewUserControl.DataContext = taskViewModel;
+        }
+
+        private void TaskView_Loaded(object sender, RoutedEventArgs e)
+        {
+            Tevm = new Rosenholz.ViewModel.TaskEntryViewModel();
+            TaskView.DataContext = Tevm;
         }
     }
 }

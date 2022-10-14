@@ -33,7 +33,7 @@
 
 
         <TextBox Background="#1C1C1C" Foreground="White" Grid.Column="1" Grid.Row="0" Text="{Binding Entry.Title , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-        <TextBox Background="#1C1C1C" Foreground="White" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Text="{Binding Entry.Description , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+        <TextBox Background="#1C1C1C" Foreground="White" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" Grid.RowSpan="3" Text="{Binding Entry.Description , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
 
         <Separator Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" VerticalAlignment="Top"></Separator>
         <Separator Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Separator>

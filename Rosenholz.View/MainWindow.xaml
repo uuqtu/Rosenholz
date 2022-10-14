@@ -7,7 +7,7 @@
         xmlns:uc="clr-namespace:Rosenholz.UserControls;assembly=Rosenholz.UserControls"
         xmlns:uc2="clr-namespace:Rosenholz.Task.UserControls;assembly=Rosenholz.Task.UserControls"
         mc:Ignorable="d"
-        Background="#1C1C1C"
+         Background="#1C1C1C" Foreground="White"
         WindowState="Maximized"
         Title="Rosenholz" Height="650" Width="800">
     <Grid>
@@ -28,7 +28,7 @@
                     <uc:AUExplorer     x:Name = "AUExplorer"     Loaded="AUExplorer_Loaded" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"></uc:AUExplorer>
                 </Grid>
             </TabItem>
-            <TabItem Header="Tasks">
+            <TabItem Header="Tasks" Height="20" VerticalAlignment="Top">
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -40,25 +40,46 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Grid.Column="0">
-                        <Label>Eingabefenster</Label>
-                        <uc2:TaskEntryUserControl></uc2:TaskEntryUserControl>
-                    </StackPanel>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label  Grid.Row="0" Background="#1C1C1C" Foreground="White">Eingabefenster</Label>
+                        <uc2:TaskEntryUserControl  Grid.Row="1" Background="#1C1C1C" Foreground="White" x:Name="TaskView" Loaded="TaskView_Loaded"></uc2:TaskEntryUserControl>
+                    </Grid>
 
-                    <StackPanel Grid.Row="0" Grid.Column="1">
-                        <Label>Next</Label>
-                        <uc:TaskViewerUserControl></uc:TaskViewerUserControl>
-                    </StackPanel>
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="1" Grid.Column="0">
-                        <Label>Fällig</Label>
-                        <uc:TaskViewerUserControl></uc:TaskViewerUserControl>
-                    </StackPanel>
+                        <Label Grid.Row="0" Background="#1C1C1C" Foreground="White">Next</Label>
+                        <uc:TaskViewerUserControl Grid.Row="1" x:Name="NextTaskViewUserControl" Loaded="NextTaskViewUserControl_Loaded"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                  Background="#1C1C1C" Foreground="White"></uc:TaskViewerUserControl>
+                    </Grid>
 
-                    <StackPanel Grid.Row="1" Grid.Column="1">
-                        <Label>Terminiert</Label>
-                        <uc:TaskViewerUserControl></uc:TaskViewerUserControl>
-                    </StackPanel>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label  Grid.Row="0"  Background="#1C1C1C" Foreground="White">Fällig</Label>
+                        <uc:TaskViewerUserControl Grid.Row="1"  x:Name="DueTaskViewUserControl" Loaded="DueTaskViewUserControl_Loaded" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                                   Background="#1C1C1C" Foreground="White"></uc:TaskViewerUserControl>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Background="#1C1C1C" Foreground="White">Terminiert</Label>
+                        <uc:TaskViewerUserControl  Grid.Row="1" x:Name="TerminatedTaskViewUserControl" Loaded="TerminatedTaskViewUserControl_Loaded" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                   Background="#1C1C1C" Foreground="White"></uc:TaskViewerUserControl>
+                    </Grid>
                 </Grid>
 
             </TabItem>

@@ -89,6 +89,7 @@
     <Compile Include="F22ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskEntryViewModel.cs" />
+    <Compile Include="ReducedTaskEntryViewModel.cs" />
     <Compile Include="TaskViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

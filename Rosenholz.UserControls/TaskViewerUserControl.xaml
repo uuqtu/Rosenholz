@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rosenholz.UserControls"
              mc:Ignorable="d" 
+             Background="#1C1C1C"
+             Foreground="White"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="{x:Type GridViewColumnHeader}">
@@ -21,23 +23,20 @@
             <Setter Property="Foreground" Value="White" />
         </Style>
     </UserControl.Resources>
-    
+
     <Grid>
         <ListView Name="UserGrid" Grid.Row="1" Grid.Column="0"
-                  ItemsSource="{Binding F22CollectionView,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding CurrentF22Selected}"
+                  ItemsSource="{Binding TaskCollectionView,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding CurrentlySelectedTask}"
                   Background="#2D2D30"
                   Foreground="Green">
             <ListView.View>
                 <GridView x:Name="grdTest">
-                    <GridViewColumn Header="AU" DisplayMemberBinding="{Binding AUReference.AUReferenceString}" Width="70" />
-                    <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created}" Width="100" />
-                    <!--<GridViewColumn Header="F16F22Reference"  DisplayMemberBinding="{Binding F16F22Reference.F22String}"  Width="100"/>-->
-                    <GridViewColumn Header="Pseudonym" DisplayMemberBinding="{Binding Pseudonym}"  Width="450" />
-                    <GridViewColumn Header="Dossier" DisplayMemberBinding="{Binding Dossier}" Width="440" />
-                    <!--<GridViewColumn Header="Link" DisplayMemberBinding="{Binding Link}" Width="100" />-->
-
-
+                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" Width="200" />
+                    <GridViewColumn Header="Beschreibung" DisplayMemberBinding="{Binding Description}" Width="450" />
+                    <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created, StringFormat='[yyyy-MM-dd]@[HH:mm]'}"  Width="130" />
+                    <GridViewColumn Header="TargetDate" DisplayMemberBinding="{Binding TargetDate, StringFormat='[yyyy-MM-dd]'}" Width="80" />
+                    <GridViewColumn Header="FocusDate" DisplayMemberBinding="{Binding FocusDate, StringFormat='[yyyy-MM-dd]'}" Width="80" />
                 </GridView>
             </ListView.View>
         </ListView>

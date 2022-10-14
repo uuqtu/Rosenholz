@@ -10,19 +10,13 @@ using System.Windows;
 
 namespace Rosenholz.ViewModel
 {
-    public delegate void TaskSourceChanged(TaskModel reference);
-    public class TaskEntryViewModel : INotifyPropertyChanged
+    public class ReducedTaskEntryViewModel : INotifyPropertyChanged
     {
-        public event TaskSourceChanged TaskSourceChangedEvent;
-        private TaskModel _entry = null;
-        private string _status;
-        private string _responsible;
+        private TaskModel _entry;
 
-        public string Status { get { return _status; } set { _status = value; OnPropertyChanged(nameof(Status)); } }
-        public string Responsible { get { return _responsible; } set { _responsible = value; OnPropertyChanged(nameof(Responsible)); } }
-
-        public TaskEntryViewModel()
+        public ReducedTaskEntryViewModel()
         {
+            _entry = new TaskModel();
         }
 
         public TaskModel Entry
