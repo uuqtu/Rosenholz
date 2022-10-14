@@ -36,7 +36,6 @@ namespace Rosenholz.Task.Windows
             Vmo = new ViewModel.ReducedTaskEntryViewModel();
             Vmo.Entry.AUReference = _aufRef;
             Vmo.Entry.F16F22Reference = Rosenholz.Model.AUReference.GetMetadataF1622Reference(_aufRef);
-            Vmo.Entry.F22Reference = Rosenholz.Model.AUReference.GetMetadataF1622Reference(_aufRef);
             this.DataContext = Vmo;
         }
 

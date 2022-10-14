@@ -35,37 +35,35 @@ namespace Rosenholz.ViewModel
             }
         }
 
-        private RelayCommand _addTaskEntryCommand;
-        public RelayCommand AddTaskEntryCommand
+        private RelayCommand _addTaskItemEntryCommand;
+        public RelayCommand AddTaskItemEntryCommand
         {
             get
             {
-                if (_addTaskEntryCommand == null)
+                if (_addTaskItemEntryCommand == null)
                 {
-                    _addTaskEntryCommand = new RelayCommand(
+                    _addTaskItemEntryCommand = new RelayCommand(
                         (parameter) => AddTaskEntryExecute(parameter),
                         (parameter) => CanEcexuteTaskEntryAdd(parameter)
                     );
                 }
-                return _addTaskEntryCommand;
+                return _addTaskItemEntryCommand;
             }
         }
 
         private bool CanEcexuteTaskEntryAdd(object parameter)
         {
-            return !string.IsNullOrWhiteSpace(Entry.Title) &&
-                   !string.IsNullOrWhiteSpace(Entry.Description) &&
-                   Entry.FocusDate <= Entry.TargetDate;
+            return !string.IsNullOrWhiteSpace(Status) &&
+                   !string.IsNullOrWhiteSpace(Responsible);
         }
 
         public void AddTaskEntryExecute(object window)
         {
-            Rosenholz.Model.TaskStorage.Instance.InsertTask(Entry);
-            if (window is Window)
-            {
-                (window as Window).Close();
-            }
-
+            var tim = new TaskItemModel(Entry.Id);
+            tim.Respobsible = Responsible;
+            tim.Status = Status;
+            Entry.TaskItemItems.Add(tim);
+            Rosenholz.Model.TaskStorage.Instance.InsertTaskItem(tim);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -18,12 +18,13 @@ namespace Rosenholz.Model
         private TaskState _taskState;
         private DateTime _focusDate;
         private ObservableCollection<TaskItemModel> _taskItemItems;
+        private ObservableCollection<TaskModel> _linkedtaskItems;
 
         private string _f16f22Reference;
-        private string _f22Reference;
+        private bool _isChild;
         private string _auReference;
 
-        public TaskModel(Guid id, DateTime created, string title, string description, DateTime targetDate, TaskState taskState, DateTime focusDate, ObservableCollection<TaskItemModel> taskItemItems, string f16f22Reference, string f22Reference, string auReference)
+        public TaskModel(Guid id, DateTime created, string title, string description, DateTime targetDate, TaskState taskState, DateTime focusDate, ObservableCollection<TaskItemModel> taskItemItems, string f16f22Reference, bool isChild, string auReference, ObservableCollection<TaskModel> linkedTaskItems)
         {
             Id = id;
             Created = created;
@@ -34,8 +35,9 @@ namespace Rosenholz.Model
             FocusDate = focusDate;
             TaskItemItems = taskItemItems;
             F16F22Reference = f16f22Reference;
-            F22Reference = f22Reference;
+            IsChild = isChild;
             AUReference = auReference;
+            LinkedTaskItems = linkedTaskItems;
         }
 
         public TaskModel()
@@ -63,9 +65,10 @@ namespace Rosenholz.Model
         public TaskState TaskState { get { return _taskState; } set { _taskState = value; OnPropertyChanged(nameof(TaskState)); } }
         public DateTime FocusDate { get { return _focusDate; } set { _focusDate = value; OnPropertyChanged(nameof(FocusDate)); } }
         public string F16F22Reference { get { return _f16f22Reference; } set { _f16f22Reference = value; OnPropertyChanged(nameof(F16F22Reference)); } }
-        public string F22Reference { get { return _f22Reference; } set { _f22Reference = value; OnPropertyChanged(nameof(F22Reference)); } }
+        public bool IsChild { get { return _isChild; } set { _isChild = value; OnPropertyChanged(nameof(IsChild)); } }
         public string AUReference { get { return _auReference; } set { _auReference = value; OnPropertyChanged(nameof(AUReference)); } }
         public ObservableCollection<TaskItemModel> TaskItemItems { get { return _taskItemItems; } set { _taskItemItems = value; OnPropertyChanged(nameof(TaskItemItems)); } }
+        public ObservableCollection<TaskModel> LinkedTaskItems { get { return _linkedtaskItems; } set { _linkedtaskItems = value; OnPropertyChanged(nameof(LinkedTaskItems)); } }
         public string TaskStateString => TaskState.ToString();
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -93,6 +96,8 @@ namespace Rosenholz.Model
         Terminated = 2,
         Closed = 3,
         Archived = 4,
-        New = 99
+        Linked = 5,
+        New = 99,
+        None
     }
 }

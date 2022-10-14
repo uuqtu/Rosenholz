@@ -48,16 +48,6 @@ namespace Rosenholz.Model
                 Directory.CreateDirectory(dir);
 
 
-
-#if DEBUG
-            dir = @"C:\Users\z0035hes\Desktop\MFS\ZTV";
-#else
-            dir = Path.GetDirectoryName(Settings.Settings.Instance.TaskItemLocation);
-#endif
-
-            if (!Directory.Exists(dir))
-                Directory.CreateDirectory(dir);
-
 #if DEBUG
             using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
 #else
@@ -74,7 +64,7 @@ namespace Rosenholz.Model
                     "TARGETDATE TEXT NOT NULL," +
                     "FOCUSDATE TEXT NOT NULL," +
                     "F16F22REFERENCE TEXT NOT NULL," +
-                    "F22REFERENCE TEXT NOT NULL," +
+                    "ISCHILD TEXT NOT NULL," +
                     "AUREFERENCE TEXT NOT NULL" +
                     ");";
 
@@ -98,6 +88,22 @@ namespace Rosenholz.Model
 
                 con.CreateTable(command);
             }
+
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\linkedtaskitems.db"))
+#else
+                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
+#endif
+
+            {
+                string command =
+                    "CREATE TABLE IF NOT EXISTS LINKEDTASKITEMS (" +
+                    "PARENT TEXT NOT NULL," +
+                    "CHILD TEXT NOT NULL" +
+                    ");";
+
+                con.CreateTable(command);
+            }
         }
 
         public void InsertTask(TaskModel Insertee)
@@ -109,7 +115,7 @@ namespace Rosenholz.Model
 #endif
             {
                 string command =
-                    "INSERT INTO TASKS (ID, TASKSTATE, CREATED, TITLE, DESCRIPTION, TARGETDATE, FOCUSDATE, F16F22REFERENCE, F22REFERENCE, AUREFERENCE)" +
+                    "INSERT INTO TASKS (ID, TASKSTATE, CREATED, TITLE, DESCRIPTION, TARGETDATE, FOCUSDATE, F16F22REFERENCE, ISCHILD, AUREFERENCE)" +
                     "VALUES ('" + Insertee.Id.ToString() + "'," +
                             "'" + Insertee.TaskState.ToString() + "'," +
                             "'" + Insertee.Created.ToUniversalTime() + "'," +
@@ -118,7 +124,7 @@ namespace Rosenholz.Model
                             "'" + Insertee.TargetDate + "'," +
                             "'" + Insertee.FocusDate + "'," +
                             "'" + Insertee.F16F22Reference + "'," +
-                            "'" + Insertee.F22Reference + "'," +
+                            "'" + Insertee.IsChild + "'," +
                             "'" + Insertee.AUReference + "');";
 
                 con.InsertData(command);
@@ -145,10 +151,50 @@ namespace Rosenholz.Model
             }
         }
 
-        public IList<TaskModel> ReadTasks()
+        public void InsertChild(TaskItemModel parent, TaskItemModel child)
+        {
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\linkedtaskitems.db"))
+#else
+                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
+#endif
+
+            {
+                string command =
+                    "INSERT INTO LINKEDTASKITEMS (PARENT, CHILD)" +
+                    "VALUES ('" + parent.ReferenceId + "'," +
+                            "'" + child.ReferenceId + "');";
+
+                con.InsertData(command);
+            }
+        }
+
+        /// <summary>
+        /// Gets the Children to a parent
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <returns></returns>
+        public IList<TaskModel> GetChildren(TaskModel parent)
         {
             DataTable data = null;
-            List<TaskModel> values = new List<TaskModel>();
+            List<Guid> values = new List<Guid>();
+
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\linkedtaskitems.db"))
+#else
+                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
+#endif
+            {
+                data = con.ReadData($"SELECT CHILD FROM LINKEDTASKITEMS WHERE PARENT='{parent.Id}'");
+            }
+
+            foreach (DataRow row in data.Rows)
+            {
+                values.Add(new Guid(row["CHILD"].ToString()));
+            }
+
+            DataTable data_childs = null;
+            List<TaskModel> values_childs = new List<TaskModel>();
 
 #if DEBUG
             using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
@@ -156,35 +202,40 @@ namespace Rosenholz.Model
                         using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
 #endif
             {
-                data = con.ReadData("SELECT * FROM TASKS");
+                data_childs = con.ReadData($"SELECT * FROM TASKS WHERE ISCHILD='{true.ToString()}'");
             }
 
-            values = (from rw in data.AsEnumerable()
-                      select new TaskModel()
-                      {
-                          Id = Guid.Parse(Convert.ToString(rw["ID"])),
-                          TaskState = Model.TaskModel.ParseTaskState(Convert.ToString(rw["TASKSTATE"])),
-                          Created = DateTime.Parse(Convert.ToString(rw["CREATED"])),
-                          Title = Convert.ToString(rw["TITLE"]),
-                          Description = Convert.ToString(rw["DESCRIPTION"]),
-                          TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
-                          FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
-                          F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
-                          F22Reference = Convert.ToString(rw["F22REFERENCE"]),
-                          AUReference = Convert.ToString(rw["AUREFERENCE"])
-                      }).ToList();
+            values_childs = (from rw in data.AsEnumerable()
+                             select new TaskModel()
+                             {
+                                 Id = Guid.Parse(Convert.ToString(rw["ID"])),
+                                 TaskState = Model.TaskModel.ParseTaskState(Convert.ToString(rw["TASKSTATE"])),
+                                 Created = DateTime.Parse(Convert.ToString(rw["CREATED"])),
+                                 Title = Convert.ToString(rw["TITLE"]),
+                                 Description = Convert.ToString(rw["DESCRIPTION"]),
+                                 TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
+                                 FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
+                                 F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
+                                 IsChild = Convert.ToBoolean(rw["ISCHILD"]),
+                                 AUReference = Convert.ToString(rw["AUREFERENCE"])
+                             }).ToList();
 
-            foreach (TaskModel task in values)
+
+            var retaval = values_childs.Where(t => values.Contains(t.Id));
+
+            foreach (TaskModel task in retaval)
             {
                 task.TaskItemItems = new ObservableCollection<TaskItemModel>(ReadTaskItems(task));
             }
+
 
             //values.Sort((x, y) => y.F16F22Reference.CompareTo(x.F16F22Reference));
 
-            return values;
+            return retaval.ToList();
         }
 
-        public IList<TaskModel> ReadTasks(Rosenholz.Model.TaskState state)
+
+        public IList<TaskModel> ReadTasks(Rosenholz.Model.TaskState state = TaskState.None)
         {
             DataTable data = null;
             List<TaskModel> values = new List<TaskModel>();
@@ -195,7 +246,10 @@ namespace Rosenholz.Model
                         using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
 #endif
             {
-                data = con.ReadData($"SELECT * FROM TASKS WHERE TASKSTATE='{state.ToString()}'");
+                if (state == TaskState.None)
+                    data = con.ReadData($"SELECT * FROM TASKS WHERE ISCHILD='{false.ToString()}'");
+                else
+                    data = con.ReadData($"SELECT * FROM TASKS WHERE TASKSTATE='{state.ToString()}' AND ISCHILD='{false.ToString()}'");
             }
 
             values = (from rw in data.AsEnumerable()
@@ -209,13 +263,18 @@ namespace Rosenholz.Model
                           TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
                           FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
                           F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
-                          F22Reference = Convert.ToString(rw["F22REFERENCE"]),
+                          IsChild = Convert.ToBoolean(rw["ISCHILD"]),
                           AUReference = Convert.ToString(rw["AUREFERENCE"])
                       }).ToList();
 
             foreach (TaskModel task in values)
             {
                 task.TaskItemItems = new ObservableCollection<TaskItemModel>(ReadTaskItems(task));
+            }
+
+            foreach (TaskModel task in values)
+            {
+                task.LinkedTaskItems = new ObservableCollection<TaskModel>(GetChildren(task));
             }
 
             //values.Sort((x, y) => y.F16F22Reference.CompareTo(x.F16F22Reference));
@@ -245,11 +304,6 @@ namespace Rosenholz.Model
                           Respobsible = Convert.ToString(rw["RESPONSIBLE"]),
                           ReferenceId = Guid.Parse((Convert.ToString(rw["REFERENCEID"])))
                       }).ToList();
-
-
-
-
-
             //values.Sort((x, y) => y.F16F22Reference.CompareTo(x.F16F22Reference));
 
             return values;
