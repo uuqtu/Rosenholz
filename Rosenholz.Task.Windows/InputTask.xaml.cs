@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Rosenholz.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +20,10 @@ namespace Rosenholz.Task.Windows
     /// <summary>
     /// Interaktionslogik für InputTask.xaml
     /// </summary>
-    public partial class InputTask : Window
+    public partial class InputTask : Window, INotifyPropertyChanged
     {
-        public Rosenholz.ViewModel.TaskEntryViewModel vmo { get; set; } = null;
+        private Rosenholz.ViewModel.TaskEntryViewModel _vmo;
+        public Rosenholz.ViewModel.TaskEntryViewModel Vmo { get { return _vmo; } set { _vmo = value; OnPropertyChanged(nameof(Vmo)); } }
         private string _aufRef;
         public InputTask(string auRef)
         {
@@ -29,17 +33,22 @@ namespace Rosenholz.Task.Windows
 
         private void TaskEntryUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            vmo = new ViewModel.TaskEntryViewModel();
-            vmo.Entry.AUReference = _aufRef;
-            vmo.Entry.F16F22Reference = Rosenholz.Model.AUReference.GetMetadataF1622Reference(_aufRef);
-            vmo.Entry.F22Reference = Rosenholz.Model.AUReference.GetMetadataF1622Reference(_aufRef);
-            this.DataContext = vmo;
+            Vmo = new ViewModel.TaskEntryViewModel();
+            Vmo.Entry.AUReference = _aufRef;
+            Vmo.Entry.F16F22Reference = Rosenholz.Model.AUReference.GetMetadataF1622Reference(_aufRef);
+            Vmo.Entry.F22Reference = Rosenholz.Model.AUReference.GetMetadataF1622Reference(_aufRef);
+            this.DataContext = Vmo;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
         {
-            Rosenholz.Model.TaskStorage.Instance.InsertTask(vmo.Entry);
-            this.Close();
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }
