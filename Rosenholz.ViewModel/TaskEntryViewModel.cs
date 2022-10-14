@@ -170,6 +170,7 @@ namespace Rosenholz.ViewModel
                 Rosenholz.Model.TaskStorage.Instance.UpdateTaskState(Entry, TaskState.Closed);
             else
                 Rosenholz.Model.TaskStorage.Instance.UpdateTaskState(Entry, TaskState.New);
+            Entry = null;
             TaskSourceChangedEvent?.Invoke();
 
         }
@@ -200,11 +201,70 @@ namespace Rosenholz.ViewModel
         public void archiveTaskExecute(object window)
         {
             Rosenholz.Model.TaskStorage.Instance.UpdateTaskState(Entry, TaskState.Archived);
+            Entry = null;
             TaskSourceChangedEvent?.Invoke();
 
         }
         #endregion
 
+        #region View leeren 
+        private RelayCommand _clearTaskViewCommand;
+        public RelayCommand ClearTaskViewCommand
+        {
+            get
+            {
+                if (_clearTaskViewCommand == null)
+                {
+                    _clearTaskViewCommand = new RelayCommand(
+                        (parameter) => ClearTaskViewExecute(parameter),
+                        (parameter) => CanEcexuteclearTaskView(parameter)
+                    );
+                }
+                return _clearTaskViewCommand;
+            }
+        }
+
+        private bool CanEcexuteclearTaskView(object parameter)
+        {
+            return !(Entry == null);
+        }
+
+        public void ClearTaskViewExecute(object window)
+        {
+            Entry = null;
+            TaskSourceChangedEvent?.Invoke();
+
+        }
+        #endregion
+
+        #region Neue verlinkte Aufgabe
+        private RelayCommand _createNewLinkedTaskCommand;
+        public RelayCommand CreateNewLinkedTaskCommand
+        {
+            get
+            {
+                if (_createNewLinkedTaskCommand == null)
+                {
+                    _createNewLinkedTaskCommand = new RelayCommand(
+                        (parameter) => CreateNewLinkedTaskExecute(parameter),
+                        (parameter) => CanEcexutecreateNewLinkedTask(parameter)
+                    );
+                }
+                return _createNewLinkedTaskCommand;
+            }
+        }
+
+        private bool CanEcexutecreateNewLinkedTask(object parameter)
+        {
+            return !(Entry == null);
+        }
+
+        public void CreateNewLinkedTaskExecute(object window)
+        {
+            Entry = null;
+            TaskSourceChangedEvent?.Invoke();
+        }
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
