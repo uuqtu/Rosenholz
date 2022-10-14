@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rosenholz.Task.UserControls"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:interacitivy="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              Background="#1C1C1C" Foreground="White"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -40,15 +40,24 @@
 
         <Label Grid.Row="0" Grid.Column="0" Background="#1C1C1C" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">Titel</Label>
         <TextBox Grid.Row="0" Grid.Column="1" Background="#1C1C1C" Foreground="White" Text="{Binding Entry.Title , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-            <!--<i:Interaction.Triggers>
-                <i:EventTrigger>
-
-                </i:EventTrigger>
-            </i:Interaction.Triggers>-->
+            <interacitivy:Interaction.Triggers>
+                <interacitivy:EventTrigger EventName="TextChanged">
+                    <interacitivy:InvokeCommandAction Command="{Binding UpdateTaskCommand}">
+                    </interacitivy:InvokeCommandAction>
+                </interacitivy:EventTrigger>
+            </interacitivy:Interaction.Triggers>
         </TextBox>
 
-        <Label Grid.Row="1" Grid.Column="0" Background="#1C1C1C" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">Beschreibung</Label>
-        <TextBox Grid.Row="1" Grid.Column="1" Background="#1C1C1C" Foreground="White" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Entry.Description , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+        <Label Grid.Row="1" Grid.Column="0" Background="#1C1C1C" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">Beschreibung
+        </Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Background="#1C1C1C" Foreground="White" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Entry.Description , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <interacitivy:Interaction.Triggers>
+                <interacitivy:EventTrigger EventName="TextChanged">
+                    <interacitivy:InvokeCommandAction Command="{Binding UpdateTaskCommand}">
+                    </interacitivy:InvokeCommandAction>
+                </interacitivy:EventTrigger>
+            </interacitivy:Interaction.Triggers>
+        </TextBox>
 
         <Separator Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="0,2,0,0"></Separator>
         <Separator Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,2"></Separator>
@@ -69,12 +78,26 @@
 
             <Label Background="#1C1C1C" Foreground="White" Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Right" HorizontalContentAlignment="Right">Fokusdatum</Label>
             <DatePicker Grid.Row="0" BorderThickness="0" Grid.Column="1" Focusable="False" Margin="0,3,0,0" Background="#1C1C1C" Foreground="Blue" 
-                        VerticalContentAlignment="Center" SelectedDate="{Binding Entry.FocusDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat='[yyyy-MM-dd]@[HH:mm]'}"></DatePicker>
+                        VerticalContentAlignment="Center" SelectedDate="{Binding Entry.FocusDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat='[yyyy-MM-dd]@[HH:mm]'}">
+                <interacitivy:Interaction.Triggers>
+                    <interacitivy:EventTrigger EventName="SelectedDateChanged">
+                        <interacitivy:InvokeCommandAction Command="{Binding UpdateTaskCommand}">
+                        </interacitivy:InvokeCommandAction>
+                    </interacitivy:EventTrigger>
+                </interacitivy:Interaction.Triggers>
+            </DatePicker>
 
 
             <Label Background="#1C1C1C" Foreground="White" Grid.Row="0" Grid.Column="2"  HorizontalAlignment="Right" HorizontalContentAlignment="Right">Zieldatum</Label>
             <DatePicker Grid.Row="0" BorderThickness="0" Grid.Column="3" Focusable="False" VerticalContentAlignment="Center" Background="#1C1C1C" Foreground="Blue"
-                         Margin="0,3,0,0" SelectedDate="{Binding Entry.TargetDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat='[yyyy-MM-dd]@[HH:mm]'}"></DatePicker>
+                         Margin="0,3,0,0" SelectedDate="{Binding Entry.TargetDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat='[yyyy-MM-dd]@[HH:mm]'}">
+                <interacitivy:Interaction.Triggers>
+                    <interacitivy:EventTrigger EventName="SelectedDateChanged">
+                        <interacitivy:InvokeCommandAction Command="{Binding UpdateTaskCommand}">
+                        </interacitivy:InvokeCommandAction>
+                    </interacitivy:EventTrigger>
+                </interacitivy:Interaction.Triggers>
+            </DatePicker>
 
 
             <Label Background="#1C1C1C" Foreground="White" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" HorizontalContentAlignment="Right">Erzeugt:</Label>
@@ -111,13 +134,13 @@
 
         <ListView Name="UserGrid" Grid.Row="4" Grid.ColumnSpan="2"
                   ItemsSource="{Binding Entry.TaskItemItems,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding CurrentF22Selected}"
+                  SelectedItem="{Binding CurrentF22Selected}"                  
                   Background="#2D2D30"
                   Foreground="Green">
             <ListView.View>
                 <GridView x:Name="grdTest">
-                    <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created, StringFormat='[yyyy-MM-dd]@[HH:mm]'}" Width="70" />
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="450" />
+                    <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created, StringFormat='[yyyy-MM-dd]@[HH:mm]'}" Width="150" />
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="900" />
                     <GridViewColumn Header="Respobsible" DisplayMemberBinding="{Binding Respobsible}"  Width="100" />
                 </GridView>
             </ListView.View>

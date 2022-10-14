@@ -22,6 +22,15 @@
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="Foreground" Value="White" />
         </Style>
+
+        <!--Setzt den Fokus des einen fokussierten ELements zurück, da es mehrere Lisboxes gibt-->
+        <Style TargetType="ListViewItem">
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="false">
+                    <Setter Property="Selector.IsSelected" Value="False"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <Grid>

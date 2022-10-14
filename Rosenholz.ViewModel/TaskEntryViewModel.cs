@@ -10,10 +10,8 @@ using System.Windows;
 
 namespace Rosenholz.ViewModel
 {
-    public delegate void TaskSourceChanged(TaskModel reference);
     public class TaskEntryViewModel : INotifyPropertyChanged
     {
-        public event TaskSourceChanged TaskSourceChangedEvent;
         private TaskModel _entry = null;
         private string _status;
         private string _responsible;
@@ -91,6 +89,8 @@ namespace Rosenholz.ViewModel
             tim.Status = Status;
             Entry.TaskItemItems.Add(tim);
             Rosenholz.Model.TaskStorage.Instance.InsertTaskItem(tim);
+            Status = "";
+            Responsible = "";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

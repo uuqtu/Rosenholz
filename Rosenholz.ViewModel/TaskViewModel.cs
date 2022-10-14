@@ -32,7 +32,8 @@ namespace Rosenholz.ViewModel
             {
                 _currentlySelectedTask = value;
                 OnPropertyChanged(nameof(CurrentlySelectedTask));
-                TaskContextChangedEvent?.Invoke(CurrentlySelectedTask);
+                if (CurrentlySelectedTask != null)
+                    TaskContextChangedEvent?.Invoke(CurrentlySelectedTask);
             }
         }
 

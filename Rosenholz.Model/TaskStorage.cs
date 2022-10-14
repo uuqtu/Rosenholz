@@ -236,6 +236,7 @@ namespace Rosenholz.Model
 
         public IList<TaskModel> ReadTasks(Rosenholz.Model.TaskState state = TaskState.None)
         {
+            SetStatus();
             DataTable data = null;
             List<TaskModel> values = new List<TaskModel>();
 
@@ -279,6 +280,72 @@ namespace Rosenholz.Model
             //values.Sort((x, y) => y.F16F22Reference.CompareTo(x.F16F22Reference));
 
             return values;
+        }
+
+        private void SetStatus()
+        {
+            DataTable data = null;
+            List<TaskModel> values = new List<TaskModel>();
+
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
+#else
+                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
+#endif
+            {
+                data = con.ReadData($"SELECT * FROM TASKS WHERE ISCHILD='{false.ToString()}'");
+            }
+
+            values = (from rw in data.AsEnumerable()
+                      select new TaskModel()
+                      {
+                          Id = Guid.Parse(Convert.ToString(rw["ID"])),
+                          TaskState = Model.TaskModel.ParseTaskState(Convert.ToString(rw["TASKSTATE"])),
+                          Created = DateTime.Parse(Convert.ToString(rw["CREATED"])),
+                          Title = Convert.ToString(rw["TITLE"]),
+                          Description = Convert.ToString(rw["DESCRIPTION"]),
+                          TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
+                          FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
+                          F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
+                          IsChild = Convert.ToBoolean(rw["ISCHILD"]),
+                          AUReference = Convert.ToString(rw["AUREFERENCE"])
+                      }).ToList();
+
+
+            foreach (TaskModel task in values)
+            {
+                if (task.TaskState == TaskState.Closed || task.TaskState == TaskState.Archived)
+                    continue;
+
+                if (task.FocusDate > task.TargetDate)
+                    UpdateFocusDate(task, task.TargetDate);
+
+                if (task.Created.Year == DateTime.Now.Year && task.Created.Month == DateTime.Now.Month && task.Created.Day == DateTime.Now.Day)
+                {
+                    UpdateTaskState(task, TaskState.New);
+                    continue;
+                }
+                else if (task.FocusDate > DateTime.Now && task.TargetDate > DateTime.Now)
+                {
+                    UpdateTaskState(task, TaskState.Terminated);
+                    continue;
+                }
+                else if (task.FocusDate <= DateTime.Now && task.TargetDate > DateTime.Now)
+                {
+                    UpdateTaskState(task, TaskState.Focused);
+                    continue;
+                }
+                else if (task.TargetDate <= DateTime.Now)
+                {
+                    UpdateTaskState(task, TaskState.Due);
+                    continue;
+                }
+                else
+                {
+                    UpdateTaskState(task, TaskState.Due);
+                    continue;
+                }
+            }
         }
 
         private IList<TaskItemModel> ReadTaskItems(TaskModel task)
@@ -326,6 +393,48 @@ namespace Rosenholz.Model
                     $"DESCRIPTION = '{description}', " +
                     $"TARGETDATE = '{targetDatre}', " +
                     $"FOCUSDATE = '{focusdate}' " +
+                    $"WHERE " +
+                    $"ID = '{toUpdate.Id}'"; ;
+
+                con.UpdateData(command);
+            }
+        }
+
+        public void UpdateTaskState(TaskModel toUpdate, TaskState state)
+        {
+            DataTable data = null;
+            List<TaskItemModel> values = new List<TaskItemModel>();
+
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
+#else
+                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
+#endif
+            {
+                string command =
+                    $"UPDATE TASKS " +
+                    $"SET TASKSTATE = '{state.ToString()}' " +
+                    $"WHERE " +
+                    $"ID = '{toUpdate.Id}'"; ;
+
+                con.UpdateData(command);
+            }
+        }
+
+        public void UpdateFocusDate(TaskModel toUpdate, DateTime focusdate)
+        {
+            DataTable data = null;
+            List<TaskItemModel> values = new List<TaskItemModel>();
+
+#if DEBUG
+            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
+#else
+                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
+#endif
+            {
+                string command =
+                    $"UPDATE TASKS " +
+                    $"SET FOCUSDATE = '{focusdate}' " +
                     $"WHERE " +
                     $"ID = '{toUpdate.Id}'"; ;
 

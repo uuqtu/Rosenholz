@@ -91,13 +91,12 @@ namespace Rosenholz.Model
 
     public enum TaskState
     {
-        Open = 0,
-        Focused = 1,
-        Terminated = 2,
-        Closed = 3,
-        Archived = 4,
-        Linked = 5,
-        New = 99,
-        None
+        New = 0, // Aufgabe, die als Created Datum "heute" hat
+        Terminated = 1, // Aufgabe, die Ziel und Fokustermin in der Zukunft hat
+        Focused = 2, // --> Aufgabe, die den Fokustermin erreicht hat
+        Due = 4, //--> Aufgabe die das Zieldatum überschritten hat
+        Closed = 5,
+        Archived = 6,
+        None = 99
     }
 }
