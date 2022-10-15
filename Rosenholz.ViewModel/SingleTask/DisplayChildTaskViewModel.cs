@@ -64,7 +64,7 @@ namespace Rosenholz.ViewModel
             //Der Parent wird dem Kind übergeben, damit die Verbindung angelegt werden kann.
             var child = ChildRequredEvent?.Invoke(Entry);
             if (child != null)
-                Entry.LinkedTaskItems.Add(child);
+                Entry?.LinkedTaskItems?.Add(child);
             else
                 Entry = null;
             //Entry = null;

@@ -17,7 +17,6 @@ namespace Rosenholz.ViewModel
     public class DisplayParentTaskViewModel : DisplayTaskViewModelBase
     {
         public event TaskSourceChanged TaskSourceChangedEvent;
-        public event TaskModelViewRequired TaskModelViewRequiredEvent;
         public event ChildRequred ChildRequredEvent;
 
         public DisplayParentTaskViewModel()
@@ -112,30 +111,11 @@ namespace Rosenholz.ViewModel
             //Der Parent wird dem Kind übergeben, damit die Verbindung angelegt werden kann.
             var child = ChildRequredEvent?.Invoke(Entry);
             if (child != null)
-                Entry.LinkedTaskItems.Add(child);
+                Entry?.LinkedTaskItems?.Add(child);
             else
                 Entry = null;
             TaskSourceChangedEvent?.Invoke();
         }
         #endregion
-
-        #region Öffne verlinkte Aufgabe
-        public new RelayCommand OpenLinkedTaskCommand
-        {
-            get
-            {
-                if (_openLinkedTaskCommand == null)
-                {
-                    _openLinkedTaskCommand = new RelayCommand(
-                        (parameter) => TaskModelViewRequiredEvent?.Invoke(CurrentChildSelected),
-                        (parameter) => !(CurrentChildSelected == null)
-                    );
-                }
-                return _openLinkedTaskCommand;
-            }
-        }
-
-        #endregion
-
     }
 }

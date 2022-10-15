@@ -11,9 +11,10 @@ namespace Rosenholz.ViewModel
 {
     public delegate void TaskSourceChanged();
     public delegate TaskModel ChildRequred(TaskModel parent);
-    public delegate void TaskModelViewRequired(TaskModel parent);
+    public delegate void DisplayTaskViewModelRequired(TaskModel parent);
     public abstract class DisplayTaskViewModelBase : ViewModelBase
     {
+        public event DisplayTaskViewModelRequired DisplayTaskViewModelRequiredEvent;
         #region private
         internal TaskModel _entry;
         internal string _status;
@@ -157,6 +158,23 @@ namespace Rosenholz.ViewModel
         public abstract void CreateNewLinkedTaskExecute(object window);
         #endregion
 
+        #region Öffne verlinkte Aufgabe
+        public RelayCommand OpenLinkedTaskCommand
+        {
+            get
+            {
+                if (_openLinkedTaskCommand == null)
+                {
+                    _openLinkedTaskCommand = new RelayCommand(
+                        (parameter) => DisplayTaskViewModelRequiredEvent?.Invoke(CurrentChildSelected),
+                        (parameter) => !(CurrentChildSelected == null)
+                    );
+                }
+                return _openLinkedTaskCommand;
+            }
+        }
+
+        #endregion
 
         #region Dummy, damit Felder grau.
 
@@ -197,23 +215,6 @@ namespace Rosenholz.ViewModel
             }
         }
 
-
-
-
-        public virtual RelayCommand OpenLinkedTaskCommand
-        {
-            get
-            {
-                if (_openLinkedTaskCommand == null)
-                {
-                    _openLinkedTaskCommand = new RelayCommand(
-                        (parameter) => Dummy(parameter),
-                        (parameter) => false
-                    );
-                }
-                return _openLinkedTaskCommand;
-            }
-        }
         #endregion
 
     }

@@ -35,7 +35,14 @@ namespace Rosenholz.Task.Windows
         {
             Vmo = new ViewModel.DisplayChildTaskViewModel(_toShow);
             Vmo.ChildRequredEvent += Vmo_ChildRequredEvent;
+            Vmo.DisplayTaskViewModelRequiredEvent += Vmo_DisplayTaskViewModelRequiredEvent;
             this.DataContext = Vmo;
+        }
+
+        private void Vmo_DisplayTaskViewModelRequiredEvent(TaskModel parent)
+        {
+            Rosenholz.Task.Windows.ShowChildTaskWindow childview = new Rosenholz.Task.Windows.ShowChildTaskWindow(parent);
+            childview.ShowDialog();
         }
 
         private TaskModel Vmo_ChildRequredEvent(TaskModel parent)

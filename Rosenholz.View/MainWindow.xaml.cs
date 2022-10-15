@@ -122,7 +122,7 @@ namespace Rosenholz.Application
             TaskView.DataContext = Tevm;
             Tevm.TaskSourceChangedEvent += Tevm_TaskSourceChangedEvent;
             Tevm.ChildRequredEvent += Tevm_ChildRequredEvent;
-            Tevm.TaskModelViewRequiredEvent += Tevm_TaskModelViewRequiredEvent;
+            Tevm.DisplayTaskViewModelRequiredEvent += Tevm_TaskModelViewRequiredEvent;
         }
 
         private void Tevm_TaskModelViewRequiredEvent(TaskModel child)
