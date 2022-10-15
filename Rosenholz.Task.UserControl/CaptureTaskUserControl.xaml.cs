@@ -18,9 +18,9 @@ namespace Rosenholz.Task.UserControls
     /// <summary>
     /// Interaktionslogik für TaskEntryUserControl.xaml
     /// </summary>
-    public partial class TaskEntryUserControl : UserControl
+    public partial class CaptureTaskUserControl : UserControl
     {
-        public TaskEntryUserControl()
+        public CaptureTaskUserControl()
         {
             InitializeComponent();
         }

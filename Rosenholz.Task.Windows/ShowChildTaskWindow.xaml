@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <uc:TaskEntryUserControl Loaded="TaskEntryUserControl_Loaded" Grid.Row="0" Grid.ColumnSpan="2"></uc:TaskEntryUserControl>
+            <uc:DisplayTaskUserControl Loaded="TaskEntryUserControl_Loaded" Grid.Row="0" Grid.ColumnSpan="2"></uc:DisplayTaskUserControl>
         </Grid>
     </Grid>
 </Window>

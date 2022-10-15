@@ -54,17 +54,17 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ReducedTaskEntryUserControl.xaml.cs">
-      <DependentUpon>ReducedTaskEntryUserControl.xaml</DependentUpon>
+    <Compile Include="CaptureTaskUserControl.xaml.cs">
+      <DependentUpon>CaptureTaskUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TaskEntryUserControl.xaml.cs">
-      <DependentUpon>TaskEntryUserControl.xaml</DependentUpon>
+    <Compile Include="DisplayTaskUserControl.xaml.cs">
+      <DependentUpon>DisplayTaskUserControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="ReducedTaskEntryUserControl.xaml">
+    <Page Include="CaptureTaskUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TaskEntryUserControl.xaml">
+    <Page Include="DisplayTaskUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

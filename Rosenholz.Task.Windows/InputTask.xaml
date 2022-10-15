@@ -20,7 +20,7 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <uc:ReducedTaskEntryUserControl Loaded="TaskEntryUserControl_Loaded" Grid.Row="0" Grid.ColumnSpan="2"></uc:ReducedTaskEntryUserControl>
+        <uc:CaptureTaskUserControl Loaded="TaskEntryUserControl_Loaded" Grid.Row="0" Grid.ColumnSpan="2"></uc:CaptureTaskUserControl>
         <Button Background="#1C1C1C" Foreground="White" Grid.Column="1" Grid.Row="1" Margin="5,5,5,5" Command="{Binding AddTaskEntryCommand, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                                               CommandParameter="{Binding ElementName=InputTaskWindow}">Speichern</Button>
     </Grid>

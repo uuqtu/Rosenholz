@@ -48,7 +48,7 @@
                             <RowDefinition Height="1*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Label  Grid.Row="0" Background="#1C1C1C" Foreground="White">Eingabefenster</Label>
-                        <uc2:TaskEntryUserControl  Grid.Row="1" Background="#1C1C1C" Foreground="White" x:Name="TaskView" Loaded="TaskView_Loaded"></uc2:TaskEntryUserControl>
+                        <uc2:DisplayTaskUserControl  Grid.Row="1" Background="#1C1C1C" Foreground="White" x:Name="TaskView" Loaded="TaskView_Loaded"></uc2:DisplayTaskUserControl>
                     </Grid>
 
                     <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
