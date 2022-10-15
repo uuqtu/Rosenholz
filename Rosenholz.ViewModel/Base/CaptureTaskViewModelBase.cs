@@ -1,8 +1,6 @@
 ﻿using Rosenholz.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,14 +8,10 @@ using System.Windows;
 
 namespace Rosenholz.ViewModel
 {
-    public class ReducedTaskEntryViewModel : INotifyPropertyChanged
+    public abstract class CaptureTaskViewModelBase : ViewModelBase
     {
-        private TaskModel _entry;
-
-        public ReducedTaskEntryViewModel()
-        {
-            _entry = new TaskModel();
-        }
+        internal TaskModel _entry;
+        private RelayCommand _addTaskEntryCommand;
 
         public TaskModel Entry
         {
@@ -29,7 +23,7 @@ namespace Rosenholz.ViewModel
             }
         }
 
-        private RelayCommand _addTaskEntryCommand;
+        #region AddTaskToDatabase
         public RelayCommand AddTaskEntryCommand
         {
             get
@@ -52,23 +46,7 @@ namespace Rosenholz.ViewModel
                    Entry.FocusDate <= Entry.TargetDate;
         }
 
-        public void AddTaskEntryExecute(object window)
-        {
-            Rosenholz.Model.TaskStorage.Instance.InsertTask(Entry);
-            if (window is Window)
-            {
-                (window as Window).Close();
-            }
-
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+        public abstract void AddTaskEntryExecute(object window);
+        #endregion
     }
 }

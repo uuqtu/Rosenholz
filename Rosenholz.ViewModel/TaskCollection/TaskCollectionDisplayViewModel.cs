@@ -11,7 +11,7 @@ using System.Windows.Data;
 namespace Rosenholz.ViewModel
 {
     public delegate void TaskContextChanged(TaskModel reference);
-    public class TaskViewModel : INotifyPropertyChanged
+    public class TaskCollectionDisplayViewModel : ViewModelBase
     {
         private TaskModel _currentlySelectedTask;
         private ObservableCollection<TaskModel> _taskItems;
@@ -62,15 +62,5 @@ namespace Rosenholz.ViewModel
             _taskCollectionView = new ListCollectionView(TaskItems);
             OnPropertyChanged(nameof(TaskCollectionView));
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
     }
 }

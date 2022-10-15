@@ -16,7 +16,7 @@ using System.Windows.Data;
 namespace Rosenholz.ViewModel
 {
     public delegate void AUContextChanged(AUReference reference);
-    public class F22ViewModel : INotifyPropertyChanged
+    public class F22ViewModel : ViewModelBase
     {
         private ObservableCollection<F22> _f22List;
         private string _textFilter;
@@ -243,14 +243,6 @@ namespace Rosenholz.ViewModel
                     MessageBox.Show(ex.Message);
                 }
             }
-        }
-
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

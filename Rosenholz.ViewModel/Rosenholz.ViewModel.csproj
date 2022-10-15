@@ -92,14 +92,17 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="F16ViewModel.cs" />
-    <Compile Include="F22ViewModel.cs" />
+    <Compile Include="Base\CaptureTaskViewModelBase.cs" />
+    <Compile Include="Base\DisplayTaskViewModelBase.cs" />
+    <Compile Include="FolderManager\F16ViewModel.cs" />
+    <Compile Include="FolderManager\F22ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShowTaskEntryViewModel.cs" />
-    <Compile Include="ReducedChildTaskEntryViewModel.cs" />
-    <Compile Include="TaskEntryViewModel.cs" />
-    <Compile Include="ReducedTaskEntryViewModel.cs" />
-    <Compile Include="TaskViewModel.cs" />
+    <Compile Include="SingleTask\DisplayChildTaskViewModel.cs" />
+    <Compile Include="SingleTask\CaptureChildTaskViewModel.cs" />
+    <Compile Include="SingleTask\DisplayParentTaskViewModel.cs" />
+    <Compile Include="SingleTask\CaptureTaskViewModel.cs" />
+    <Compile Include="TaskCollection\TaskCollectionDisplayViewModel.cs" />
+    <Compile Include="Base\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rosenholz.Model\Rosenholz.Model.csproj">

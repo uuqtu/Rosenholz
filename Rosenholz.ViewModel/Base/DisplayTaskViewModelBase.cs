@@ -1,35 +1,37 @@
 ﻿using Rosenholz.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Entity.Core.Objects;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace Rosenholz.ViewModel
 {
-    public class ShowTaskEntryViewModel : INotifyPropertyChanged
+    public abstract class DisplayTaskViewModelBase : ViewModelBase
     {
-        private TaskModel _entry;
-        public string _status;
+        #region private
+        internal TaskModel _entry;
+        internal string _status;
+        internal string _openCloseButtonText => (Entry?.TaskState != TaskState.Closed) ? "Aufgabe schließen" : "Aufgabe wiedereröffnen";
+        internal RelayCommand _addTaskItemEntryCommand;
+        internal RelayCommand _updateTaskCommand;
+        internal RelayCommand _openAUFolderCommand;
+        internal RelayCommand _closeTaskCommand;
+        internal RelayCommand _openLinkedTaskCommand;
+        internal RelayCommand _createNewLinkedTaskCommand;
+        internal RelayCommand _archiveTaskCommand;
+        internal RelayCommand _clearTaskViewCommand;
+        #endregion
+
         public TaskModel CurrentChildSelected { get; set; }
         public string Status { get { return _status; } set { _status = value; OnPropertyChanged(nameof(Status)); } }
-        private string _openCloseButtonText => (Entry?.TaskState != TaskState.Closed) ? "Aufgabe schließen" : "Aufgabe wiedereröffnen";
+
         public string OpenCloseButtonText
         {
             get { return _openCloseButtonText; }
         }
-
-        public ShowTaskEntryViewModel(TaskModel entry)
-        {
-            _entry = entry;
-        }
-
         public TaskModel Entry
         {
             get { return _entry; }
@@ -37,11 +39,12 @@ namespace Rosenholz.ViewModel
             {
                 _entry = value;
                 OnPropertyChanged(nameof(Entry));
+                OnPropertyChanged(nameof(OpenCloseButtonText));
             }
         }
 
-        #region Task Item Entry 
-        private RelayCommand _addTaskItemEntryCommand;
+        #region AddTaskItemEntryCommand : Ermöglicht das Schreiben von Status-Einträgen 
+
         public RelayCommand AddTaskItemEntryCommand
         {
             get
@@ -50,18 +53,12 @@ namespace Rosenholz.ViewModel
                 {
                     _addTaskItemEntryCommand = new RelayCommand(
                         (parameter) => AddTaskEntryExecute(parameter),
-                        (parameter) => CanEcexuteTaskEntryAdd(parameter)
+                        (parameter) => !string.IsNullOrWhiteSpace(Status)
                     );
                 }
                 return _addTaskItemEntryCommand;
             }
         }
-
-        private bool CanEcexuteTaskEntryAdd(object parameter)
-        {
-            return !string.IsNullOrWhiteSpace(Status);
-        }
-
         public void AddTaskEntryExecute(object window)
         {
             if (Entry != null)
@@ -81,40 +78,7 @@ namespace Rosenholz.ViewModel
         }
         #endregion
 
-        #region Update Task 
-        private RelayCommand _updateTaskCommand;
-        public RelayCommand UpdateTaskCommand
-        {
-            get
-            {
-                if (_updateTaskCommand == null)
-                {
-                    _updateTaskCommand = new RelayCommand(
-                        (parameter) => UpdateTaskExecute(parameter),
-                        (parameter) => CanEcexuteTaskupdate(parameter)
-                    );
-                }
-                return _updateTaskCommand;
-            }
-        }
-
-        private bool CanEcexuteTaskupdate(object parameter)
-        {
-            return true;
-        }
-
-        public void UpdateTaskExecute(object window)
-        {
-            if (Entry != null)
-            {
-                Rosenholz.Model.TaskStorage.Instance.UpdateTask(Entry, Entry.TaskState, Entry.Title, Entry.Description, Entry.TargetDate, Entry.FocusDate);
-                //TaskSourceChangedEvent?.Invoke();
-            }
-        }
-        #endregion
-
-        #region Open AU Folder 
-        private RelayCommand _openAUFolderCommand;
+        #region Open AU Folder: Öffnet den Ordner des archivierten Untersuchungsvorgangs
         public RelayCommand OpenAUFolderCommand
         {
             get
@@ -122,27 +86,17 @@ namespace Rosenholz.ViewModel
                 if (_openAUFolderCommand == null)
                 {
                     _openAUFolderCommand = new RelayCommand(
-                        (parameter) => OpenAUFolderExecute(parameter),
-                        (parameter) => CanEcexuteOpenAUFolder(parameter)
+                        (parameter) => Process.Start(Path.Combine(Rosenholz.Settings.Settings.Instance.BasePath, "ZAV", Entry.AUReference.Substring(Entry.AUReference.Length - 2, 2), Entry.AUReference)),
+                    (parameter) => !(Entry?.AUReference == null)
                     );
                 }
                 return _openAUFolderCommand;
             }
         }
 
-        private bool CanEcexuteOpenAUFolder(object parameter)
-        {
-            return !(Entry?.AUReference == null);
-        }
-
-        public void OpenAUFolderExecute(object window)
-        {
-            Process.Start(Path.Combine(Rosenholz.Settings.Settings.Instance.BasePath, "ZAV", Entry.AUReference.Substring(Entry.AUReference.Length - 2, 2), Entry.AUReference));
-        }
         #endregion
 
-        #region Aufgabe schließen
-        private RelayCommand _closeTaskCommand;
+        #region Aufgabe schließen: Setzen des Closed Task-State
         public RelayCommand CloseTaskCommand
         {
             get
@@ -151,32 +105,35 @@ namespace Rosenholz.ViewModel
                 {
                     _closeTaskCommand = new RelayCommand(
                         (parameter) => CloseTaskExecute(parameter),
-                        (parameter) => CanEcexuteCloseTask(parameter)
+                        (parameter) => !(Entry == null)
                     );
                 }
                 return _closeTaskCommand;
             }
         }
 
-        private bool CanEcexuteCloseTask(object parameter)
-        {
-            return !(Entry == null);
-        }
+        public abstract void CloseTaskExecute(object window);
+        #endregion
 
-        public void CloseTaskExecute(object window)
+        #region Update To Database: Writes Changes. 
+        public RelayCommand UpdateTaskCommand
         {
-            if (Entry?.TaskState != TaskState.Closed)
-                Rosenholz.Model.TaskStorage.Instance.UpdateTaskState(Entry, TaskState.Closed);
-            else
-                Rosenholz.Model.TaskStorage.Instance.UpdateTaskState(Entry, TaskState.New);
-            Entry = null;
-
-            if (window is Window)
+            get
             {
-                (window as Window).Close();
+                if (_updateTaskCommand == null)
+                {
+                    _updateTaskCommand = new RelayCommand(
+                        (parameter) => UpdateTaskExecute(parameter),
+                        (parameter) => true
+                    );
+                }
+                return _updateTaskCommand;
             }
         }
+
+        public abstract void UpdateTaskExecute(object parameter);
         #endregion
+
 
         #region Dummy, damit Felder grau.
 
@@ -185,8 +142,8 @@ namespace Rosenholz.ViewModel
             return !(Entry == null);
         }
 
-        private RelayCommand _archiveTaskCommand;
-        public RelayCommand ArchiveTaskCommand
+
+        public virtual RelayCommand ArchiveTaskCommand
         {
             get
             {
@@ -202,9 +159,7 @@ namespace Rosenholz.ViewModel
         }
 
 
-
-        private RelayCommand _clearTaskViewCommand;
-        public RelayCommand ClearTaskViewCommand
+        public virtual RelayCommand ClearTaskViewCommand
         {
             get
             {
@@ -219,8 +174,8 @@ namespace Rosenholz.ViewModel
             }
         }
 
-        private RelayCommand _createNewLinkedTaskCommand;
-        public RelayCommand CreateNewLinkedTaskCommand
+
+        public virtual RelayCommand CreateNewLinkedTaskCommand
         {
             get
             {
@@ -235,8 +190,8 @@ namespace Rosenholz.ViewModel
             }
         }
 
-        private RelayCommand _openLinkedTaskCommand;
-        public RelayCommand OpenLinkedTaskCommand
+
+        public virtual RelayCommand OpenLinkedTaskCommand
         {
             get
             {
@@ -252,15 +207,5 @@ namespace Rosenholz.ViewModel
         }
         #endregion
 
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
     }
 }

@@ -63,7 +63,7 @@ namespace Rosenholz.Model
         public string Title { get { return _title; } set { _title = value; OnPropertyChanged(nameof(Title)); } }
         public string Description { get { return _description; } set { _description = value; OnPropertyChanged(nameof(Description)); } }
         public DateTime TargetDate { get { return _targetDate; } set { _targetDate = value; OnPropertyChanged(nameof(TargetDate)); } }
-        public TaskState TaskState { get { return _taskState; } set { _taskState = value; OnPropertyChanged(nameof(TaskState)); } }
+        public TaskState TaskState { get { return _taskState; } set { _taskState = value; OnPropertyChanged(nameof(TaskState)); OnPropertyChanged(nameof(TaskStateString)); } }
         public DateTime FocusDate { get { return _focusDate; } set { _focusDate = value; OnPropertyChanged(nameof(FocusDate)); } }
         public string F16F22Reference { get { return _f16f22Reference; } set { _f16f22Reference = value; OnPropertyChanged(nameof(F16F22Reference)); } }
         public bool IsChild { get { return _isChild; } set { _isChild = value; OnPropertyChanged(nameof(IsChild)); } }

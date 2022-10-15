@@ -22,8 +22,8 @@ namespace Rosenholz.Task.Windows
     public partial class InputChildTaskWindow : Window, INotifyPropertyChanged
     {
         private TaskModel _parent;
-        private Rosenholz.ViewModel.ReducedChildTaskEntryViewModel _vmo;
-        public Rosenholz.ViewModel.ReducedChildTaskEntryViewModel Vmo { get { return _vmo; } set { _vmo = value; OnPropertyChanged(nameof(Vmo)); } }
+        private Rosenholz.ViewModel.CaptureChildTaskViewModel _vmo;
+        public Rosenholz.ViewModel.CaptureChildTaskViewModel Vmo { get { return _vmo; } set { _vmo = value; OnPropertyChanged(nameof(Vmo)); } }
 
         public InputChildTaskWindow(TaskModel parent)
         {
@@ -33,7 +33,7 @@ namespace Rosenholz.Task.Windows
 
         private void TaskEntryUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Vmo = new ViewModel.ReducedChildTaskEntryViewModel(_parent);
+            Vmo = new ViewModel.CaptureChildTaskViewModel(_parent);
             this.DataContext = Vmo;
         }
 
