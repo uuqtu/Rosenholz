@@ -7,19 +7,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Rosenholz.View
+namespace Rosenholz.Application
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             InitialSettings settingsWindow = new InitialSettings();
             MainWindow mainWindow = new MainWindow();
 
-            settingsWindow.ShowDialog();            
+            settingsWindow.ShowDialog();
             mainWindow.Show();
         }
     }

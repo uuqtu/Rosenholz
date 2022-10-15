@@ -81,17 +81,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="InitialSettings.xaml.cs">
+    <Compile Include="Settings\InitialSettings.xaml.cs">
       <DependentUpon>InitialSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InputBox.xaml.cs">
+    <Compile Include="Misc\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
-    <Page Include="CreateF16.xaml">
+    <Page Include="FolderManager\CreateF16.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CreateF22Entry.xaml">
+    <Page Include="FolderManager\CreateF22Entry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,17 +99,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CreateF16.xaml.cs">
+    <Compile Include="FolderManager\CreateF16.xaml.cs">
       <DependentUpon>CreateF16.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CreateF22Entry.xaml.cs">
+    <Compile Include="FolderManager\CreateF22Entry.xaml.cs">
       <DependentUpon>CreateF22Entry.xaml</DependentUpon>
     </Compile>
-    <Page Include="InitialSettings.xaml">
+    <Page Include="Settings\InitialSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InputBox.xaml">
+    <Page Include="Misc\InputBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

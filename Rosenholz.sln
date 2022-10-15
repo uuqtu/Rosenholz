@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.Model", "Rosenhol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.ViewModel", "Rosenholz.ViewModel\Rosenholz.ViewModel.csproj", "{FEA34100-3C69-4263-B564-936412F8A199}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.View", "Rosenholz.View\Rosenholz.View.csproj", "{326891B5-FFAF-4727-8479-1A6CA8A6995D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.Application", "Rosenholz.View\Rosenholz.Application.csproj", "{326891B5-FFAF-4727-8479-1A6CA8A6995D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.UserControls", "Rosenholz.UserControls\Rosenholz.UserControls.csproj", "{7BF75D80-1154-455F-BC12-07ED82CE87B9}"
 EndProject
