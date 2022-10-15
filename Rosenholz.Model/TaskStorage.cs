@@ -64,7 +64,7 @@ namespace Rosenholz.Model
                     "TARGETDATE TEXT NOT NULL," +
                     "FOCUSDATE TEXT NOT NULL," +
                     "F16F22REFERENCE TEXT NOT NULL," +
-                    "ISCHILD TEXT NOT NULL," +
+                    "LEVEL TEXT NOT NULL," +
                     "AUREFERENCE TEXT NOT NULL" +
                     ");";
 
@@ -115,7 +115,7 @@ namespace Rosenholz.Model
 #endif
             {
                 string command =
-                    "INSERT INTO TASKS (ID, TASKSTATE, CREATED, TITLE, DESCRIPTION, TARGETDATE, FOCUSDATE, F16F22REFERENCE, ISCHILD, AUREFERENCE)" +
+                    "INSERT INTO TASKS (ID, TASKSTATE, CREATED, TITLE, DESCRIPTION, TARGETDATE, FOCUSDATE, F16F22REFERENCE, LEVEL, AUREFERENCE)" +
                     "VALUES ('" + Insertee.Id.ToString() + "'," +
                             "'" + Insertee.TaskState.ToString() + "'," +
                             "'" + Insertee.Created.ToUniversalTime() + "'," +
@@ -124,7 +124,7 @@ namespace Rosenholz.Model
                             "'" + Insertee.TargetDate + "'," +
                             "'" + Insertee.FocusDate + "'," +
                             "'" + Insertee.F16F22Reference + "'," +
-                            "'" + Insertee.IsChild + "'," +
+                            "'" + Insertee.Level + "'," +
                             "'" + Insertee.AUReference + "');";
 
                 con.InsertData(command);
@@ -201,7 +201,7 @@ namespace Rosenholz.Model
                         using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
 #endif
             {
-                data_childs = con.ReadData($"SELECT * FROM TASKS WHERE ISCHILD='{true.ToString()}'");
+                data_childs = con.ReadData($"SELECT * FROM TASKS WHERE LEVEL='{parent.Level + 1}'");
             }
 
             values_childs = (from rw in data_childs.AsEnumerable()
@@ -215,7 +215,7 @@ namespace Rosenholz.Model
                                  TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
                                  FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
                                  F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
-                                 IsChild = Convert.ToBoolean(rw["ISCHILD"]),
+                                 Level = Convert.ToInt32(rw["LEVEL"]),
                                  AUReference = Convert.ToString(rw["AUREFERENCE"])
                              }).ToList();
 
@@ -227,6 +227,10 @@ namespace Rosenholz.Model
                 task.TaskItemItems = new ObservableCollection<TaskItemModel>(ReadTaskItems(task));
             }
 
+            foreach (TaskModel task in retaval)
+            {
+                task.LinkedTaskItems = new ObservableCollection<TaskModel>(GetChildren(task));
+            }
 
             //values.Sort((x, y) => y.F16F22Reference.CompareTo(x.F16F22Reference));
 
@@ -247,9 +251,9 @@ namespace Rosenholz.Model
 #endif
             {
                 if (state == TaskState.None)
-                    data = con.ReadData($"SELECT * FROM TASKS WHERE ISCHILD='{false.ToString()}'");
+                    data = con.ReadData($"SELECT * FROM TASKS WHERE LEVEL='0'");
                 else
-                    data = con.ReadData($"SELECT * FROM TASKS WHERE TASKSTATE='{state.ToString()}' AND ISCHILD='{false.ToString()}'");
+                    data = con.ReadData($"SELECT * FROM TASKS WHERE TASKSTATE='{state.ToString()}' AND LEVEL='0'");
             }
 
             values = (from rw in data.AsEnumerable()
@@ -263,7 +267,7 @@ namespace Rosenholz.Model
                           TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
                           FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
                           F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
-                          IsChild = Convert.ToBoolean(rw["ISCHILD"]),
+                          Level = Convert.ToInt32(rw["LEVEL"]),
                           AUReference = Convert.ToString(rw["AUREFERENCE"])
                       }).ToList();
 
@@ -293,7 +297,7 @@ namespace Rosenholz.Model
                         using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
 #endif
             {
-                data = con.ReadData($"SELECT * FROM TASKS WHERE ISCHILD='{false.ToString()}'");
+                data = con.ReadData($"SELECT * FROM TASKS WHERE LEVEL='{false.ToString()}'");
             }
 
             values = (from rw in data.AsEnumerable()
@@ -307,7 +311,7 @@ namespace Rosenholz.Model
                           TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
                           FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
                           F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
-                          IsChild = Convert.ToBoolean(rw["ISCHILD"]),
+                          Level = Convert.ToInt32(rw["LEVEL"]),
                           AUReference = Convert.ToString(rw["AUREFERENCE"])
                       }).ToList();
 

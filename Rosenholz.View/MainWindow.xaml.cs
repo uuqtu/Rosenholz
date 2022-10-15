@@ -131,10 +131,11 @@ namespace Rosenholz.Application
             childview.ShowDialog();
         }
 
-        private void Tevm_ChildRequredEvent(TaskModel parent)
+        private TaskModel Tevm_ChildRequredEvent(TaskModel parent)
         {
             Rosenholz.Task.Windows.InputChildTaskWindow child = new Rosenholz.Task.Windows.InputChildTaskWindow(parent);
             child.ShowDialog();
+            return child.ReturnValue;
         }
 
 

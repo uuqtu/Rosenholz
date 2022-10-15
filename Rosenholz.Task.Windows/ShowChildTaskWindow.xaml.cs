@@ -34,9 +34,16 @@ namespace Rosenholz.Task.Windows
         private void TaskEntryUserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Vmo = new ViewModel.DisplayChildTaskViewModel(_toShow);
+            Vmo.ChildRequredEvent += Vmo_ChildRequredEvent;
             this.DataContext = Vmo;
         }
 
+        private TaskModel Vmo_ChildRequredEvent(TaskModel parent)
+        {
+            Rosenholz.Task.Windows.InputChildTaskWindow child = new Rosenholz.Task.Windows.InputChildTaskWindow(parent);
+            child.ShowDialog();
+            return child.ReturnValue;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)

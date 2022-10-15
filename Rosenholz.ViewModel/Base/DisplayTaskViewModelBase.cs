@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Rosenholz.ViewModel
 {
+    public delegate void TaskSourceChanged();
+    public delegate TaskModel ChildRequred(TaskModel parent);
+    public delegate void TaskModelViewRequired(TaskModel parent);
     public abstract class DisplayTaskViewModelBase : ViewModelBase
     {
         #region private
@@ -134,6 +137,26 @@ namespace Rosenholz.ViewModel
         public abstract void UpdateTaskExecute(object parameter);
         #endregion
 
+        #region Neue verlinkte Aufgabe
+        public RelayCommand CreateNewLinkedTaskCommand
+        {
+            get
+            {
+                if (_createNewLinkedTaskCommand == null)
+                {
+                    _createNewLinkedTaskCommand = new RelayCommand(
+                        (parameter) => CreateNewLinkedTaskExecute(parameter),
+                        (parameter) => !(Entry == null)
+                    );
+                }
+                return _createNewLinkedTaskCommand;
+            }
+        }
+
+
+        public abstract void CreateNewLinkedTaskExecute(object window);
+        #endregion
+
 
         #region Dummy, damit Felder grau.
 
@@ -175,20 +198,6 @@ namespace Rosenholz.ViewModel
         }
 
 
-        public virtual RelayCommand CreateNewLinkedTaskCommand
-        {
-            get
-            {
-                if (_createNewLinkedTaskCommand == null)
-                {
-                    _createNewLinkedTaskCommand = new RelayCommand(
-                        (parameter) => Dummy(parameter),
-                        (parameter) => false
-                    );
-                }
-                return _createNewLinkedTaskCommand;
-            }
-        }
 
 
         public virtual RelayCommand OpenLinkedTaskCommand

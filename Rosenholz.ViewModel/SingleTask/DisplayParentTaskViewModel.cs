@@ -13,14 +13,12 @@ using System.Windows;
 namespace Rosenholz.ViewModel
 {
 
-    public delegate void TaskSourceChanged();
-    public delegate void ChildRequred(TaskModel parent);
-    public delegate void TaskModelViewRequired(TaskModel parent);
+
     public class DisplayParentTaskViewModel : DisplayTaskViewModelBase
     {
         public event TaskSourceChanged TaskSourceChangedEvent;
-        public event ChildRequred ChildRequredEvent;
         public event TaskModelViewRequired TaskModelViewRequiredEvent;
+        public event ChildRequred ChildRequredEvent;
 
         public DisplayParentTaskViewModel()
         {
@@ -108,27 +106,15 @@ namespace Rosenholz.ViewModel
         #endregion
 
         #region Neue verlinkte Aufgabe
-        public new RelayCommand CreateNewLinkedTaskCommand
-        {
-            get
-            {
-                if (_createNewLinkedTaskCommand == null)
-                {
-                    _createNewLinkedTaskCommand = new RelayCommand(
-                        (parameter) => CreateNewLinkedTaskExecute(parameter),
-                        (parameter) => !(Entry == null)
-                    );
-                }
-                return _createNewLinkedTaskCommand;
-            }
-        }
 
-
-        public void CreateNewLinkedTaskExecute(object window)
+        public override void CreateNewLinkedTaskExecute(object window)
         {
             //Der Parent wird dem Kind übergeben, damit die Verbindung angelegt werden kann.
-            ChildRequredEvent?.Invoke(Entry);
-            Entry = null;
+            var child = ChildRequredEvent?.Invoke(Entry);
+            if (child != null)
+                Entry.LinkedTaskItems.Add(child);
+            else
+                Entry = null;
             TaskSourceChangedEvent?.Invoke();
         }
         #endregion

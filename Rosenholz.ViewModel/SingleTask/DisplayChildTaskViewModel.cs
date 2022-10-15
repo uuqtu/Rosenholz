@@ -17,6 +17,8 @@ namespace Rosenholz.ViewModel
     public class DisplayChildTaskViewModel : DisplayTaskViewModelBase
     {
 
+        public event ChildRequred ChildRequredEvent;
+
         public DisplayChildTaskViewModel(TaskModel entry)
         {
             base._entry = entry;
@@ -57,7 +59,20 @@ namespace Rosenholz.ViewModel
             Entry = Entry;
         }
 
-#warning Modelle vereinheitlichen Children auch erlauben Children zu haben.
+        public override void CreateNewLinkedTaskExecute(object window)
+        {
+            //Der Parent wird dem Kind übergeben, damit die Verbindung angelegt werden kann.
+            var child = ChildRequredEvent?.Invoke(Entry);
+            if (child != null)
+                Entry.LinkedTaskItems.Add(child);
+            else
+                Entry = null;
+            //Entry = null;
+#warning hier muss noch irgendwie einmal neu Laden getriggert werden
+            //TaskSourceChangedEvent?.Invoke();
+        }
+
+
 
     }
 }
