@@ -10,7 +10,7 @@ namespace Rosenholz.Model
     public sealed class FolderManager
     {
 
-        private static string _basePath => Settings.Settings.Instance.BasePath;
+        private static string _basePath => Settings.Settings.Instance.StorageBaseLocation;
         private static readonly FolderManager instance = new FolderManager();
         private static string _parentPrefixForAuFolder = "ZAV";
 

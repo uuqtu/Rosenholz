@@ -36,13 +36,13 @@ namespace Rosenholz.Model
 
         public void CreateTable()
         {
-            string dir = Path.GetDirectoryName(Settings.Settings.Instance.F22Location);
+            string dir = Settings.Settings.Instance.F22SubLocation;
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
 
-            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F22Location))
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.F22SubLocation, Settings.Settings.Instance.F22FileName)))
             {
                 string command =
                     "CREATE TABLE IF NOT EXISTS F22 (" +
@@ -60,7 +60,7 @@ namespace Rosenholz.Model
 
         public void InsertData(F22 Insertee)
         {
-            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F22Location))
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.F22SubLocation, Settings.Settings.Instance.F22FileName)))
             {
                 string command =
                     "INSERT INTO F22 (AUREFERENCE, F16F22REFERENCE, PSEUDONYM, CREATED, LINK, DOSSIER)" +
@@ -75,7 +75,7 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<F22> values = new List<F22>();
 
-            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F22Location))
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.F22SubLocation, Settings.Settings.Instance.F22FileName)))
             {
                 data = con.ReadData("SELECT * FROM F22");
             }
@@ -101,7 +101,7 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<F22> values = new List<F22>();
 
-            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F22Location))
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.F22SubLocation, Settings.Settings.Instance.F22FileName)))
             {
                 data = con.ReadData($"SELECT * FROM F22 WHERE F16F22REFERENCE=\'{f16F22Reference}\'");
             }
@@ -127,7 +127,7 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<F22> values = new List<F22>();
 
-            using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.F22Location))
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.F22SubLocation, Settings.Settings.Instance.F22FileName)))
             {
                 data = con.ReadData($"SELECT * FROM F22 WHERE F16F22REFERENCE = '{reference.F22String}'");
             }

@@ -109,7 +109,7 @@ namespace Rosenholz.UserControls.FolderExplorer
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            CurrentFolder = Settings.Settings.Instance.BasePath;
+            CurrentFolder = Settings.Settings.Instance.StorageBaseLocation;
             //Directory.GetCurrentDirectory();
         }
 

@@ -155,7 +155,7 @@ namespace Rosenholz.ViewModel
         {
             var text = (string)parameter;
             var items = F16Storage.Instance.ReadData();
-            string dir = Path.GetDirectoryName(Settings.Settings.Instance.F16Location);
+            string dir = Settings.Settings.Instance.F16SubLocation;
 
 
             string literals = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -242,7 +242,7 @@ namespace Rosenholz.ViewModel
         public void ArchiveF16Execute(object parameter)
         {
             var text = (string)parameter;
-            string dir = Path.GetDirectoryName(Settings.Settings.Instance.F16Location);
+            string dir = Settings.Settings.Instance.F16SubLocation;
 
             if (!Directory.Exists(Path.Combine(dir, "_archive")))
                 Directory.CreateDirectory(Path.Combine(dir, "_archive"));
@@ -253,7 +253,7 @@ namespace Rosenholz.ViewModel
             {
                 try
                 {
-                    zip.CreateEntryFromFile(Settings.Settings.Instance.F16Location, Path.GetFileName(Settings.Settings.Instance.F16Location));
+                    zip.CreateEntryFromFile(Settings.Settings.Instance.F16SubLocation, Settings.Settings.Instance.F16FileName);
                 }
                 catch (Exception ex)
                 {

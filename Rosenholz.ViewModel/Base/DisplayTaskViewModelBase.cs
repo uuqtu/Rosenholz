@@ -90,7 +90,7 @@ namespace Rosenholz.ViewModel
                 if (_openAUFolderCommand == null)
                 {
                     _openAUFolderCommand = new RelayCommand(
-                        (parameter) => Process.Start(Path.Combine(Rosenholz.Settings.Settings.Instance.BasePath, "ZAV", Entry.AUReference.Substring(Entry.AUReference.Length - 2, 2), Entry.AUReference)),
+                        (parameter) => Process.Start(Path.Combine(Rosenholz.Settings.Settings.Instance.StorageBaseLocation, "ZAV", Entry.AUReference.Substring(Entry.AUReference.Length - 2, 2), Entry.AUReference)),
                     (parameter) => !(Entry?.AUReference == null)
                     );
                 }

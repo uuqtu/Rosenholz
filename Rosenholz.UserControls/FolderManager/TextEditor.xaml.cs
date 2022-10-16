@@ -78,7 +78,7 @@ namespace Rosenholz.UserControls
 
             
 
-            if (CurrentFolder?.Contains(Settings.Settings.Instance.BasePath) != true)
+            if (CurrentFolder?.Contains(Settings.Settings.Instance.StorageBaseLocation) != true)
                 return;
 
             string noteDirectory = System.IO.Path.Combine(CurrentFolder, "_notes");
@@ -118,7 +118,7 @@ namespace Rosenholz.UserControls
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (CurrentFolder?.Contains(Settings.Settings.Instance.BasePath) != true)
+            if (CurrentFolder?.Contains(Settings.Settings.Instance.StorageBaseLocation) != true)
                 return;
 
             string noteDirectory = System.IO.Path.Combine(CurrentFolder, "_notes");
