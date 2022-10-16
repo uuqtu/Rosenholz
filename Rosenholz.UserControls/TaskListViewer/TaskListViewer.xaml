@@ -9,9 +9,116 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <!--RowDetailsTemplate="{StaticResource RowDetailsTemplate}" für hierarchisches Aufklappen-->
+        <!--Damit das funktioniert hab ich das mehrfach hier runter kopiert, das geht sicher auch schöner-->
+        <!--Mehr als 10 nested Ebenen halte ich aber hal tauch für unwahrscheinlich-->
+
+        <DataTemplate x:Key="RowDetailsTemplate9">
+            <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="TargetDate" Binding="{Binding TargetDate, StringFormat='yyyy-MM-dd'}" Width="80" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="300" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="300" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="RowDetailsTemplate8">
+            <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate9}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="TargetDate" Binding="{Binding TargetDate, StringFormat='yyyy-MM-dd'}" Width="80" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="300" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="300" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="RowDetailsTemplate7">
+            <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate8}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="TargetDate" Binding="{Binding TargetDate, StringFormat='yyyy-MM-dd'}" Width="80" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="300" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="300" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="RowDetailsTemplate6">
+            <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate7}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="TargetDate" Binding="{Binding TargetDate, StringFormat='yyyy-MM-dd'}" Width="80" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="300" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="300" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="RowDetailsTemplate5">
+            <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate6}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="TargetDate" Binding="{Binding TargetDate, StringFormat='yyyy-MM-dd'}" Width="80" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="300" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="300" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="RowDetailsTemplate4">
+            <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate5}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="TargetDate" Binding="{Binding TargetDate, StringFormat='yyyy-MM-dd'}" Width="80" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="300" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="300" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="RowDetailsTemplate3">
+            <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate4}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="TargetDate" Binding="{Binding TargetDate, StringFormat='yyyy-MM-dd'}" Width="80" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="300" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="300" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="RowDetailsTemplate2">
+            <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate3}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="TargetDate" Binding="{Binding TargetDate, StringFormat='yyyy-MM-dd'}" Width="80" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="300" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="300" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DataTemplate>
+
         <DataTemplate x:Key="RowDetailsTemplate">
             <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate}">
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False"  RowDetailsTemplate="{StaticResource RowDetailsTemplate2}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
