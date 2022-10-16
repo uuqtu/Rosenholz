@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
+    <Version>2.0.1</Version>
+    <Authors>Dario Santarelli</Authors>
+    <Description>TextTableFormatter is a .NET porting of Java TextTableFormatter. This library renders tables made of characters. The user add cells and can add format characteristics like predefined/custom table styles, text alignment, abbreviation, column width, border types, colspan, etc.</Description>
+    <Copyright>Copyright © Dario Santarelli</Copyright>
+    <RepositoryUrl>https://github.com/dsantarelli/TextTableFormatter.NET</RepositoryUrl>
+    <PackageReleaseNotes>TextTableFormatter.NET currently supports dotnet standard 2.0</PackageReleaseNotes>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/dsantarelli/TextTableFormatter.NET</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>text table formatter</PackageTags>
+    <PackageId>TextTableFormatter.NET</PackageId>
+    <Product>TextTableFormatter.NET</Product>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -89,6 +89,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rosenholz.Extensions\Rosenholz.Extensions.csproj">
+      <Project>{600f43e5-24e2-4289-83ed-c74d6e4e1cc2}</Project>
+      <Name>Rosenholz.Extensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rosenholz.Model\Rosenholz.Model.csproj">
       <Project>{c2d92b4d-b9b3-486f-b889-79474a319c7e}</Project>
       <Name>Rosenholz.Model</Name>
