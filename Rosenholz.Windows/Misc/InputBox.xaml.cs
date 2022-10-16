@@ -23,7 +23,7 @@ namespace Rosenholz.Windows
     public partial class InputBox : Window, INotifyPropertyChanged
     {
 
-        private string _inputString;
+        private string _inputString = Environment.MachineName + "_";
         public string InputString
         {
             get

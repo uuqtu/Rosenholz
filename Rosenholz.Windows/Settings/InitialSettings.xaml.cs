@@ -236,7 +236,11 @@ namespace Rosenholz.Windows
         {
             InputBox box = new InputBox("Wie soll die SettingsDatei heißen?");
             box.ShowDialog();
+
             var str = box.InputString;
+            if (string.IsNullOrWhiteSpace(box.InputString))
+                return;
+
             IniFile var = new IniFile(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{str}.ini"));
             var.IniWriteValue("Admin", nameof(Position), 2);
             var.IniWriteValue("Storage", nameof(StorageBaseLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS"));

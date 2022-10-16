@@ -37,22 +37,14 @@ namespace Rosenholz.Model
         public void CreateTable()
         {
 
-#if DEBUG
-            string dir = @"C:\Users\z0035hes\Desktop\MFS\ZTV";
-#else
-            string dir = Path.GetDirectoryName(Settings.Settings.Instance.TaskLocation);
-#endif
-
+            string dir = Settings.Settings.Instance.TaskSubLocation;
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
 
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
-#else
-                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
-#endif
+
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TasksFileName)))
             {
                 string command =
                     "CREATE TABLE IF NOT EXISTS TASKS (" +
@@ -71,12 +63,7 @@ namespace Rosenholz.Model
                 con.CreateTable(command);
             }
 
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\taskitems.db"))
-#else
-                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
-#endif
-
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TaskItemsFileName)))
             {
                 string command =
                     "CREATE TABLE IF NOT EXISTS TASKITEMS (" +
@@ -89,12 +76,7 @@ namespace Rosenholz.Model
                 con.CreateTable(command);
             }
 
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\linkedtaskitems.db"))
-#else
-                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
-#endif
-
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TaskLinkFileName)))
             {
                 string command =
                     "CREATE TABLE IF NOT EXISTS LINKEDTASKITEMS (" +
@@ -108,11 +90,7 @@ namespace Rosenholz.Model
 
         public void InsertTask(TaskModel Insertee)
         {
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
-#else
-                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
-#endif
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TasksFileName)))
             {
                 string command =
                     "INSERT INTO TASKS (ID, TASKSTATE, CREATED, TITLE, DESCRIPTION, TARGETDATE, FOCUSDATE, F16F22REFERENCE, LEVEL, AUREFERENCE)" +
@@ -133,12 +111,7 @@ namespace Rosenholz.Model
 
         public void InsertTaskItem(TaskItemModel Insertee)
         {
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\taskitems.db"))
-#else
-                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
-#endif
-
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TaskItemsFileName)))
             {
                 string command =
                     "INSERT INTO TASKITEMS (CREATED, STATUS, RESPONSIBLE, REFERENCEID)" +
@@ -153,19 +126,17 @@ namespace Rosenholz.Model
 
         public void InsertChild(TaskModel parent, TaskModel child)
         {
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\linkedtaskitems.db"))
-#else
-                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
-#endif
-
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TaskLinkFileName)))
             {
-                string command =
-                    "INSERT INTO LINKEDTASKITEMS (PARENT, CHILD)" +
-                    "VALUES ('" + parent.Id + "'," +
-                            "'" + child.Id + "');";
 
-                con.InsertData(command);
+                {
+                    string command =
+                        "INSERT INTO LINKEDTASKITEMS (PARENT, CHILD)" +
+                        "VALUES ('" + parent.Id + "'," +
+                                "'" + child.Id + "');";
+
+                    con.InsertData(command);
+                }
             }
         }
         /// <summary>
@@ -178,11 +149,7 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<Guid> values = new List<Guid>();
 
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\linkedtaskitems.db"))
-#else
-                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
-#endif
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TaskLinkFileName)))
             {
                 data = con.ReadData($"SELECT CHILD FROM LINKEDTASKITEMS WHERE PARENT='{parent.Id}'");
             }
@@ -195,11 +162,7 @@ namespace Rosenholz.Model
             DataTable data_childs = null;
             List<TaskModel> values_childs = new List<TaskModel>();
 
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
-#else
-                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
-#endif
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TasksFileName)))
             {
                 data_childs = con.ReadData($"SELECT * FROM TASKS WHERE LEVEL='{parent.Level + 1}'");
             }
@@ -244,11 +207,7 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<TaskModel> values = new List<TaskModel>();
 
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
-#else
-                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
-#endif
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TasksFileName)))
             {
                 if (state == TaskState.None)
                     data = con.ReadData($"SELECT * FROM TASKS WHERE LEVEL='0'");
@@ -291,11 +250,7 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<TaskModel> values = new List<TaskModel>();
 
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
-#else
-                        using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskLocation))
-#endif
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TasksFileName)))
             {
                 data = con.ReadData($"SELECT * FROM TASKS WHERE LEVEL='{false.ToString()}'");
             }
@@ -357,11 +312,7 @@ namespace Rosenholz.Model
             DataTable data = null;
             List<TaskItemModel> values = new List<TaskItemModel>();
 
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\taskitems.db"))
-#else
-                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
-#endif
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TaskItemsFileName)))
             {
                 data = con.ReadData($"SELECT * FROM TASKITEMS WHERE REFERENCEID = '{task.Id}'");
             }
@@ -382,12 +333,7 @@ namespace Rosenholz.Model
         public void UpdateTask(TaskModel toUpdate, TaskState state, string title, string description, DateTime targetDatre, DateTime focusdate)
         {
             List<TaskItemModel> values = new List<TaskItemModel>();
-
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
-#else
-                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
-#endif
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TasksFileName)))
             {
                 string command =
                     $"UPDATE TASKS " +
@@ -407,11 +353,7 @@ namespace Rosenholz.Model
         {
             List<TaskItemModel> values = new List<TaskItemModel>();
 
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
-#else
-                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
-#endif
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TasksFileName)))
             {
                 string command =
                     $"UPDATE TASKS " +
@@ -427,11 +369,7 @@ namespace Rosenholz.Model
         {
             List<TaskItemModel> values = new List<TaskItemModel>();
 
-#if DEBUG
-            using (var con = new SQLiteConnectionHelper(@"C:\Users\z0035hes\Desktop\MFS\ZTV\tasks.db"))
-#else
-                   using (var con = new SQLiteConnectionHelper(Settings.Settings.Instance.TaskItemLocation))
-#endif
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TasksFileName)))
             {
                 string command =
                     $"UPDATE TASKS " +
