@@ -101,7 +101,7 @@
       <Project>{fea34100-3c69-4263-b564-936412f8a199}</Project>
       <Name>Rosenholz.ViewModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Rosenholz.View\Rosenholz.View.csproj">
+    <ProjectReference Include="..\Rosenholz.Application\Rosenholz.Application.csproj">
       <Project>{326891b5-ffaf-4727-8479-1a6ca8a6995d}</Project>
       <Name>Rosenholz.View</Name>
     </ProjectReference>

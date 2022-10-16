@@ -103,6 +103,7 @@
     <Compile Include="SingleTask\CaptureTaskViewModel.cs" />
     <Compile Include="TaskCollection\TaskCollectionDisplayViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
+    <Compile Include="TaskListViewer\TaskListViewerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rosenholz.Model\Rosenholz.Model.csproj">

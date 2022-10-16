@@ -66,7 +66,7 @@ namespace Rosenholz.Application
         private void F22ViewModelObject_AUContextChangeEvent(AUReference reference)
         {
             if (reference != null)
-                AUExplorer.OnCurrentFolderChanged(FolderManager.Instance.GetAUFolder(reference.AUReferenceString));
+                AUExplorer.OnCurrentFolderChanged(reference);
             else
                 AUExplorer.OnCurrentFolderChanged(null);
         }

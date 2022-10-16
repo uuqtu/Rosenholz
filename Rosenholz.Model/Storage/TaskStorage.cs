@@ -240,7 +240,44 @@ namespace Rosenholz.Model
                 task.LinkedTaskItems = new ObservableCollection<TaskModel>(GetChildren(task));
             }
 
-            //values.Sort((x, y) => y.F16F22Reference.CompareTo(x.F16F22Reference));
+            return values;
+        }
+
+        public IList<TaskModel> ReadTask(string f22Reference)
+        {
+            SetStatus();
+            DataTable data = null;
+            List<TaskModel> values = new List<TaskModel>();
+
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TasksFileName)))
+            {
+                data = con.ReadData($"SELECT * FROM TASKS WHERE LEVEL='0' AND AUREFERENCE='{f22Reference}'");
+            }
+
+            values = (from rw in data.AsEnumerable()
+                      select new TaskModel()
+                      {
+                          Id = Guid.Parse(Convert.ToString(rw["ID"])),
+                          TaskState = Model.TaskModel.ParseTaskState(Convert.ToString(rw["TASKSTATE"])),
+                          Created = DateTime.Parse(Convert.ToString(rw["CREATED"])),
+                          Title = Convert.ToString(rw["TITLE"]),
+                          Description = Convert.ToString(rw["DESCRIPTION"]),
+                          TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
+                          FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
+                          F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
+                          Level = Convert.ToInt32(rw["LEVEL"]),
+                          AUReference = Convert.ToString(rw["AUREFERENCE"])
+                      }).ToList();
+
+            foreach (TaskModel task in values)
+            {
+                task.TaskItemItems = new ObservableCollection<TaskItemModel>(ReadTaskItems(task));
+            }
+
+            foreach (TaskModel task in values)
+            {
+                task.LinkedTaskItems = new ObservableCollection<TaskModel>(GetChildren(task));
+            }
 
             return values;
         }

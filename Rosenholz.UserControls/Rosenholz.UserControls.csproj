@@ -127,7 +127,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="TaskViewerUserControl.xaml.cs">
+    <Compile Include="TaskListViewer\TaskListViewer.xaml.cs">
+      <DependentUpon>TaskListViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskManager\TaskViewerUserControl.xaml.cs">
       <DependentUpon>TaskViewerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="FolderManager\TextEditor.xaml.cs">
@@ -169,7 +172,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TaskViewerUserControl.xaml">
+    <Page Include="TaskListViewer\TaskListViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TaskManager\TaskViewerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -234,6 +241,7 @@
   <ItemGroup>
     <Resource Include="Images\new.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

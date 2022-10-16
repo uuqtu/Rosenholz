@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rosenholz.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -35,7 +37,6 @@ namespace Rosenholz.UserControls
         {
             try
             {
-
                 Process.Start(e.FileName);
             }
             catch (Exception ex)
@@ -44,12 +45,18 @@ namespace Rosenholz.UserControls
             }
         }
 
-        public void OnCurrentFolderChanged(string path)
+        /// <summary>
+        /// Methode wird aufgerufen, wenn Sich der Pfad ändert.
+        /// </summary>
+        /// <param name="path"></param>
+        public void OnCurrentFolderChanged(AUReference curentReference)
         {
+            string path = FolderManager.Instance.GetAUFolder(curentReference?.AUReferenceString);
             this.FolderExplorerView.CurrentFolder = path;
             this.TextEditor.CurrentFolder = path;
             this.TextEditor.Open_Executed(null, null);
             this.ButtonPanel.CurrentFolder = path;
+            this.TaskViewer.AUReference = curentReference?.AUReferenceString;
         }
 
 
