@@ -289,7 +289,7 @@ namespace Rosenholz.Model
 
             using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.TaskSubLocation, Settings.Settings.Instance.TasksFileName)))
             {
-                data = con.ReadData($"SELECT * FROM TASKS WHERE LEVEL='{false.ToString()}'");
+                data = con.ReadData($"SELECT * FROM TASKS WHERE LEVEL='0'");
             }
 
             values = (from rw in data.AsEnumerable()
