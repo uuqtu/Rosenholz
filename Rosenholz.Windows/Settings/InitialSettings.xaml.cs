@@ -234,7 +234,7 @@ namespace Rosenholz.Windows
         }
         public void CreateNewSettingsExecute()
         {
-            InputBox box = new InputBox("Wie soll die SettingsDatei heißen?");
+            Rosenholz.Extensions.InputBox box = new Rosenholz.Extensions.InputBox("Wie soll die SettingsDatei heißen?");
             box.ShowDialog();
 
             var str = box.InputString;

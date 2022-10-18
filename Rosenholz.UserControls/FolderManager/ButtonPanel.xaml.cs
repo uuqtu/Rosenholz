@@ -1,6 +1,5 @@
 ﻿using Rosenholz.Model;
 using Rosenholz.ViewModel;
-using Rosenholz.Windows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -98,7 +97,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewPowerPointExecute()
         {
-            InputBox wdow = new InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -141,7 +140,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewExcelExecute()
         {
-            InputBox wdow = new InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -184,7 +183,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewProjectExecute()
         {
-            InputBox wdow = new InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -226,7 +225,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewVisioExecute()
         {
-            InputBox wdow = new InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -268,7 +267,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewTextFileExecute()
         {
-            InputBox wdow = new InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -310,7 +309,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewSQLFileExecute()
         {
-            InputBox wdow = new InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -352,7 +351,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewRFileExecute()
         {
-            InputBox wdow = new InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {

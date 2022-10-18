@@ -110,7 +110,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Rosenholz.Extensions\Rosenholz.Extensions.csproj">
+      <Project>{600f43e5-24e2-4289-83ed-c74d6e4e1cc2}</Project>
+      <Name>Rosenholz.Extensions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
