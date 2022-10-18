@@ -1,11 +1,7 @@
-﻿using Microsoft.Win32;
-using Rosenholz.Model;
-using Rosenholz.ViewModel;
-using Rosenholz.ViewModel.TextEditor;
+﻿using Rosenholz.ViewModel.TextEditor;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -17,18 +13,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Rosenholz.UserControls
+namespace Rosenholz.Windows.TextEditor
 {
     /// <summary>
-    /// Interaction logic for TextEditor.xaml
-    /// https://wpf-tutorial.com/rich-text-controls/how-to-creating-a-rich-text-editor/
+    /// Interaktionslogik für TextEditor.xaml
     /// </summary>
-    public partial class TextEditorUserControl : UserControl, INotifyPropertyChanged
+    public partial class TextEditorStandAlone : Window, INotifyPropertyChanged
     {
-        public TextEditorViewModelInline vmo { get; set; } = null;
+        public TextEditorViewModelStandAlone vmo { get; set; } = null;
         private string _currentFolder = "";
 
 
@@ -40,24 +34,19 @@ namespace Rosenholz.UserControls
         }
 
 
-        public TextEditorUserControl()
+        public TextEditorStandAlone(string path)
         {
             InitializeComponent();
-            vmo = new TextEditorViewModelInline("", true, false, true);
+            vmo = new TextEditorViewModelStandAlone(path, true, false);
             this.DataContext = vmo;
-        }
 
-
-        public void LoadFile(string path)
-        {
-            vmo.FilePath = path;
             vmo.LoadFileInEditor();
         }
 
-
         private void UserControl_MouseLeave(object sender, MouseEventArgs e)
         {
-            vmo?.Save();
+            if (!string.IsNullOrWhiteSpace(vmo.FilePath))
+                vmo?.Save();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

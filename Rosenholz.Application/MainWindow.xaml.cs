@@ -38,6 +38,13 @@ namespace Rosenholz.Application
         public MainWindow()
         {
             InitializeComponent();
+            AUExplorer.TextEditorRequiredEvent += AUExplorer_TextEditorRequiredEvent;
+        }
+
+        private void AUExplorer_TextEditorRequiredEvent(string reference)
+        {
+            Rosenholz.Windows.TextEditor.TextEditorStandAlone tsa = new Windows.TextEditor.TextEditorStandAlone(reference);
+            tsa.ShowDialog();
         }
 
         private void F16UserControl_Loaded(object sender, RoutedEventArgs e)

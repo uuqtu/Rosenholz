@@ -84,8 +84,8 @@
     <Compile Include="Settings\InitialSettings.xaml.cs">
       <DependentUpon>InitialSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TextEditor\TextEditor.xaml.cs">
-      <DependentUpon>TextEditor.xaml</DependentUpon>
+    <Compile Include="TextEditor\TextEditorStandAlone.xaml.cs">
+      <DependentUpon>TextEditorStandAlone.xaml</DependentUpon>
     </Compile>
     <Page Include="FolderManager\CreateF16.xaml">
       <SubType>Designer</SubType>
@@ -109,7 +109,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TextEditor\TextEditor.xaml">
+    <Page Include="TextEditor\TextEditorStandAlone.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,6 +149,10 @@
     <ProjectReference Include="..\Rosenholz.Model\Rosenholz.Model.csproj">
       <Project>{c2d92b4d-b9b3-486f-b889-79474a319c7e}</Project>
       <Name>Rosenholz.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rosenholz.UserControls\Rosenholz.UserControls.csproj">
+      <Project>{7bf75d80-1154-455f-bc12-07ed82ce87b9}</Project>
+      <Name>Rosenholz.UserControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rosenholz.ViewModel\Rosenholz.ViewModel.csproj">
       <Project>{fea34100-3c69-4263-b564-936412f8a199}</Project>

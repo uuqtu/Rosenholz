@@ -1,4 +1,5 @@
 ﻿using Rosenholz.Model;
+using Rosenholz.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,7 @@ using System.Windows.Shapes;
 
 namespace Rosenholz.UserControls
 {
+    public delegate void TextEditorRequired(string reference);
     /// <summary>
     /// Interaction logic for AUExplorer.xaml
     /// https://medium.com/@mikependon/designing-a-wpf-treeview-file-explorer-565a3f13f6f2
@@ -27,7 +29,7 @@ namespace Rosenholz.UserControls
     /// </summary>
     public partial class AUExplorer : UserControl
     {
-
+        public event TextEditorRequired TextEditorRequiredEvent;
         public AUExplorer()
         {
             InitializeComponent();
@@ -37,7 +39,15 @@ namespace Rosenholz.UserControls
         {
             try
             {
-                Process.Start(e.FileName);
+                if (e.FileName.EndsWith(".txt") && (Keyboard.Modifiers != ModifierKeys.Control))
+                {
+                    TextEditorRequiredEvent?.Invoke(e.FileName);
+                }
+                else
+                {
+                    Process.Start(e.FileName);
+
+                }
             }
             catch (Exception ex)
             {
