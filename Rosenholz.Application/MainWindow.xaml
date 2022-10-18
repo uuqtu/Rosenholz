@@ -25,7 +25,7 @@
 
                     <uc:F16UserControl x:Name = "F16ViewControl" Loaded = "F16UserControl_Loaded" Grid.Column="0" Grid.Row="0"/>
                     <uc:F22UserControl x:Name = "F22ViewControl"  Loaded="F22ViewControl_Loaded" Grid.Column="1" Grid.Row="0"/>
-                    <uc:AUExplorer     x:Name = "AUExplorer"     Loaded="AUExplorer_Loaded" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"></uc:AUExplorer>
+                    <uc:AUExplorer     x:Name = "AUExplorer"                                     Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"></uc:AUExplorer>
                 </Grid>
             </TabItem>
             <TabItem Header="Taskmanager" Height="20" VerticalAlignment="Top">

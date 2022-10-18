@@ -54,7 +54,7 @@ namespace Rosenholz.UserControls
             string path = FolderManager.Instance.GetAUFolder(curentReference?.AUReferenceString);
             this.FolderExplorerView.CurrentFolder = path;
             this.TextEditor.CurrentFolder = path;
-            this.TextEditor.Open_Executed(null, null);
+            this.TextEditor.LoadFile(System.IO.Path.Combine(path, "_notes", "main.txt"));
             this.ButtonPanel.CurrentFolder = path;
             this.TaskViewer.AUReference = curentReference?.AUReferenceString;
         }

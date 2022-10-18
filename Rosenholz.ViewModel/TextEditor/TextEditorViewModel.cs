@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rosenholz.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -8,19 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace WpfTutorialStep1
+namespace Rosenholz.ViewModel.TextEditor
 {
-    public class vm : INotifyPropertyChanged
+    public class TextEditorViewModel : ViewModelBase
     {
         Microsoft.Win32.OpenFileDialog mDlgOpen = new Microsoft.Win32.OpenFileDialog();
         Microsoft.Win32.SaveFileDialog mDlgSave = new Microsoft.Win32.SaveFileDialog();
-        System.IO.StreamReader reader = null;
+
 
         private string _textBoxContent;
         private string _statusBar;
         private bool _isReadOnly = false;
         private string _filePath = "";
         private bool _canOpenFilesFromEditor = false;
+        private bool _emptyEditorIsDisabled = true;
+        private double _selectedFontSize = 13;
         private RelayCommand _clearCommand;
         private RelayCommand _openCommand;
         private RelayCommand _readOnlyModeCommand;
@@ -47,22 +50,42 @@ namespace WpfTutorialStep1
             get { return _filePath; }
             set { _filePath = value; OnPropertyChanged(nameof(FilePath)); }
         }
+        public bool EmptyEditorIsDisabled
+        {
+            get { return _emptyEditorIsDisabled; }
+            set { _emptyEditorIsDisabled = value; OnPropertyChanged(nameof(EmptyEditorIsDisabled)); }
+        }
 
-        public vm(string filePath = "", bool defaultReadOnly = true, bool canOpenFilesFromEditor = false)
+        public double SelectedFontSize
+        {
+            get { return _selectedFontSize; }
+            set { _selectedFontSize = value; OnPropertyChanged(nameof(SelectedFontSize)); }
+        }
+
+        public List<double> FontSizes { get; } = new List<double>() { 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
+
+
+        public TextEditorViewModel(string filePath = "", bool defaultReadOnly = true, bool canOpenFilesFromEditor = false, bool emptyEditorIsDisabled = true)
         {
             FilePath = filePath;
             IsReadOnly = defaultReadOnly;
-
-            if (filePath == "")
-                return;
-
-            if (!File.Exists(filePath))
-                File.Create(filePath);
-
-            reader = new System.IO.StreamReader(filePath);
-            TextBoxContent = reader.ReadToEnd();
-            reader.Close();
+            EmptyEditorIsDisabled = emptyEditorIsDisabled;
             _canOpenFilesFromEditor = canOpenFilesFromEditor;
+        }
+
+
+        public void LoadFileInEditor()
+        {
+            IsReadOnly = true;
+
+            if (!File.Exists(FilePath))
+                File.Create(FilePath);
+
+            using (System.IO.StreamReader reader = new System.IO.StreamReader(FilePath))
+            {
+                TextBoxContent = reader.ReadToEnd();
+                reader.Close();
+            }
         }
 
 
@@ -115,9 +138,11 @@ namespace WpfTutorialStep1
         {
             if (mDlgOpen.ShowDialog() == true)
             {
-                reader = new System.IO.StreamReader(mDlgOpen.FileName);
-                TextBoxContent = reader.ReadToEnd();
-                reader.Close();
+                using (var reader = new System.IO.StreamReader(mDlgOpen.FileName))
+                {
+                    TextBoxContent = reader.ReadToEnd();
+                    reader.Close();
+                }
                 StatusBar = "Read " + mDlgOpen.FileName;
             }
         }
@@ -196,16 +221,10 @@ namespace WpfTutorialStep1
                     SaveFile();
                     StatusBar = $"File saved @ {FilePath}";
                 }
-                else if (mDlgSave.ShowDialog() == true)
-                {
-                    FilePath = mDlgSave.FileName;
-                    SaveFile();
-                    StatusBar = $"File saved @ {FilePath}";
-                }
                 else
                     StatusBar = "Text not saved to file.";
             }
-            else
+            else if (File.Exists(FilePath))
             {
                 if (mDlgSave.ShowDialog() == true)
                 {
@@ -226,17 +245,5 @@ namespace WpfTutorialStep1
             StatusBar = "Wrote " + TextBoxContent?.Length.ToString() + " chars in " + FilePath;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-           => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
     }
 }

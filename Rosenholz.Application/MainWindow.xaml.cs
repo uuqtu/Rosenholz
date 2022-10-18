@@ -71,11 +71,6 @@ namespace Rosenholz.Application
                 AUExplorer.OnCurrentFolderChanged(null);
         }
 
-        private void AUExplorer_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void NewTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
         {
             newTaskViewModel = new Rosenholz.ViewModel.TaskCollectionDisplayViewModel();

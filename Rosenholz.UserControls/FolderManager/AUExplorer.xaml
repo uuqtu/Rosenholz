@@ -26,20 +26,8 @@
                             OnFileOpen="FolderView_OnFileOpen"></uc2:FolderView>
 
             <uc:ButtonPanel x:Name="ButtonPanel" Grid.Row="0" Grid.Column="1"  Grid.RowSpan ="2" Background="#2D2D30"></uc:ButtonPanel>
-            <!--<TabControl Grid.Row="0" Grid.Column="2">
-                <TabItem Header="Notepad">
-                    <uc:TextEditor x:Name="TextEditor"></uc:TextEditor>
-                </TabItem>
-                <TabItem Header="TaskOverview">
-                    <uc:TaskListViewer  x:Name="TaskViewer"></uc:TaskListViewer>
-                </TabItem>
-            </TabControl>-->
-
-            <uc:TextEditor Grid.Row="0" Grid.Column="2" x:Name="TextEditor"></uc:TextEditor>
-
+            <uc:TextEditorUserControl Grid.Row="0" Grid.Column="2" x:Name="TextEditor"></uc:TextEditorUserControl>
             <uc:TaskListViewer  Grid.Row="1" Grid.Column="2" x:Name="TaskViewer"></uc:TaskListViewer>
-
-            <!--https://wpf-tutorial.com/rich-text-controls/how-to-creating-a-rich-text-editor/-->
         </Grid>
     </Grid>
 </UserControl>

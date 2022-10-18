@@ -7,11 +7,14 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <TextBox Background="#1C1C1C" Foreground="White" IsReadOnly="True" Text="{Binding FilePath, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -37,14 +40,14 @@
                       IsChecked="{Binding IsReadOnly, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding ReadOnlyModeCommand, UpdateSourceTrigger=PropertyChanged}" Height="30">Read-Only</ToggleButton>
         </Grid>
 
-        <TextBox Grid.Row="1" Background="#1C1C1C" Foreground="White" 
+        <TextBox Grid.Row="2" Background="#1C1C1C" Foreground="White" 
             Name="mTB" SpellCheck.IsEnabled="False" Language="en-US" 
             AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="{Binding IsReadOnly, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Text="{Binding TextBoxContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" 
             />
 
-        <StatusBar  Grid.Row="2" Height="23" Name="mStatBar" DockPanel.Dock="Bottom" >
+        <StatusBar  Grid.Row="3" Height="23" Name="mStatBar" DockPanel.Dock="Bottom" >
             <StatusBarItem DockPanel.Dock="Left" Background="#1C1C1C" Foreground="White">
                 <TextBlock Name="mStatText" Text="{Binding StatusBar}" />
             </StatusBarItem>

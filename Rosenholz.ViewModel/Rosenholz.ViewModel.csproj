@@ -104,6 +104,7 @@
     <Compile Include="TaskCollection\TaskCollectionDisplayViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="TaskListViewer\TaskListViewerViewModel.cs" />
+    <Compile Include="TextEditor\TextEditorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rosenholz.Model\Rosenholz.Model.csproj">
