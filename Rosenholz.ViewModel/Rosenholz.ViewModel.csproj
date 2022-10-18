@@ -104,16 +104,13 @@
     <Compile Include="TaskCollection\TaskCollectionDisplayViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="TaskListViewer\TaskListViewerViewModel.cs" />
-    <Compile Include="TextEditor\TextEditorViewModel.cs" />
+    <Compile Include="TextEditor\TextEditorViewModelInline.cs" />
+    <Compile Include="TextEditor\TextEditorViewModelStandAlone.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rosenholz.Model\Rosenholz.Model.csproj">
       <Project>{c2d92b4d-b9b3-486f-b889-79474a319c7e}</Project>
       <Name>Rosenholz.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Rosenholz.Windows\Rosenholz.Windows.csproj">
-      <Project>{55E0B254-CF97-480C-8C8E-B73FC8CA70D6}</Project>
-      <Name>Rosenholz.Windows</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

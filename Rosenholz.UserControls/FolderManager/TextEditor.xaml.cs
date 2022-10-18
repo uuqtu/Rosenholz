@@ -28,7 +28,7 @@ namespace Rosenholz.UserControls
     /// </summary>
     public partial class TextEditorUserControl : UserControl, INotifyPropertyChanged
     {
-        TextEditorViewModel vmo = null;
+        TextEditorViewModelInline vmo = null;
         private string _currentFolder = "";
         
 
@@ -43,7 +43,7 @@ namespace Rosenholz.UserControls
         public TextEditorUserControl()
         {
             InitializeComponent();
-            vmo = new TextEditorViewModel("", true, false, true);
+            vmo = new TextEditorViewModelInline("", true, false, true);
             this.DataContext = vmo;
         }
 

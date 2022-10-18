@@ -1,6 +1,5 @@
 ﻿using Rosenholz.Model;
 using Rosenholz.Model.RomanNumerals;
-using Rosenholz.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +17,7 @@ using System.Windows.Input;
 namespace Rosenholz.ViewModel
 {
     public delegate void F22ContextChanged(F16F22Reference reference);
+    public delegate void F16EntryRequired(string currentF22, List<F16> list);
     public class F16ViewModel : ViewModelBase
     {
         private ObservableCollection<F16> _f16List;
@@ -26,6 +26,7 @@ namespace Rosenholz.ViewModel
         private string _latestItem;
         private F16 _currentF16Selected = null;
         public event F22ContextChanged F22ContextChangeEvent;
+        public event F16EntryRequired F16EntryRequiredEvent;
         private ListCollectionView _f16CollectionView;
         public ICollectionView F16CollectionView
         {
@@ -217,9 +218,10 @@ namespace Rosenholz.ViewModel
 
         public void AddF16Execute(object parameter)
         {
-            var text = (string)parameter;
-            CreateF16 model = new CreateF16(text, F16Items.ToList());
-            model.ShowDialog();
+            var currentF22 = (string)parameter;
+
+            F16EntryRequiredEvent?.Invoke(currentF22, F16Items.ToList());
+
             LoadF16Items();
         }
 

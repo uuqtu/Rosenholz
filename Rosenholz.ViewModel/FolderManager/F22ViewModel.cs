@@ -1,5 +1,4 @@
 ﻿using Rosenholz.Model;
-using Rosenholz.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,12 +15,16 @@ using System.Windows.Data;
 namespace Rosenholz.ViewModel
 {
     public delegate void AUContextChanged(AUReference reference);
+    public delegate Tuple<bool, AUReference> F22EntryRequired(F16F22Reference reference);
+
     public class F22ViewModel : ViewModelBase
     {
         private ObservableCollection<F22> _f22List;
         private string _textFilter;
         private F16F22Reference _currentF16Reference;
         public event AUContextChanged AUContextChangeEvent;
+        public event F22EntryRequired F22EntryRequiredEvent;
+
         private F22 _currentF22Selected = null;
         private ListCollectionView _f22CollectionView;
         public ICollectionView F22CollectionView
@@ -130,13 +133,12 @@ namespace Rosenholz.ViewModel
         {
             if (CurrentF16Reference != null)
             {
-                CreateF22Entry model = new CreateF22Entry(CurrentF16Reference);
-                model.ShowDialog();
+                var result = F22EntryRequiredEvent.Invoke(CurrentF16Reference);
 
-                if (model.Aborted == false)
+                if (result.Item1 == false)
                 {
                     SelectItems(CurrentF16Reference);
-                    AUContextChangeEvent(model?.NewAUReference);
+                    AUContextChangeEvent(result.Item2);
                 }
             }
         }

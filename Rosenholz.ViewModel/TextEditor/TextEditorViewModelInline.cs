@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace Rosenholz.ViewModel.TextEditor
 {
-    public class TextEditorViewModel : ViewModelBase
+    public class TextEditorViewModelInline : ViewModelBase
     {
         Microsoft.Win32.OpenFileDialog mDlgOpen = new Microsoft.Win32.OpenFileDialog();
         Microsoft.Win32.SaveFileDialog mDlgSave = new Microsoft.Win32.SaveFileDialog();
@@ -65,7 +65,7 @@ namespace Rosenholz.ViewModel.TextEditor
         public List<double> FontSizes { get; } = new List<double>() { 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
 
 
-        public TextEditorViewModel(string filePath = "", bool defaultReadOnly = true, bool canOpenFilesFromEditor = false, bool emptyEditorIsDisabled = true)
+        public TextEditorViewModelInline(string filePath = "", bool defaultReadOnly = true, bool canOpenFilesFromEditor = false, bool emptyEditorIsDisabled = true)
         {
             FilePath = filePath;
             IsReadOnly = defaultReadOnly;
@@ -79,7 +79,7 @@ namespace Rosenholz.ViewModel.TextEditor
             IsReadOnly = true;
 
             if (!File.Exists(FilePath))
-                File.Create(FilePath);
+                File.Create(FilePath).Close();
 
             using (System.IO.StreamReader reader = new System.IO.StreamReader(FilePath))
             {

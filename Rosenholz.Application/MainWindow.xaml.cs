@@ -1,4 +1,5 @@
 ﻿using Rosenholz.Model;
+using Rosenholz.Windows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,19 +44,34 @@ namespace Rosenholz.Application
         {
             Rosenholz.ViewModel.F16ViewModel f16ViewModelObject = new ViewModel.F16ViewModel();
             f16ViewModelObject.LoadF16Items();
-            f16ViewModelObject.F22ContextChangeEvent += F16ViewModelObject_F22ContextChangeEvent; ;
+            f16ViewModelObject.F22ContextChangeEvent += F16ViewModelObject_F22ContextChangeEvent;
+            f16ViewModelObject.F16EntryRequiredEvent += F16ViewModelObject_F16EntryRequiredEvent;
             F16ViewControl.DataContext = f16ViewModelObject;
+        }
+
+        private void F16ViewModelObject_F16EntryRequiredEvent(string currentF22, List<F16> list)
+        {
+            CreateF16 model = new CreateF16(currentF22, list);
+            model.ShowDialog();
         }
 
         private void F16ViewModelObject_F22ContextChangeEvent(F16F22Reference reference)
         {
             f22ViewModelObject = new ViewModel.F22ViewModel();
             f22ViewModelObject.AUContextChangeEvent += F22ViewModelObject_AUContextChangeEvent;
+            f22ViewModelObject.F22EntryRequiredEvent += F22ViewModelObject_F22EntryRequiredEvent;
             f22ViewModelObject.SelectItems(reference);
             f22ViewModelObject.CurrentF16Reference = reference;
             F22ViewControl.DataContext = f22ViewModelObject;
         }
 
+        private Tuple<bool, AUReference> F22ViewModelObject_F22EntryRequiredEvent(F16F22Reference reference)
+        {
+            CreateF22Entry model = new CreateF22Entry(reference);
+            model.ShowDialog();
+
+            return new Tuple<bool, AUReference>(model.Aborted, model.NewAUReference);
+        }
 
         private void F22ViewControl_Loaded(object sender, RoutedEventArgs e)
         {
