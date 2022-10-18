@@ -57,7 +57,10 @@ namespace Rosenholz.UserControls
 
         private void UserControl_MouseLeave(object sender, MouseEventArgs e)
         {
-            vmo?.Save();
+            if (!vmo.IsReadOnly)
+            {
+                vmo?.Save();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

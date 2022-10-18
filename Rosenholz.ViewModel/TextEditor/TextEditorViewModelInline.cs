@@ -174,6 +174,7 @@ namespace Rosenholz.ViewModel.TextEditor
         {
             //IsReadOnly = !(bool)result;
             StatusBar = (IsReadOnly ? "En" : "Dis") + "abled read only";
+            Save();
         }
         #endregion
 
@@ -226,7 +227,7 @@ namespace Rosenholz.ViewModel.TextEditor
                 if (File.Exists(FilePath))
                 {
                     SaveFile();
-                    StatusBar = $"File saved @ {FilePath}";
+                    StatusBar = $"[{DateTime.Now.ToString("HH:MM:ss")}] - File saved @ {FilePath}";
                 }
                 else
                     StatusBar = "Text not saved to file.";
@@ -237,7 +238,7 @@ namespace Rosenholz.ViewModel.TextEditor
                 {
                     FilePath = mDlgSave.FileName;
                     SaveFile();
-                    StatusBar = $"File saved @ {FilePath}";
+                    StatusBar = $"[{DateTime.Now.ToString("HH:MM:ss")}] - File saved @ {FilePath}";
                 }
                 else
                     StatusBar = "Text not saved to file.";
