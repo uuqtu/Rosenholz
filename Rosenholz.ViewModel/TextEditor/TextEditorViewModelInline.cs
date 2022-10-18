@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 
 namespace Rosenholz.ViewModel.TextEditor
 {
@@ -65,9 +67,8 @@ namespace Rosenholz.ViewModel.TextEditor
         public List<double> FontSizes { get; } = new List<double>() { 8, 9, 10, 11, 12, 13, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
 
 
-        public TextEditorViewModelInline(string filePath = "", bool defaultReadOnly = true, bool canOpenFilesFromEditor = false, bool emptyEditorIsDisabled = true)
+        public TextEditorViewModelInline(bool defaultReadOnly = true, bool canOpenFilesFromEditor = false, bool emptyEditorIsDisabled = true)
         {
-            FilePath = filePath;
             IsReadOnly = defaultReadOnly;
             EmptyEditorIsDisabled = emptyEditorIsDisabled;
             _canOpenFilesFromEditor = canOpenFilesFromEditor;
@@ -80,6 +81,12 @@ namespace Rosenholz.ViewModel.TextEditor
 
             if (!File.Exists(FilePath))
                 File.Create(FilePath).Close();
+
+            var dir = Path.GetDirectoryName(FilePath);
+
+            var file = Path.GetFileNameWithoutExtension(FilePath);
+
+            File.Copy(FilePath, Path.Combine(dir, $"{file}_{DateTime.Now.ToFileTimeUtc()}.txt"));
 
             using (System.IO.StreamReader reader = new System.IO.StreamReader(FilePath))
             {
@@ -239,9 +246,16 @@ namespace Rosenholz.ViewModel.TextEditor
 
         private void SaveFile()
         {
-            System.IO.StreamWriter writer = new System.IO.StreamWriter(FilePath);
-            writer.Write(TextBoxContent);
-            writer.Close();
+            var dir = Path.GetDirectoryName(FilePath);
+            var file = Path.GetFileNameWithoutExtension(FilePath);
+            File.Copy(FilePath, Path.Combine(dir, $"{file}_{DateTime.Now.ToFileTimeUtc()}.txt"));
+
+            using (System.IO.StreamWriter writer = new System.IO.StreamWriter(FilePath))
+            {
+                writer.Write(TextBoxContent);
+                writer.Close();
+            }
+
             StatusBar = "Wrote " + TextBoxContent?.Length.ToString() + " chars in " + FilePath;
         }
 
