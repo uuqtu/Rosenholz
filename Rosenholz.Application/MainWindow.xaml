@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rosenholz.Application"
         xmlns:uc="clr-namespace:Rosenholz.UserControls;assembly=Rosenholz.UserControls"
-        xmlns:uc2="clr-namespace:Rosenholz.Task.UserControls;assembly=Rosenholz.Task.UserControls"
         mc:Ignorable="d"
          Background="#1C1C1C" Foreground="White"
         WindowState="Maximized"
@@ -48,7 +47,7 @@
                             <RowDefinition Height="1*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Label  Grid.Row="0" Background="#1C1C1C" Foreground="White">Eingabefenster</Label>
-                        <uc2:DisplayTaskUserControl  Grid.Row="1" Background="#1C1C1C" Foreground="White" x:Name="TaskView" Loaded="TaskView_Loaded"></uc2:DisplayTaskUserControl>
+                        <uc:DisplayTaskUserControl  Grid.Row="1" Background="#1C1C1C" Foreground="White" x:Name="TaskView" Loaded="TaskView_Loaded"></uc:DisplayTaskUserControl>
                     </Grid>
 
                     <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">

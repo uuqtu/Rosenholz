@@ -84,6 +84,15 @@
     <Compile Include="Settings\InitialSettings.xaml.cs">
       <DependentUpon>InitialSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TaskManager\InputChildTaskWindow.xaml.cs">
+      <DependentUpon>InputChildTaskWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskManager\InputTask.xaml.cs">
+      <DependentUpon>InputTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskManager\ShowChildTaskWindow.xaml.cs">
+      <DependentUpon>ShowChildTaskWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TextEditor\TextEditorStandAlone.xaml.cs">
       <DependentUpon>TextEditorStandAlone.xaml</DependentUpon>
     </Compile>
@@ -108,6 +117,18 @@
     <Page Include="Settings\InitialSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TaskManager\InputChildTaskWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskManager\InputTask.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskManager\ShowChildTaskWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="TextEditor\TextEditorStandAlone.xaml">
       <SubType>Designer</SubType>

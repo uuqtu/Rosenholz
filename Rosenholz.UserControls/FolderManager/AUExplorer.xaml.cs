@@ -30,9 +30,19 @@ namespace Rosenholz.UserControls
     public partial class AUExplorer : UserControl
     {
         public event TextEditorRequired TextEditorRequiredEvent;
+        /// <summary>
+        /// Button Pannel braucht einen Task
+        /// </summary>
+        public event TaskCreationRequired TaskCreationRequiredEvent;
         public AUExplorer()
         {
             InitializeComponent();
+            ButtonPanel.TaskCreationRequiredEvent += ButtonPanel_TaskCreationRequiredEvent;
+        }
+
+        private void ButtonPanel_TaskCreationRequiredEvent(string currentFolder)
+        {
+            TaskCreationRequiredEvent?.Invoke(currentFolder);
         }
 
         private void FolderView_OnFileOpen(object sender, FolderExplorer.FListView.FileOpenEventArgs e)

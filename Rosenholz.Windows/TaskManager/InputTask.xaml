@@ -1,0 +1,27 @@
+﻿<Window x:Class="Rosenholz.Windows.InputTask"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rosenholz.Windows"
+        xmlns:uc="clr-namespace:Rosenholz.UserControls;assembly=Rosenholz.UserControls"
+        mc:Ignorable="d"
+        x:Name="InputTaskWindow"
+        Background="#1C1C1C"
+        Foreground="White"
+        Title="InputTaskWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <uc:CaptureTaskUserControl Loaded="TaskEntryUserControl_Loaded" Grid.Row="0" Grid.ColumnSpan="2"></uc:CaptureTaskUserControl>
+        <Button Background="#1C1C1C" Foreground="White" Grid.Column="1" Grid.Row="1" Margin="5,5,5,5" Command="{Binding AddTaskEntryCommand, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                                                              CommandParameter="{Binding ElementName=InputTaskWindow}">Speichern</Button>
+    </Grid>
+</Window>

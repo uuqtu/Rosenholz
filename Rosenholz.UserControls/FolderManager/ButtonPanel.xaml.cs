@@ -23,8 +23,10 @@ namespace Rosenholz.UserControls
     /// <summary>
     /// Interaction logic for ButtonPanel.xaml
     /// </summary>
+    public delegate void TaskCreationRequired(string currentFolder);
     public partial class ButtonPanel : UserControl, INotifyPropertyChanged
     {
+        public event TaskCreationRequired TaskCreationRequiredEvent;
         public ButtonPanel()
         {
             InitializeComponent();
@@ -430,8 +432,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewTaskExecute()
         {
-            Rosenholz.Task.Windows.InputTask t = new Rosenholz.Task.Windows.InputTask(CurrentFolder);
-            t.ShowDialog();
+            TaskCreationRequiredEvent?.Invoke(CurrentFolder);
         }
         #endregion
 

@@ -39,6 +39,14 @@ namespace Rosenholz.Application
         {
             InitializeComponent();
             AUExplorer.TextEditorRequiredEvent += AUExplorer_TextEditorRequiredEvent;
+            AUExplorer.TaskCreationRequiredEvent += AUExplorer_TaskCreationRequiredEvent;
+        }
+
+        //Button Pannel braucht einen Task
+        private void AUExplorer_TaskCreationRequiredEvent(string currentFolder)
+        {
+            InputTask t = new Rosenholz.Windows.InputTask(currentFolder);
+            t.ShowDialog();
         }
 
         private void AUExplorer_TextEditorRequiredEvent(string reference)
@@ -145,13 +153,13 @@ namespace Rosenholz.Application
 
         private void Tevm_TaskModelViewRequiredEvent(TaskModel child)
         {
-            Rosenholz.Task.Windows.ShowChildTaskWindow childview = new Rosenholz.Task.Windows.ShowChildTaskWindow(child);
+            Rosenholz.Windows.ShowChildTaskWindow childview = new Rosenholz.Windows.ShowChildTaskWindow(child);
             childview.ShowDialog();
         }
 
         private TaskModel Tevm_ChildRequredEvent(TaskModel parent)
         {
-            Rosenholz.Task.Windows.InputChildTaskWindow child = new Rosenholz.Task.Windows.InputChildTaskWindow(parent);
+            Rosenholz.Windows.InputChildTaskWindow child = new Rosenholz.Windows.InputChildTaskWindow(parent);
             child.ShowDialog();
             return child.ReturnValue;
         }
