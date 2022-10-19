@@ -2,6 +2,7 @@
 using Rosenholz.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -27,8 +28,12 @@ namespace Rosenholz.UserControls
     /// https://medium.com/@mikependon/designing-a-wpf-treeview-file-explorer-565a3f13f6f2
     /// https://github.com/mikependon/RepoDB.Tutorials/tree/master/WPF/TreeViewFileExplorer
     /// </summary>
-    public partial class AUExplorer : UserControl
+    public partial class AUExplorer : UserControl, INotifyPropertyChanged
     {
+        private int _numberOfTasks;
+        public int NumberOfTasks { get { return _numberOfTasks; } set { _numberOfTasks = value; OnPropertyChanged(nameof(NumberOfTasks)); } }
+
+
         public event TextEditorRequired TextEditorRequiredEvent;
         public event DisplayTaskViewModelRequired DisplayTaskViewModelRequiredEvent;
         /// <summary>
@@ -40,6 +45,7 @@ namespace Rosenholz.UserControls
             InitializeComponent();
             ButtonPanel.TaskCreationRequiredEvent += ButtonPanel_TaskCreationRequiredEvent;
             TaskViewer.DisplayTaskViewModelRequiredEvent += TaskViewer_DisplayTaskViewModelRequiredEvent;
+            DataContext = this;
         }
 
         private void TaskViewer_DisplayTaskViewModelRequiredEvent(TaskModel task)
@@ -84,6 +90,9 @@ namespace Rosenholz.UserControls
             this.TextEditor.LoadFile(System.IO.Path.Combine(path, "_notes", "main.txt"));
             this.ButtonPanel.CurrentFolder = path;
             this.TaskViewer.AUReference = curentReference?.AUReferenceString;
+
+            NumberOfTasks = Rosenholz.Model.TaskStorage.Instance.ReadTask(curentReference.AUReferenceString).Count;
+
         }
 
 
