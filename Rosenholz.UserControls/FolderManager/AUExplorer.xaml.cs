@@ -55,7 +55,7 @@ namespace Rosenholz.UserControls
                 }
                 else
                 {
-                    Process.Start(e.FileName);
+                    Process.Start(new ProcessStartInfo(e.FileName) { UseShellExecute = true });
 
                 }
             }

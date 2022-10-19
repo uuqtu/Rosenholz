@@ -38,10 +38,10 @@
                     </ToolTip>
                 </Button.ToolTip>
             </Button>
-            <Button Grid.Row="0" Grid.Column="1" Background="#2D2D30" Foreground="White" Content="Open"  Command="{Binding OpenCommand, UpdateSourceTrigger=PropertyChanged}"></Button>
-            <Button Grid.Row="0" Grid.Column="2" Background="#2D2D30" Foreground="White" Content="Save"  Command="{Binding SaveCommand, UpdateSourceTrigger=PropertyChanged}"></Button>
-            <Button Grid.Row="0" Grid.Column="3" Background="#2D2D30" Foreground="White" Content="Save As"  Command="{Binding SaveAsCommand, UpdateSourceTrigger=PropertyChanged}"></Button>
-            <ToggleButton Grid.Row="0" Grid.Column="4" Background="#2D2D30" Foreground="White" CommandParameter="{Binding IsReadOnly}"
+            <Button Grid.Row="0" Grid.Column="4" Background="#2D2D30" Foreground="White" Content="Open Markup"  Command="{Binding OpenMarkupCommand, UpdateSourceTrigger=PropertyChanged}"></Button>
+            <Button Grid.Row="0" Grid.Column="1" Background="#2D2D30" Foreground="White" Content="Save"  Command="{Binding SaveCommand, UpdateSourceTrigger=PropertyChanged}"></Button>
+            <Button Grid.Row="0" Grid.Column="2" Background="#2D2D30" Foreground="White" Content="Save As"  Command="{Binding SaveAsCommand, UpdateSourceTrigger=PropertyChanged}"></Button>
+            <ToggleButton Grid.Row="0" Grid.Column="3" Background="#2D2D30" Foreground="White" CommandParameter="{Binding IsReadOnly}"
                       IsChecked="{Binding IsReadOnly, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding ReadOnlyModeCommand, UpdateSourceTrigger=PropertyChanged}" >Read-Only</ToggleButton>
             
         </Grid>

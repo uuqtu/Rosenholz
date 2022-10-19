@@ -43,7 +43,7 @@ namespace Rosenholz.UserControls
         public TextEditorUserControl()
         {
             InitializeComponent();
-            vmo = new TextEditorViewModelInline(true, false, true);
+            vmo = new TextEditorViewModelInline(true, true);
             this.DataContext = vmo;
         }
 

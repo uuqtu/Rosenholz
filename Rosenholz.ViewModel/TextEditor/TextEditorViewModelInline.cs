@@ -1,7 +1,9 @@
-﻿using Rosenholz.Model;
+﻿using Markdig;
+using Rosenholz.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -23,11 +25,10 @@ namespace Rosenholz.ViewModel.TextEditor
         private string _statusBar;
         private bool _isReadOnly = false;
         private string _filePath = "";
-        private bool _canOpenFilesFromEditor = false;
         private bool _emptyEditorIsDisabled = true;
         private double _selectedFontSize = 13;
         private RelayCommand _clearCommand;
-        private RelayCommand _openCommand;
+        private RelayCommand openMarkupCommand;
         private RelayCommand _readOnlyModeCommand;
         private RelayCommand _saveCommand;
         private RelayCommand _saveAsCommand;
@@ -67,11 +68,10 @@ namespace Rosenholz.ViewModel.TextEditor
         public List<double> FontSizes { get; } = new List<double>() { 8, 9, 10, 11, 12, 13, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
 
 
-        public TextEditorViewModelInline(bool defaultReadOnly = true, bool canOpenFilesFromEditor = false, bool emptyEditorIsDisabled = true)
+        public TextEditorViewModelInline(bool defaultReadOnly = true, bool emptyEditorIsDisabled = true)
         {
             IsReadOnly = defaultReadOnly;
             EmptyEditorIsDisabled = emptyEditorIsDisabled;
-            _canOpenFilesFromEditor = canOpenFilesFromEditor;
         }
 
 
@@ -126,32 +126,35 @@ namespace Rosenholz.ViewModel.TextEditor
         }
         #endregion
 
-        #region OpenCommand :Öffnet im Texteditor
-        public RelayCommand OpenCommand
+        #region OpenMarkupCommand :Öffnet im Texteditor
+        public RelayCommand OpenMarkupCommand
         {
             get
             {
-                if (_openCommand == null)
+                if (openMarkupCommand == null)
                 {
-                    _openCommand = new RelayCommand(
-                        (parameter) => OpenCommandExecute(parameter),
-                        (parameter) => _canOpenFilesFromEditor
+                    openMarkupCommand = new RelayCommand(
+                        (parameter) => OpenMarkupCommandExecute(parameter),
+                        (parameter) => true
                     );
                 }
-                return _openCommand;
+                return openMarkupCommand;
             }
         }
-        public void OpenCommandExecute(object window)
+        public void OpenMarkupCommandExecute(object window)
         {
-            if (mDlgOpen.ShowDialog() == true)
-            {
-                using (var reader = new System.IO.StreamReader(mDlgOpen.FileName))
-                {
-                    TextBoxContent = reader.ReadToEnd();
-                    reader.Close();
-                }
-                StatusBar = "Read " + mDlgOpen.FileName;
-            }
+            Save();
+            var result = Markdown.ToHtml(TextBoxContent);
+
+            var filename = Path.GetFileNameWithoutExtension(FilePath);
+            var dir = Path.GetDirectoryName(FilePath);
+
+            string fileLocalization = Path.Combine(dir, $"{filename}.htm");
+
+            File.WriteAllText(fileLocalization, @result);
+
+            Process.Start(new ProcessStartInfo(fileLocalization) { UseShellExecute = true });
+
         }
         #endregion
 

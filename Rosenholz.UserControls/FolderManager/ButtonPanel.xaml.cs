@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace Rosenholz.UserControls
 {
@@ -68,7 +69,7 @@ namespace Rosenholz.UserControls
 
         public void OpenFolderExecute()
         {
-            Process.Start(CurrentFolder);
+            Process.Start(new ProcessStartInfo(CurrentFolder) { UseShellExecute = true });
         }
         #endregion
 
@@ -109,7 +110,7 @@ namespace Rosenholz.UserControls
                     string t = System.IO.Path.Combine(CurrentFolder, $"{rslt.Value}_{DateTime.Now.ToString("MM_dd")}__{wdow.InputString}.pptx");
                     File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "powerpoint.pptx"),
                              t);
-                    Process.Start(t);
+                    Process.Start(new ProcessStartInfo(t) { UseShellExecute = true });
                 }
             }
         }
@@ -152,7 +153,7 @@ namespace Rosenholz.UserControls
                     string t = System.IO.Path.Combine(CurrentFolder, $"{rslt.Value}_{DateTime.Now.ToString("MM_dd")}__{wdow.InputString}.xlsx");
                     File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "excel.xlsx"),
                              t);
-                    Process.Start(t);
+                    Process.Start(new ProcessStartInfo(t) { UseShellExecute = true });
                 }
             }
         }
@@ -195,7 +196,7 @@ namespace Rosenholz.UserControls
                     string t = System.IO.Path.Combine(CurrentFolder, $"{rslt.Value}_{DateTime.Now.ToString("MM_dd")}__{wdow.InputString}.mpp");
                     File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "Project.mpp"),
                              t);
-                    Process.Start(t);
+                    Process.Start(new ProcessStartInfo(t) { UseShellExecute = true });
                 }
             }
         }
@@ -237,7 +238,7 @@ namespace Rosenholz.UserControls
                     string t = System.IO.Path.Combine(CurrentFolder, $"{rslt.Value}_{DateTime.Now.ToString("MM_dd")}__{wdow.InputString}.vsdx");
                     File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "visio.vsdx"),
                              t);
-                    Process.Start(t);
+                    Process.Start(new ProcessStartInfo(t) { UseShellExecute = true });
                 }
             }
         }
@@ -279,7 +280,7 @@ namespace Rosenholz.UserControls
                     string t = System.IO.Path.Combine(CurrentFolder, $"{rslt.Value}_{DateTime.Now.ToString("MM_dd")}__{wdow.InputString}.txt");
                     File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "textfile.txt"),
                              t);
-                    Process.Start(t);
+                    Process.Start(new ProcessStartInfo(t) { UseShellExecute = true });
                 }
             }
         }
@@ -321,7 +322,7 @@ namespace Rosenholz.UserControls
                     string t = System.IO.Path.Combine(CurrentFolder, $"{rslt.Value}_{DateTime.Now.ToString("MM_dd")}__{wdow.InputString}.sql");
                     File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "sqlfile.sql"),
                              t);
-                    Process.Start(t);
+                    Process.Start(new ProcessStartInfo(t) { UseShellExecute = true });
                 }
             }
         }
@@ -370,7 +371,7 @@ namespace Rosenholz.UserControls
                     string t = System.IO.Path.Combine(CurrentFolder, $"{rslt.Value}_{DateTime.Now.ToString("MM_dd")}__{wdow.InputString}.R");
                     File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "RFile.R"),
                              t);
-                    Process.Start(proj);
+                    Process.Start(new ProcessStartInfo(proj) { UseShellExecute = true });
                 }
             }
         }
