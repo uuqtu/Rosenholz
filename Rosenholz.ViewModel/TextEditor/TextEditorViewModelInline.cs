@@ -32,6 +32,7 @@ namespace Rosenholz.ViewModel.TextEditor
         private RelayCommand _readOnlyModeCommand;
         private RelayCommand _saveCommand;
         private RelayCommand _saveAsCommand;
+        private RelayCommand _openMarkDownHelpCommand;
 
         public string StatusBar
         {
@@ -135,7 +136,7 @@ namespace Rosenholz.ViewModel.TextEditor
                 {
                     openMarkupCommand = new RelayCommand(
                         (parameter) => OpenMarkupCommandExecute(parameter),
-                        (parameter) => true
+                        (parameter) => TextBoxContent != null && FilePath != null && FilePath?.Length > 0
                     );
                 }
                 return openMarkupCommand;
@@ -144,6 +145,7 @@ namespace Rosenholz.ViewModel.TextEditor
         public void OpenMarkupCommandExecute(object window)
         {
             Save();
+
             var result = Markdown.ToHtml(TextBoxContent);
 
             var filename = Path.GetFileNameWithoutExtension(FilePath);
@@ -190,7 +192,7 @@ namespace Rosenholz.ViewModel.TextEditor
                 {
                     _saveCommand = new RelayCommand(
                         (parameter) => SaveCommandCommandExecute(parameter),
-                        (parameter) => true
+                        (parameter) => TextBoxContent != null && FilePath != null && FilePath?.Length > 0
                     );
                 }
                 return _saveCommand;
@@ -211,7 +213,7 @@ namespace Rosenholz.ViewModel.TextEditor
                 {
                     _saveAsCommand = new RelayCommand(
                         (parameter) => SaveAsCommandCommandExecute(parameter),
-                        (parameter) => true
+                        (parameter) => TextBoxContent != null && FilePath != null && FilePath?.Length > 0
                     );
                 }
                 return _saveAsCommand;
@@ -222,6 +224,28 @@ namespace Rosenholz.ViewModel.TextEditor
             Save(true);
         }
         #endregion
+
+        #region OpenMarkDownHelpCommand : Öfffnet die Hilfe PDF zu Markdown
+        public RelayCommand OpenMarkDownHelpCommand
+        {
+            get
+            {
+                if (_openMarkDownHelpCommand == null)
+                {
+                    _openMarkDownHelpCommand = new RelayCommand(
+                        (parameter) => OpenMarkDownHelpCommandExecute(parameter),
+                        (parameter) => true
+                    );
+                }
+                return _openMarkDownHelpCommand;
+            }
+        }
+        public void OpenMarkDownHelpCommandExecute(object window)
+        {
+            Process.Start(new ProcessStartInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Documents", "markdig_cheatsheet.pdf")) { UseShellExecute = true });
+        }
+        #endregion
+
 
         public void Save(bool foreSaveas = false)
         {
@@ -247,6 +271,8 @@ namespace Rosenholz.ViewModel.TextEditor
                     StatusBar = "Text not saved to file.";
             }
         }
+
+
 
         private void SaveFile()
         {

@@ -57,6 +57,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StatusBar Grid.Column="0"  Name="mStatBar" DockPanel.Dock="Bottom" >
                 <StatusBarItem DockPanel.Dock="Left" Background="#2D2D30" Foreground="White">
@@ -64,6 +65,7 @@
                 </StatusBarItem>
             </StatusBar>
             <ComboBox Grid.Row="0" Grid.Column="1" SelectedItem="{Binding SelectedFontSize}" ItemsSource="{Binding FontSizes}"></ComboBox>
+            <Button Grid.Column="2" Content="Markdown Help" Command="{Binding OpenMarkDownHelpCommand}"></Button>
         </Grid>
 
     </Grid>

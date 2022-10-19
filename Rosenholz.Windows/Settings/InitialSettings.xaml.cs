@@ -234,11 +234,11 @@ namespace Rosenholz.Windows
         }
         public void CreateNewSettingsExecute()
         {
-            Rosenholz.Extensions.InputBox box = new Rosenholz.Extensions.InputBox("Wie soll die SettingsDatei heißen?");
+            Rosenholz.Extensions.InputBox box = new Rosenholz.Extensions.InputBox($"Wie soll die SettingsDatei heißen? Es wir vorne der Computername angehangen {Environment.MachineName + "_"}");
             box.ShowDialog();
 
-            var str = box.InputString;
-            if (string.IsNullOrWhiteSpace(box.InputString))
+            var str = Environment.MachineName + "_" + box.InputString;
+            if (string.IsNullOrWhiteSpace(str))
                 return;
 
             IniFile var = new IniFile(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{str}.ini"));
