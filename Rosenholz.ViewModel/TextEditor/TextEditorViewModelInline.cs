@@ -157,6 +157,8 @@ namespace Rosenholz.ViewModel.TextEditor
 
             Process.Start(new ProcessStartInfo(fileLocalization) { UseShellExecute = true });
 
+            StatusBar = "Mardown file rendered and displayed";
+
         }
         #endregion
 

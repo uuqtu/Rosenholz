@@ -14,7 +14,7 @@
 
         <DataTemplate x:Key="RowDetailsTemplate9">
             <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False">
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
@@ -27,7 +27,8 @@
 
         <DataTemplate x:Key="RowDetailsTemplate8">
             <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate9}">
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow"
+                      RowDetailsTemplate="{StaticResource RowDetailsTemplate9}" HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
@@ -40,7 +41,8 @@
 
         <DataTemplate x:Key="RowDetailsTemplate7">
             <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate8}">
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow"
+                      RowDetailsTemplate="{StaticResource RowDetailsTemplate8}" HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
@@ -53,7 +55,8 @@
 
         <DataTemplate x:Key="RowDetailsTemplate6">
             <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate7}">
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow"
+                      RowDetailsTemplate="{StaticResource RowDetailsTemplate7}" HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
@@ -66,7 +69,8 @@
 
         <DataTemplate x:Key="RowDetailsTemplate5">
             <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate6}">
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow"
+                      RowDetailsTemplate="{StaticResource RowDetailsTemplate6}" HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
@@ -79,7 +83,8 @@
 
         <DataTemplate x:Key="RowDetailsTemplate4">
             <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate5}">
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow"
+                      RowDetailsTemplate="{StaticResource RowDetailsTemplate5}" HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
@@ -92,7 +97,8 @@
 
         <DataTemplate x:Key="RowDetailsTemplate3">
             <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate4}">
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow"
+                      RowDetailsTemplate="{StaticResource RowDetailsTemplate4}" HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
@@ -105,7 +111,8 @@
 
         <DataTemplate x:Key="RowDetailsTemplate2">
             <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate3}">
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow"
+                      RowDetailsTemplate="{StaticResource RowDetailsTemplate3}" HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
@@ -118,7 +125,8 @@
 
         <DataTemplate x:Key="RowDetailsTemplate">
             <DataGrid ItemsSource="{Binding Path=LinkedTaskItems}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False"  RowDetailsTemplate="{StaticResource RowDetailsTemplate2}">
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow"
+                      RowDetailsTemplate="{StaticResource RowDetailsTemplate2}" HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>
@@ -131,8 +139,14 @@
     </UserControl.Resources>
     <Grid>
         <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="False" RowDetailsTemplate="{StaticResource RowDetailsTemplate}" AlternatingRowBackground="Gray"
-                  ItemsSource="{Binding TaskModels, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Loaded="DataGrid_Loaded">
+                  IsEnabled="True" ClipboardCopyMode="IncludeHeader" IsReadOnly="True" RowDetailsTemplate="{StaticResource RowDetailsTemplate}" AlternatingRowBackground="Gray"
+                  ItemsSource="{Binding TaskModels, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"  Loaded="DataGrid_Loaded" SelectionMode="Single" SelectionUnit="FullRow">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Level" Binding="{Binding Level}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="State" Binding="{Binding TaskState}" Width="50" IsReadOnly="True"/>

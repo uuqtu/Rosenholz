@@ -1,4 +1,6 @@
-﻿using Rosenholz.UserControls.FolderExplorer;
+﻿using Rosenholz.Model;
+using Rosenholz.UserControls.FolderExplorer;
+using Rosenholz.ViewModel;
 using Rosenholz.ViewModel.TaskListViewer;
 using System;
 using System.Collections;
@@ -25,7 +27,9 @@ namespace Rosenholz.UserControls
     /// </summary>
     public partial class TaskListViewer : UserControl, INotifyPropertyChanged
     {
+        public event DisplayTaskViewModelRequired DisplayTaskViewModelRequiredEvent;
         private string _aUReference;
+
 
         public string AUReference
         {
@@ -63,6 +67,18 @@ namespace Rosenholz.UserControls
             field = value;
             OnPropertyChanged(propertyName);
             return true;
+        }
+
+        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is DataGridRow)
+            {
+                if ((sender as DataGridRow).DataContext is TaskModel)
+                {
+                    TaskModel task = (sender as DataGridRow).DataContext as TaskModel;
+                    DisplayTaskViewModelRequiredEvent?.Invoke(task);
+                }
+            }
         }
     }
 }

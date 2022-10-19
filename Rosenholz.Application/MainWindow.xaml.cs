@@ -40,6 +40,13 @@ namespace Rosenholz.Application
             InitializeComponent();
             AUExplorer.TextEditorRequiredEvent += AUExplorer_TextEditorRequiredEvent;
             AUExplorer.TaskCreationRequiredEvent += AUExplorer_TaskCreationRequiredEvent;
+            AUExplorer.DisplayTaskViewModelRequiredEvent += AUExplorer_DisplayTaskViewModelRequiredEvent;
+        }
+
+        private void AUExplorer_DisplayTaskViewModelRequiredEvent(TaskModel parent)
+        {
+            Rosenholz.Windows.ShowChildTaskWindow childview = new Rosenholz.Windows.ShowChildTaskWindow(parent);
+            childview.ShowDialog();
         }
 
         //Button Pannel braucht einen Task

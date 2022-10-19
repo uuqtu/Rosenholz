@@ -30,6 +30,7 @@ namespace Rosenholz.UserControls
     public partial class AUExplorer : UserControl
     {
         public event TextEditorRequired TextEditorRequiredEvent;
+        public event DisplayTaskViewModelRequired DisplayTaskViewModelRequiredEvent;
         /// <summary>
         /// Button Pannel braucht einen Task
         /// </summary>
@@ -38,6 +39,12 @@ namespace Rosenholz.UserControls
         {
             InitializeComponent();
             ButtonPanel.TaskCreationRequiredEvent += ButtonPanel_TaskCreationRequiredEvent;
+            TaskViewer.DisplayTaskViewModelRequiredEvent += TaskViewer_DisplayTaskViewModelRequiredEvent;
+        }
+
+        private void TaskViewer_DisplayTaskViewModelRequiredEvent(TaskModel task)
+        {
+            DisplayTaskViewModelRequiredEvent?.Invoke(task);
         }
 
         private void ButtonPanel_TaskCreationRequiredEvent(string currentFolder)
