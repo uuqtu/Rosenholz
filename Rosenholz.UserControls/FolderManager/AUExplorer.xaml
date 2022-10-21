@@ -26,15 +26,24 @@
                             OnFileOpen="FolderView_OnFileOpen"></uc2:FolderView>
 
             <uc:ButtonPanel x:Name="ButtonPanel" Grid.Row="0" Grid.Column="1"  Grid.RowSpan ="2" Background="#2D2D30"></uc:ButtonPanel>
-            <uc:TextEditorUserControl Grid.Row="0" Grid.Column="2"  Grid.RowSpan="2"  x:Name="TextEditor"></uc:TextEditorUserControl>
+            
 
-            <TextBox Background="Transparent" FontWeight="Bold" FontSize="15" Foreground="Green" Height="20" Width="20" VerticalAlignment="Bottom"
-                     HorizontalAlignment="Left" Margin="24,0,0,22" Grid.Row="1" Grid.Column="2" BorderThickness="0" HorizontalContentAlignment="Center"
+            <TabControl Grid.Row="0" Grid.Column="2"  Grid.RowSpan="2">
+                <TabItem Header="Text Editor">
+                    <uc:TextEditorUserControl   x:Name="TextEditor"></uc:TextEditorUserControl>
+                </TabItem>
+                <TabItem Header="Task List       ">
+                    <uc:TaskListViewer  x:Name="TaskViewer"></uc:TaskListViewer>
+                </TabItem>
+            </TabControl>
+            
+            <TextBox Background="Transparent" FontWeight="Bold" FontSize="14" Foreground="Green" Height="20" Width="20" VerticalAlignment="Top" IsEnabled="False"
+                     HorizontalAlignment="Left" Margin="125,2,0,0" Grid.Row="0" Grid.Column="2" BorderThickness="0" HorizontalContentAlignment="Center"
                      VerticalContentAlignment="Center" Text="{Binding NumberOfTasks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-            <Expander  Grid.Row="1" Grid.Column="2" ExpandDirection="Up" Margin="0,0,0,20">
-                <uc:TaskListViewer  x:Name="TaskViewer"></uc:TaskListViewer>
-            </Expander>
+            <!--<Expander  Grid.Row="1" Grid.Column="2" ExpandDirection="Up" Margin="0,0,0,20">
+                
+            </Expander>-->
         </Grid>
     </Grid>
 </UserControl>

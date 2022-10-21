@@ -1,4 +1,5 @@
-﻿using Rosenholz.Model;
+﻿using Rosenholz.Extensions;
+using Rosenholz.Model;
 using Rosenholz.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,7 +19,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using Path = System.IO.Path;
+using RelayCommand = Rosenholz.Model.RelayCommand;
 
 namespace Rosenholz.UserControls
 {
@@ -100,7 +104,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewPowerPointExecute()
         {
-            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.", true);
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -143,7 +147,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewExcelExecute()
         {
-            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.", true);
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -186,7 +190,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewProjectExecute()
         {
-            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.", true);
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -228,7 +232,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewVisioExecute()
         {
-            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.", true);
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -270,7 +274,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewTextFileExecute()
         {
-            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.", true);
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -312,7 +316,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewSQLFileExecute()
         {
-            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.", true);
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -354,7 +358,7 @@ namespace Rosenholz.UserControls
 
         public void CreateNewRFileExecute()
         {
-            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.");
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.", true);
             wdow.ShowDialog();
             if (!string.IsNullOrWhiteSpace(wdow.InputString))
             {
@@ -437,9 +441,46 @@ namespace Rosenholz.UserControls
         }
         #endregion
 
+        #region Create New Link
+
+        private RelayCommand _createNewLinkCommand;
+        public RelayCommand CreateNewLinkCommand
+        {
+            get
+            {
+                if (_createNewLinkCommand == null)
+                {
+                    _createNewLinkCommand = new RelayCommand(
+                        (parameter) => CreateNewLinkExecute(),
+                        (parameter) => CanEcexuteCreateNewLink()
+                    );
+                }
+                return _createNewLinkCommand;
+            }
+        }
 
 
+        private bool CanEcexuteCreateNewLink()
+        {
+            return !string.IsNullOrWhiteSpace(CurrentFolder);
+        }
 
+        public void CreateNewLinkExecute()
+        {
+            LinkCaputreBox link = new LinkCaputreBox("Geben Sie Benennung und Link ein");
+            link.ShowDialog();
+
+            if (string.IsNullOrWhiteSpace(link?.InputString))
+                return;
+
+
+            using (StreamWriter writer = new StreamWriter(Path.Combine(CurrentFolder, string.Join("_", link.InputString.Split(Path.GetInvalidFileNameChars())) + ".url")))
+            {
+                writer.WriteLine("[InternetShortcut]");
+                writer.WriteLine("URL=" + link.LinkString);
+                writer.Flush();
+            }
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -449,3 +490,8 @@ namespace Rosenholz.UserControls
         }
     }
 }
+
+
+#endregion
+
+

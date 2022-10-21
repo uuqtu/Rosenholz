@@ -106,7 +106,7 @@ namespace Rosenholz.ViewModel.TextEditor
                 {
                     _clearCommand = new RelayCommand(
                         (parameter) => ClearCommandExecute(parameter),
-                        (parameter) => !IsReadOnly
+                        (parameter) => !IsReadOnly && false
                     );
                 }
                 return _clearCommand;

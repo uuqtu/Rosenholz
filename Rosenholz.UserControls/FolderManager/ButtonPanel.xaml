@@ -42,7 +42,7 @@
         <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="6" Margin="10,0,10,0" Content="New Text File" Command="{Binding CreateNewTextFileCommand}" Height="23"></Button>
         <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="7" Margin="10,0,10,0" Content="New SQL File" Command="{Binding CreateNewSQLFileCommand}" Height="23"></Button>
         <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="8" Margin="10,0,10,0" Content="New R Project" Command="{Binding CreateNewRFileCommand}" Height="23"></Button>
-        <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="9" Margin="10,0,10,0" Content="New " Height="23"></Button>
+        <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="9" Margin="10,0,10,0" Content="New Link" Command="{Binding CreateNewLinkCommand}"></Button>
         <Separator Grid.Column="0" Grid.Row="10" />
         <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="11" Margin="10,0,10,0" Content="New Task" Command="{Binding CreateNewTaskCommand}" Height="23"></Button>
         <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="12" Margin="10,0,10,0" Content="Generate F22 Task List" Height="23"></Button>

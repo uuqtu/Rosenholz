@@ -234,7 +234,7 @@ namespace Rosenholz.Windows
         }
         public void CreateNewSettingsExecute()
         {
-            Rosenholz.Extensions.InputBox box = new Rosenholz.Extensions.InputBox($"Wie soll die SettingsDatei heißen? Es wir vorne der Computername angehangen {Environment.MachineName + "_"}");
+            Rosenholz.Extensions.InputBox box = new Rosenholz.Extensions.InputBox($"Wie soll die SettingsDatei heißen? Es wir vorne der Computername angehangen {Environment.MachineName + "_"}", true);
             box.ShowDialog();
 
             var str = Environment.MachineName + "_" + box.InputString;

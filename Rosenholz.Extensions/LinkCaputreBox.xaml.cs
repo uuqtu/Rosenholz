@@ -1,18 +1,25 @@
-﻿using Rosenholz.Extensions;
-using System;
-
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Rosenholz.Extensions
-
 {
     /// <summary>
-    /// Interaction logic for InputBox.xaml
+    /// Interaktionslogik für LinkCaputreBox.xaml
     /// </summary>
-    public partial class InputBox : System.Windows.Window, INotifyPropertyChanged
+    public partial class LinkCaputreBox : Window, INotifyPropertyChanged
     {
-        private bool _cleanForFilename = false;
         private string _inputString = "";
         public string InputString
         {
@@ -22,11 +29,22 @@ namespace Rosenholz.Extensions
             }
             set
             {
-                if (!_cleanForFilename)
-                    _inputString = value;
-                else
-                    _inputString = string.Join("_", value.Split(Path.GetInvalidFileNameChars()));
+                _inputString = value;
                 OnPropertyChanged(nameof(InputString));
+            }
+        }
+
+        private string _linktString = "";
+        public string LinkString
+        {
+            get
+            {
+                return _linktString;
+            }
+            set
+            {
+                _linktString = value;
+                OnPropertyChanged(nameof(LinkString));
             }
         }
 
@@ -44,12 +62,11 @@ namespace Rosenholz.Extensions
             }
         }
 
-        public InputBox(string labelText, bool cleanForFileName)
+        public LinkCaputreBox(string labelText)
         {
             LabelText = labelText;
             InitializeComponent();
             DataContext = this;
-            _cleanForFilename = cleanForFileName;
         }
 
 

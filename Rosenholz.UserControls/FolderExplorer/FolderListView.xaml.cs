@@ -116,7 +116,7 @@ namespace Rosenholz.UserControls.FolderExplorer
 
         public void CreateNewFolder()
         {
-            InputBox box = new InputBox("Wie soll der neue Ordner heißen?");
+            InputBox box = new InputBox("Wie soll der neue Ordner heißen?", true);
             box.ShowDialog();
             var newFolder = box.InputString;
 
