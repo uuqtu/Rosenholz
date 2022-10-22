@@ -89,11 +89,11 @@ namespace Rosenholz.UserControls
             this.TextEditor.CurrentFolder = path;
             this.TextEditor.LoadFile(System.IO.Path.Combine(path, "_notes", "main.txt"));
             this.OptiontEditor1.CurrentFolder = path;
-            this.OptiontEditor1.LoadFile(System.IO.Path.Combine(path, "_notes", "extra_notes_1.txt"));
+            this.OptiontEditor1.LoadFile(System.IO.Path.Combine(path, "_notes", "extranotes1.txt"));
             this.OptiontEditor2.CurrentFolder = path;
-            this.OptiontEditor2.LoadFile(System.IO.Path.Combine(path, "_notes", "extra_notes_2.txt"));
+            this.OptiontEditor2.LoadFile(System.IO.Path.Combine(path, "_notes", "extranotes2.txt"));
             this.OptiontEditor3.CurrentFolder = path;
-            this.OptiontEditor3.LoadFile(System.IO.Path.Combine(path, "_notes", "extra_notes_3.txt"));
+            this.OptiontEditor3.LoadFile(System.IO.Path.Combine(path, "_notes", "extranotes3.txt"));
 
             this.ButtonPanel.CurrentFolder = path;
             this.TaskViewer.AUReference = curentReference?.AUReferenceString;

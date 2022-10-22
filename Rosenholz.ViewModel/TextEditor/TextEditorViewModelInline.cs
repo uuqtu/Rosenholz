@@ -289,6 +289,10 @@ namespace Rosenholz.ViewModel.TextEditor
             }
 
             StatusBar = "Wrote " + TextBoxContent?.Length.ToString() + " chars in " + FilePath;
+
+            //var files = Directory.GetFiles(FilePath);
+
+            //files.Where(x => Path.GetFileNameWithoutExtension(x).Split('_')[1].Contains());
         }
 
     }
