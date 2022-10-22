@@ -117,6 +117,6 @@
   </ItemGroup>
   <PropertyGroup />
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if &quot;$(ConfigurationName)&quot; == &quot;Release&quot; xcopy &quot;$(SolutionDir)$(TargetName)\bin\$(Configuration)&quot; &quot;C:\Program Files\Rosenholz&quot; /s /i /y" />
+    <Exec Command="XCOPY &quot;$(TargetDir)*&quot; &quot;C:\Program Files\Rosenholz\&quot; /S /Y" />
   </Target>
 </Project>

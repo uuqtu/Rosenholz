@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.Model", "Rosenholz.Model\Rosenholz.Model.csproj", "{C2D92B4D-B9B3-486F-B889-79474A319C7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosenholz.Model", "Rosenholz.Model\Rosenholz.Model.csproj", "{C2D92B4D-B9B3-486F-B889-79474A319C7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.ViewModel", "Rosenholz.ViewModel\Rosenholz.ViewModel.csproj", "{FEA34100-3C69-4263-B564-936412F8A199}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosenholz.ViewModel", "Rosenholz.ViewModel\Rosenholz.ViewModel.csproj", "{FEA34100-3C69-4263-B564-936412F8A199}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.Application", "Rosenholz.Application\Rosenholz.Application.csproj", "{326891B5-FFAF-4727-8479-1A6CA8A6995D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosenholz.Application", "Rosenholz.Application\Rosenholz.Application.csproj", "{326891B5-FFAF-4727-8479-1A6CA8A6995D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.UserControls", "Rosenholz.UserControls\Rosenholz.UserControls.csproj", "{7BF75D80-1154-455F-BC12-07ED82CE87B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosenholz.UserControls", "Rosenholz.UserControls\Rosenholz.UserControls.csproj", "{7BF75D80-1154-455F-BC12-07ED82CE87B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.Windows", "Rosenholz.Windows\Rosenholz.Windows.csproj", "{55E0B254-CF97-480C-8C8E-B73FC8CA70D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosenholz.Windows", "Rosenholz.Windows\Rosenholz.Windows.csproj", "{55E0B254-CF97-480C-8C8E-B73FC8CA70D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.Zesz", "Rosenholz.Zesz\Rosenholz.Zesz.csproj", "{28258E82-320A-4938-A3A9-53D83704339C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosenholz.Zesz", "Rosenholz.Zesz\Rosenholz.Zesz.csproj", "{28258E82-320A-4938-A3A9-53D83704339C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosenholz.Extensions", "Rosenholz.Extensions\Rosenholz.Extensions.csproj", "{600F43E5-24E2-4289-83ED-C74D6E4E1CC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosenholz.Extensions", "Rosenholz.Extensions\Rosenholz.Extensions.csproj", "{600F43E5-24E2-4289-83ED-C74D6E4E1CC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,7 +44,6 @@ Global
 		{55E0B254-CF97-480C-8C8E-B73FC8CA70D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55E0B254-CF97-480C-8C8E-B73FC8CA70D6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{28258E82-320A-4938-A3A9-53D83704339C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28258E82-320A-4938-A3A9-53D83704339C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28258E82-320A-4938-A3A9-53D83704339C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28258E82-320A-4938-A3A9-53D83704339C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{600F43E5-24E2-4289-83ED-C74D6E4E1CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
