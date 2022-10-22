@@ -35,6 +35,15 @@
                 <TabItem Header="Task List       ">
                     <uc:TaskListViewer  x:Name="TaskViewer"></uc:TaskListViewer>
                 </TabItem>
+                <TabItem Header="Option Editor 1">
+                    <uc:TextEditorUserControl   x:Name="OptiontEditor1"></uc:TextEditorUserControl>
+                </TabItem>
+                <TabItem Header="Option Editor 2">
+                    <uc:TextEditorUserControl   x:Name="OptiontEditor2"></uc:TextEditorUserControl>
+                </TabItem>
+                <TabItem Header="Option Editor 3">
+                    <uc:TextEditorUserControl   x:Name="OptiontEditor3"></uc:TextEditorUserControl>
+                </TabItem>
             </TabControl>
             
             <TextBox Background="Transparent" FontWeight="Bold" FontSize="14" Foreground="Green" Height="20" Width="20" VerticalAlignment="Top" IsEnabled="False"
