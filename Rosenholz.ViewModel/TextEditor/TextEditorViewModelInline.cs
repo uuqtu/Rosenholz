@@ -290,10 +290,50 @@ namespace Rosenholz.ViewModel.TextEditor
 
             StatusBar = "Wrote " + TextBoxContent?.Length.ToString() + " chars in " + FilePath;
 
-            //var files = Directory.GetFiles(FilePath);
-
-            //files.Where(x => Path.GetFileNameWithoutExtension(x).Split('_')[1].Contains());
+            CleanUpNotes(dir);
         }
 
+        private static void CleanUpNotes(string dir)
+        {
+            try
+            {
+                var files = Directory.GetFiles(dir);
+
+                string parent = Directory.GetParent(dir).Parent.FullName;
+                string archivLocation = Path.Combine(parent, "Archiv");
+
+                if (Directory.Exists(parent))
+                    Directory.CreateDirectory(archivLocation);
+
+                string[] types = { "main_", "extranotes1_", "extranotes2_", "extranotes3_" };
+
+                foreach (var type in types)
+                {
+                    int numbre = files.Where(s => s.Contains(type)).Count();
+
+                    if (numbre > 50)
+                    {
+                        var toKeep = files.Where(s => Path.GetFileNameWithoutExtension(s).Contains("main_")).OrderByDescending(t => DateTime.FromFileTimeUtc(long.Parse(Path.GetFileNameWithoutExtension(t).Split('_')[1]))).Take(100).ToList();
+                        var toDelete = files.Where(s => s.Contains("main_")).Where(t => !toKeep.Contains(t)).ToList();
+
+                        foreach (var item in toDelete)
+                        {
+                            if (Path.GetFileName(item) != "main.txt" &&
+                                Path.GetFileName(item) != "extranotes1.txt" &&
+                                Path.GetFileName(item) != "extranotes2.txt" &&
+                                Path.GetFileName(item) != "extranotes3.txt")
+                            {
+                                string archiveFileName = $"{Model.AUReference.GetAUStringFromPath(item).Value}_{Path.GetFileName(item)}";
+                                File.Move(item, Path.Combine(archivLocation, archiveFileName));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
