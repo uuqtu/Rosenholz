@@ -23,6 +23,8 @@ namespace Rosenholz.Application
 
             if (settingsWindow.DialogResult == true)
             { mainWindow.Show(); }
+            else
+            { mainWindow.Close(); }
         }
     }
 }

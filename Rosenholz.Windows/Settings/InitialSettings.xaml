@@ -123,7 +123,7 @@
             <Button Margin="0,0,0,0" Width="150" Command="{Binding SaveSettingsCommand}" CommandParameter="{Binding SelectedIniPath}">Save</Button>
             <Button Margin="0,0,0,0" Width="150" Command="{Binding OpenDefaultCommand}">Open Default</Button>
             <Button Margin="0,0,0,0" Width="150" Command="{Binding SetSettingsAndOpenCommand}" CommandParameter="{Binding SelectedIniPath}">Set and Open</Button>
-            <Button Margin="0,0,0,0" Width="150" Command="{Binding CloseSettingsCommand}">Set and Open></Button>
+            <Button Margin="0,0,0,0" Width="150" Command="{Binding CloseSettingsCommand}">Close</Button>
         </StackPanel>
     </Grid>
 </Window>
