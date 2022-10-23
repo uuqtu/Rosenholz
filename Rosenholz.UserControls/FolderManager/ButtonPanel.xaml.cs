@@ -481,17 +481,72 @@ namespace Rosenholz.UserControls
                 writer.Flush();
             }
         }
+        #endregion
 
+        #region Create Tex
+
+        private RelayCommand _createTexCommand;
+        public RelayCommand CreateTexCommand
+        {
+            get
+            {
+                if (_createTexCommand == null)
+                {
+                    _createTexCommand = new RelayCommand(
+                        (parameter) => CreateTexExecute(),
+                        (parameter) => CanEcexuteCreateTex()
+                    );
+                }
+                return _createTexCommand;
+            }
+        }
+
+
+        private bool CanEcexuteCreateTex()
+        {
+            return !string.IsNullOrWhiteSpace(CurrentFolder);
+        }
+
+        public void CreateTexExecute()
+        {
+            Rosenholz.Extensions.InputBox wdow = new Rosenholz.Extensions.InputBox("Geben Sie einen Titel für die Datei ein.", true);
+            wdow.ShowDialog();
+            if (!string.IsNullOrWhiteSpace(wdow.InputString))
+            {
+                var rslt = Model.AUReference.GetAUStringFromPath(CurrentFolder);
+                if (rslt.Result)
+                {
+                    string dir1 = System.IO.Path.Combine(CurrentFolder, wdow.InputString);
+                    string dir2 = System.IO.Path.Combine(CurrentFolder, wdow.InputString, "bib");
+
+                    if (!Directory.Exists(dir2))
+                        Directory.CreateDirectory(dir2);
+
+                    File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "Tex", "fphw.cls"), Path.Combine(dir1, "fphw.cls"));
+                    File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "Tex", "litverz.bib"), Path.Combine(dir1, "litverz.bib"));
+                    File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "Tex", "main.tex"), Path.Combine(dir1, "main.tex"));
+                    File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "Tex", "main_vorlage.tex"), Path.Combine(dir1, "main_vorlage.tex"));
+
+                    File.Copy(System.IO.Path.Combine(Settings.Settings.Instance.AppBaseLocation, "Templates", "Tex", "bib", "bib.ctv6"), Path.Combine(dir2, "main_vorlage.tex"));
+
+
+
+                    Process.Start(new ProcessStartInfo(Path.Combine(dir1, "main.tex")) { UseShellExecute = true });
+                }
+            }
+        }
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }
 
 
-#endregion
+
 
 

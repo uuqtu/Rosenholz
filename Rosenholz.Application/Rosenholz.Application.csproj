@@ -44,12 +44,32 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Documents\markdig_cheatsheet.pdf" />
+    <None Remove="Templates\Tex\bib\bib.ctv6" />
+    <None Remove="Templates\Tex\fphw.cls" />
+    <None Remove="Templates\Tex\litverz.bib" />
+    <None Remove="Templates\Tex\main.tex" />
+    <None Remove="Templates\Tex\main_vorlage.tex" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\rproject.Rproj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Documents\markdig_cheatsheet.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Tex\bib\bib.ctv6">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Tex\fphw.cls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Tex\litverz.bib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Tex\main.tex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Tex\main_vorlage.tex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\icon.png">
