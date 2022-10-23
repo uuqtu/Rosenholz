@@ -212,6 +212,7 @@ namespace Rosenholz.Windows
 
         public void CloseSettingsExecute()
         {
+            DialogResult = false;
             this.Close();
         }
 
@@ -375,6 +376,8 @@ namespace Rosenholz.Windows
                 settings.IniWriteValue("FileName", nameof(TaskItemsFileName), TaskItemsFileName);
                 settings.IniWriteValue("FileName", nameof(TaskLinkFileName), TaskLinkFileName);
 
+                DialogResult = true;
+
                 this.Close();
             }
         }
@@ -398,6 +401,7 @@ namespace Rosenholz.Windows
         }
         public void OpenDefaultCommandExecute(object parameter)
         {
+            DialogResult = true;
             this.Close();
         }
         #endregion

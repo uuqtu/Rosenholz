@@ -20,7 +20,9 @@ namespace Rosenholz.Application
             MainWindow mainWindow = new MainWindow();
 
             settingsWindow.ShowDialog();
-            mainWindow.Show();
+
+            if (settingsWindow.DialogResult == true)
+            { mainWindow.Show(); }
         }
     }
 }
