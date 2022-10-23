@@ -85,6 +85,15 @@ namespace Rosenholz.ViewModel
                 else
                     F22ContextChangeEvent?.Invoke(new F16F22Reference("I_000_00"));
                 OnPropertyChanged(nameof(CurrentF16Selected));
+
+                try
+                {
+                    WriteF16ItemsCommandExecute(null);
+                }
+                catch
+                {
+
+                }
             }
         }
 

@@ -95,6 +95,14 @@ namespace Rosenholz.ViewModel
                     AUContextChangeEvent.Invoke(null);
 
                 OnPropertyChanged(nameof(CurrentF22Selected));
+                try
+                {
+                    WriteF22ItemsCommandExecute(null);
+                }
+                catch
+                {
+
+                }
             }
         }
 
