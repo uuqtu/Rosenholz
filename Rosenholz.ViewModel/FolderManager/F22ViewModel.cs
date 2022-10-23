@@ -166,8 +166,8 @@ namespace Rosenholz.ViewModel
             var items = F22Storage.Instance.ReadData();
             string dir = Settings.Settings.Instance.F22SubLocation;
 
-            var positions = items.Select(p => p.F16F22Reference.PositionCounterString).Distinct();
-            var references = items.Select(f => f.F16F22Reference.F22String).Distinct();
+            var positions = items.Select(p => p.F16F22Reference.PositionCounterString).Distinct().ToList();
+            var references = items.Select(f => f.F16F22Reference.F22String).Distinct().ToList();
 
             foreach (var position in positions)
             {

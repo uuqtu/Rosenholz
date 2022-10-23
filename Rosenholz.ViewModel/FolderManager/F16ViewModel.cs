@@ -184,6 +184,9 @@ namespace Rosenholz.ViewModel
 
                 var character = fileName[0];
 
+                if (!Directory.Exists(Path.Combine(dir, character.ToString())))
+                    Directory.CreateDirectory(Path.Combine(dir, character.ToString()));
+
                 File.WriteAllLines(Path.Combine(dir, character.ToString(), $"{fileName}.txt"), lines);
             }
         }
