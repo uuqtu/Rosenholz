@@ -1,0 +1,66 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LeerCopyWPF.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CopyKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C</Value>
+    </Setting>
+    <Setting Name="EditKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">E</Value>
+    </Setting>
+    <Setting Name="SaveKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">S</Value>
+    </Setting>
+    <Setting Name="ClearKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Z</Value>
+    </Setting>
+    <Setting Name="QuitKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Q</Value>
+    </Setting>
+    <Setting Name="TipsKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">T</Value>
+    </Setting>
+    <Setting Name="SettingsWin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">P</Value>
+    </Setting>
+    <Setting Name="SelectAll" Type="System.String" Scope="User">
+      <Value Profile="(Default)">A</Value>
+    </Setting>
+    <Setting Name="LastSavePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.</Value>
+    </Setting>
+    <Setting Name="DefaultSaveExt" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.bmp</Value>
+    </Setting>
+    <Setting Name="AppDataLoc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.</Value>
+    </Setting>
+    <Setting Name="MainWinX" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MainWinY" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="BorderKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">B</Value>
+    </Setting>
+    <Setting Name="BorderVisibility" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TipsVisibility" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DefaultFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">L33R</Value>
+    </Setting>
+    <Setting Name="SelectionBorderBrush" Type="System.Windows.Media.SolidColorBrush" Scope="User">
+      <Value Profile="(Default)">#FF32CD32</Value>
+    </Setting>
+    <Setting Name="SelectionWinOpacity" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="SelectionBorderThickness" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

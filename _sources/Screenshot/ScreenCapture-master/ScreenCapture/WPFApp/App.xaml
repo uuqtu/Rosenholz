@@ -1,0 +1,13 @@
+﻿<Application x:Class="WPFApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WPFApp"
+             Startup="Application_Startup"
+             ShutdownMode="OnExplicitShutdown"
+             Exit="Application_Exit">
+    <Application.Resources>
+        <ResourceDictionary>
+            <BitmapImage x:Key="ICON_EXIT" UriSource="Resources/Icons/ICON_EXIT.png"></BitmapImage>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

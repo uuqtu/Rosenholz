@@ -1,0 +1,62 @@
+﻿<Border x:Class="ScreenshotManager.Views.TagsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ScreenshotManager.Views"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        mc:Ignorable="d"
+        Background="{DynamicResource RegionBrush}">
+  <Grid>
+    <hc:SimplePanel Width="600">
+      <StackPanel>
+        <ScrollViewer Margin="10"
+                      Height="100"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+          <hc:CheckComboBox ItemsSource="{Binding Tags}"
+                            DisplayMemberPath="Name"
+                            SelectionChanged="CheckComboBox_SelectionChanged">
+            <hc:CheckComboBox.ItemContainerStyle>
+              <Style TargetType="hc:CheckComboBoxItem"
+                     BasedOn="{StaticResource CheckComboBoxItemBaseStyle}">
+                <Setter Property="IsSelected"
+                        Value="{Binding IsSelected}" />
+                <Setter Property="Visibility"
+                        Value="{Binding Visibility}" />
+              </Style>
+            </hc:CheckComboBox.ItemContainerStyle>
+            <hc:CheckComboBox.TagStyle>
+              <Style TargetType="hc:Tag"
+                     BasedOn="{StaticResource Tag4CheckComboBoxStyle}">
+                <Setter Property="Margin"
+                        Value="5" />
+              </Style>
+            </hc:CheckComboBox.TagStyle>
+          </hc:CheckComboBox>
+        </ScrollViewer>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+          <hc:TextBox Name="TagTextBox"
+                      Text="{Binding TagName}"
+                      Margin="10"
+                      Width="300">
+            <hc:TextBox.InputBindings>
+              <KeyBinding Key="Return"
+                          Command="{Binding AddTagCommand}"
+                          CommandParameter="{Binding ElementName=TagTextBox, Path=Text}" />
+            </hc:TextBox.InputBindings>
+          </hc:TextBox>
+          <Button Margin="10"
+                  Content="Add Tag"
+                  Command="{Binding AddTagCommand}"
+                  CommandParameter="{Binding ElementName=TagTextBox, Path=Text}" />
+        </StackPanel>
+        <Button Content="Close"
+                Command="hc:ControlCommands.Close"
+                Width="100"
+                Margin="10" />
+      </StackPanel>
+    </hc:SimplePanel>
+  </Grid>
+</Border>
