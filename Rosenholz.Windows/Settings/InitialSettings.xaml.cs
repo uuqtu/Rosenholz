@@ -125,6 +125,17 @@ namespace Rosenholz.Windows
             }
         }
 
+        private string _completionOfAssignmentsLocation;
+        public string CompletionOfAssignmentsLocation
+        {
+            get { return _completionOfAssignmentsLocation; }
+            set
+            {
+                _completionOfAssignmentsLocation = value;
+                OnPropertyChanged(nameof(CompletionOfAssignmentsLocation));
+            }
+        }
+
         #region Filenames
 
         private string _f22FileName;
@@ -254,6 +265,7 @@ namespace Rosenholz.Windows
             var.IniWriteValue("FileName", nameof(TasksFileName), "tasks.db");
             var.IniWriteValue("FileName", nameof(TaskItemsFileName), "taskitems.db");
             var.IniWriteValue("FileName", nameof(TaskLinkFileName), "linkedtaskitems.db");
+            var.IniWriteValue("FilePath", nameof(CompletionOfAssignmentsLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "CoA"));
 
             GetIniFiles();
         }
@@ -291,6 +303,7 @@ namespace Rosenholz.Windows
                 TasksFileName = var.IniReadValue("FileName", nameof(TasksFileName));
                 TaskItemsFileName = var.IniReadValue("FileName", nameof(TaskItemsFileName));
                 TaskLinkFileName = var.IniReadValue("FileName", nameof(TaskLinkFileName));
+                CompletionOfAssignmentsLocation = var.IniReadValue("FilePath", nameof(CompletionOfAssignmentsLocation));
                 GetIniFiles();
             }
         }
@@ -322,6 +335,7 @@ namespace Rosenholz.Windows
                 var.IniWriteValue("Organization", "F16SubLocation", F16SubLocation);
                 var.IniWriteValue("Organization", "AUSubLocation", AUSubLocation);
                 var.IniWriteValue("Organization", "TaskSubLocation", TaskSubLocation);
+                var.IniWriteValue("Organization", "CoALocation", CompletionOfAssignmentsLocation);
                 var.IniWriteValue("Storage", "StorageBaseLocation", StorageBaseLocation);
                 GetIniFiles();
             }
@@ -360,6 +374,7 @@ namespace Rosenholz.Windows
                 var.IniWriteValue("FileName", nameof(TasksFileName), TasksFileName);
                 var.IniWriteValue("FileName", nameof(TaskItemsFileName), TaskItemsFileName);
                 var.IniWriteValue("FileName", nameof(TaskLinkFileName), TaskLinkFileName);
+                var.IniWriteValue("FilePath", nameof(CompletionOfAssignmentsLocation), CompletionOfAssignmentsLocation);
 
                 File.Delete("settings.ini");
 
@@ -375,6 +390,7 @@ namespace Rosenholz.Windows
                 settings.IniWriteValue("FileName", nameof(TasksFileName), TasksFileName);
                 settings.IniWriteValue("FileName", nameof(TaskItemsFileName), TaskItemsFileName);
                 settings.IniWriteValue("FileName", nameof(TaskLinkFileName), TaskLinkFileName);
+                settings.IniWriteValue("FilePath", nameof(CompletionOfAssignmentsLocation), CompletionOfAssignmentsLocation);
 
                 DialogResult = true;
 

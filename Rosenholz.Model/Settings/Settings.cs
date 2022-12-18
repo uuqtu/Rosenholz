@@ -49,5 +49,6 @@ namespace Rosenholz.Settings
         public string TasksFileName => ini.IniReadValue("FileName", nameof(TasksFileName));
         public string TaskItemsFileName => ini.IniReadValue("FileName", nameof(TaskItemsFileName));
         public string TaskLinkFileName => ini.IniReadValue("FileName", nameof(TaskLinkFileName));
+        public string CompletionOfAssignmentsLocation => ini.IniReadValue("FileName", nameof(CompletionOfAssignmentsLocation));
     }
 }

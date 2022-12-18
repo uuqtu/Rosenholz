@@ -70,4 +70,7 @@
     <Compile Remove="FolderExplorer\archiv\FolderComboBox.xaml.cs" />
     <Page Remove="FolderExplorer\archiv\FolderComboBox.xaml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CompletionOfAssignments\" />
+  </ItemGroup>
 </Project>

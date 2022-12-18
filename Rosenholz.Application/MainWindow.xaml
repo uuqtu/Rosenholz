@@ -107,6 +107,10 @@
             </TabItem>
             <TabItem Header="Tasklistmanager">
             </TabItem>
+
+            <TabItem Header="GTD">
+            </TabItem>
+
         </TabControl>
     </Grid>
 </Window>
