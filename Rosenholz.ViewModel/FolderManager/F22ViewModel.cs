@@ -133,8 +133,8 @@ namespace Rosenholz.ViewModel
 
         private bool CanEcexuteF22EntryAdd(object parameter)
         {
-            return !string.IsNullOrWhiteSpace(CurrentF16Reference?.F22String) &&
-                   !(CurrentF16Reference?.F22String?.Contains("I_000_0") == true);
+            bool retval = !string.IsNullOrWhiteSpace(CurrentF16Reference?.F22String) && !(CurrentF16Reference?.F22String?.Contains("I_000_0") == true);
+            return retval;
         }
 
         public void AddF22EntryExecute()

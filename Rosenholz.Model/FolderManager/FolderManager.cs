@@ -54,7 +54,8 @@ namespace Rosenholz.Model
 
         public string GetAUFolder(string aUName)
         {
-            string folderPath = Path.Combine(_basePath, _parentPrefixForAuFolder, DateTime.Now.ToString("yy"), aUName);
+            var refval = new AUReference(aUName);
+            string folderPath = Path.Combine(_basePath, _parentPrefixForAuFolder, refval.YearString, aUName);
             return folderPath;
         }
 
