@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace Rosenholz.Sniper.Libraries.Helper
+namespace Rosenholz.NotificationWindow
 {
     internal static class Animations
     {

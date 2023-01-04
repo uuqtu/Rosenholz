@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Rosenholz.NotificationWindow;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using static Rosenholz.Sniper.NotificationWindow;
+using static Rosenholz.NotificationWindow.NotificationWindow;
 
 namespace Rosenholz.Sniper.Libraries.Helper
 {
@@ -27,7 +28,7 @@ namespace Rosenholz.Sniper.Libraries.Helper
             string strings = "";
             string content = "";// wasSaved ? strings.linkclipboardAndSaved : strings.linkclipboard;
 
-            await Rosenholz.Sniper.Libraries.Statics.ShowNotificationAsync(content, NotificationType.Success, action);
+            await NotificationWindowShower.ShowNotificationAsync(content, NotificationType.Success, action);
         }
 
         //Parse stream to Image and write to Clipboard
@@ -57,7 +58,7 @@ namespace Rosenholz.Sniper.Libraries.Helper
             //    content = gif ? strings.gifCopyClipboard : strings.imgCopyClipboard;
             //}
 
-            await Rosenholz.Sniper.Libraries.Statics.ShowNotificationAsync(content, NotificationType.Success);
+            await NotificationWindowShower.ShowNotificationAsync(content, NotificationType.Success);
         }
     }
 }

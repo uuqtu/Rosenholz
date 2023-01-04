@@ -1,15 +1,15 @@
-﻿using Rosenholz.Sniper.Libraries.Helper;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Rosenholz.Sniper
+
+namespace Rosenholz.NotificationWindow
 {
     /// <summary>
-    /// Interaktionslogik für NotificationWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class NotificationWindow : IDisposable
     {

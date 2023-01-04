@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Rosenholz.NotificationWindow;
 using Rosenholz.Sniper.Libraries;
 using Rosenholz.Sniper.Libraries.Helper;
 using Rosenholz.Sniper.Libraries.Native;
@@ -15,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
+using static Rosenholz.NotificationWindow.NotificationWindow;
 using static Rosenholz.Sniper.Libraries.Helper.ConfigHelper;
 using Brushes = System.Windows.Media.Brushes;
 using Cursors = System.Windows.Input.Cursors;
@@ -429,7 +431,7 @@ namespace Rosenholz.Sniper
                     return;
                 }
                 if (Error)
-                    await Statics.ShowNotificationAsync("", NotificationWindow.NotificationType.Error);
+                    await NotificationWindowShower.ShowNotificationAsync("", NotificationType.Error);
             }
             catch
             {

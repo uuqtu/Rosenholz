@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Rosenholz.Sniper.Libraries
+namespace Rosenholz.NotificationWindow
 {
-    public static class Statics
+    public static class NotificationWindowShower
     {
         public static NotificationWindow Notification
         {

@@ -1,10 +1,12 @@
 ﻿
+using Rosenholz.NotificationWindow;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using static Rosenholz.NotificationWindow.NotificationWindow;
 using static Rosenholz.Sniper.Libraries.Helper.ConfigHelper;
-using static Rosenholz.Sniper.NotificationWindow;
+
 
 namespace Rosenholz.Sniper.Libraries.Helper
 {
@@ -58,7 +60,7 @@ namespace Rosenholz.Sniper.Libraries.Helper
                     case AfterSnipe.DoNothing:
                         //Do nothing (just save file e.g.)
                         if (wasSaved)
-                            await Rosenholz.Sniper.Libraries.Statics.ShowNotificationAsync("", NotificationType.Success, clickAction);
+                            await NotificationWindowShower.ShowNotificationAsync("", NotificationType.Success, clickAction);
                         break;
                     case AfterSnipe.UploadImgur:
                         //Upload image to imgur and copy link
@@ -69,7 +71,7 @@ namespace Rosenholz.Sniper.Libraries.Helper
             }
             catch (Exception ex)
             {
-                await Rosenholz.Sniper.Libraries.Statics.ShowNotificationAsync("", NotificationType.Error, ActionTroubleshoot);
+                await NotificationWindowShower.ShowNotificationAsync("", NotificationType.Error, ActionTroubleshoot);
 
                 Helpers.WriteError(ex);
             }
@@ -123,7 +125,7 @@ namespace Rosenholz.Sniper.Libraries.Helper
                     case AfterSnipe.DoNothing:
                         //Do nothing (just save file e.g.)
                         if (wasSaved)
-                            await Rosenholz.Sniper.Libraries.Statics.ShowNotificationAsync("", NotificationType.Success, clickAction);
+                            await NotificationWindowShower.ShowNotificationAsync("", NotificationType.Success, clickAction);
                         break;
                     case AfterSnipe.UploadImgur:
                         //Upload image to imgur and copy link
@@ -134,7 +136,7 @@ namespace Rosenholz.Sniper.Libraries.Helper
             }
             catch (Exception ex)
             {
-                await Rosenholz.Sniper.Libraries.Statics.ShowNotificationAsync("", NotificationType.Error, ActionTroubleshoot);
+                await NotificationWindowShower.ShowNotificationAsync("", NotificationType.Error, ActionTroubleshoot);
 
                 Helpers.WriteError(ex);
             }
