@@ -55,7 +55,7 @@
         <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="17" Margin="10,0,10,0" Content="New Powerpoint" ></Button>
         <Separator Grid.Column="0" Grid.Row="18" />
         <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="19" Margin="10,0,10,0" Content="Neue Notitz" ></Button>
-        <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="20" Margin="10,0,10,0" Content="In Archiv verschieben" ></Button>
+        <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="20" Margin="10,0,10,0" Content="Copy AU name" Command="{Binding CopyAuFolderNameCommand}"></Button>
         <Button Background="#2D2D30" Foreground="White" Grid.Column="0" Grid.Row="21" Margin="10,0,10,0" Content="Folder to clipboard" Command="{Binding CopyLinkToClipboardCommand}" ></Button>
 
 

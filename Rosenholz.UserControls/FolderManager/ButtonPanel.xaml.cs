@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -74,6 +75,45 @@ namespace Rosenholz.UserControls
         public void OpenFolderExecute()
         {
             Process.Start(new ProcessStartInfo(CurrentFolder) { UseShellExecute = true });
+        }
+        #endregion
+
+        #region Open Folder
+        private RelayCommand _copyAuFolderNameCommand;
+        public RelayCommand CopyAuFolderNameCommand
+        {
+            get
+            {
+                if (_copyAuFolderNameCommand == null)
+                {
+                    _copyAuFolderNameCommand = new RelayCommand(
+                        (parameter) => CopyAuFolderNameExecute(),
+                        (parameter) => CanEcexuteCopyAuFolderName()
+                    );
+                }
+                return _copyAuFolderNameCommand;
+            }
+        }
+
+        private bool CanEcexuteCopyAuFolderName()
+        {
+            return !string.IsNullOrWhiteSpace(CurrentFolder);
+        }
+
+        public void CopyAuFolderNameExecute()
+        {
+            var rslt = Model.AUReference.GetAUStringFromPath(CurrentFolder);
+            string t = "";
+
+            if (rslt.Result)
+            {
+                t = $"{rslt.Value}_{DateTime.Now.ToString("MM_dd")}__";
+            }
+            else
+            {
+                t = $"{DateTime.Now.ToString("MM_dd")}__";
+            }
+            Clipboard.SetText(t);
         }
         #endregion
 
@@ -408,6 +448,7 @@ namespace Rosenholz.UserControls
         public void CopyLinkToClipboardExecute()
         {
             Clipboard.SetText(CurrentFolder);
+            Thread.Sleep(500);
         }
         #endregion
 
