@@ -53,6 +53,8 @@ namespace ScreenshotManager.Models {
     [JsonIgnore]
     public string ToolTip {
       get {
+#warning resi
+                return "";
         string personTagsStr = string.Join(",", PersonTags);
         string captionStr = string.Join("\n", TextRecognitionResults.Select(x => x.Text));
         return $"{{{personTagsStr}}}\n{captionStr}";
@@ -135,25 +137,25 @@ namespace ScreenshotManager.Models {
     }
 
     private void ExecuteFaceRecognition() {
-      FaceRecognitionResults = RecognitionAPI.FaceRecognition(AbsolutePath);
-      PersonTags = new();
-      foreach (var person in FaceRecognitionResults) {
-        // reject under 50%
-        if (person.Confidence < 0.5) {
-          continue;
-        }
-        PersonTags.Add(person.Name);
-      }
+      //FaceRecognitionResults = RecognitionAPI.FaceRecognition(AbsolutePath);
+      //PersonTags = new();
+      //foreach (var person in FaceRecognitionResults) {
+      //  // reject under 50%
+      //  if (person.Confidence < 0.5) {
+      //    continue;
+      //  }
+      //  PersonTags.Add(person.Name);
+      //}
     }
 
     private void ExecuteTextRecognition() {
-      TextRecognitionResults = RecognitionAPI.TextRecognition(AbsolutePath);
-      AutoCaption = "";
-      AutoCaptionKana = "";
-      foreach (var caption in TextRecognitionResults) {
-        AutoCaption += caption.Text;
-        AutoCaptionKana += caption.Kana;
-      }
+      //TextRecognitionResults = RecognitionAPI.TextRecognition(AbsolutePath);
+      //AutoCaption = "";
+      //AutoCaptionKana = "";
+      //foreach (var caption in TextRecognitionResults) {
+      //  AutoCaption += caption.Text;
+      //  AutoCaptionKana += caption.Kana;
+      //}
     }
   }
 }

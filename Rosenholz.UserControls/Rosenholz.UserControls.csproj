@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Rosenholz.Extensions\Rosenholz.Extensions.csproj" />
     <ProjectReference Include="..\Rosenholz.Model\Rosenholz.Model.csproj" />
+    <ProjectReference Include="..\Rosenholz.Sniper\Rosenholz.Sniper.csproj" />
     <ProjectReference Include="..\Rosenholz.ViewModel\Rosenholz.ViewModel.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +64,7 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="SQLitePCLRaw.core" Version="2.1.2" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.116.0" />
+    <PackageReference Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
     <PackageReference Include="System.Memory" Version="4.5.5" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
   </ItemGroup>

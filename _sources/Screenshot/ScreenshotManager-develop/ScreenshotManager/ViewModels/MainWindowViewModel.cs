@@ -132,7 +132,8 @@ namespace ScreenshotManager.ViewModels {
       this.Seconds = SettingsManager.Seconds;
 
       _hotkey = new KeyboardHook();
-      _hotkey.RegisterHotkey(Hotkeys.ModifierKeys.None, System.Windows.Forms.Keys.PrintScreen);
+#warning Auskommentiert
+       //_hotkey.RegisterHotkey(Hotkeys.ModifierKeys.None, System.Windows.Forms.Keys.PrintScreen);
       _hotkey.KeyPressed += PrintScreen_KeyPressed;
     }
 

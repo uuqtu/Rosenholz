@@ -50,6 +50,9 @@ namespace Rosenholz.Model
             string notePath = Path.Combine(_basePath, _parentPrefixForAuFolder, DateTime.Now.ToString("yy"), aUName, "_notes");
             if (!Directory.Exists(notePath))
                 Directory.CreateDirectory(notePath);
+            string snipePath = Path.Combine(_basePath, _parentPrefixForAuFolder, DateTime.Now.ToString("yy"), aUName, "_snipes");
+            if (!Directory.Exists(snipePath))
+                Directory.CreateDirectory(snipePath);
         }
 
         public string GetAUFolder(string aUName)

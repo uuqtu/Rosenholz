@@ -1,5 +1,6 @@
 ﻿using Rosenholz.Extensions;
 using Rosenholz.Model;
+using Rosenholz.Sniper;
 using Rosenholz.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -78,7 +79,7 @@ namespace Rosenholz.UserControls
         }
         #endregion
 
-        #region Open Folder
+        #region Copy AU Foldername
         private RelayCommand _copyAuFolderNameCommand;
         public RelayCommand CopyAuFolderNameCommand
         {
@@ -574,6 +575,40 @@ namespace Rosenholz.UserControls
 
                     Process.Start(new ProcessStartInfo(Path.Combine(dir1, "main.tex")) { UseShellExecute = true });
                 }
+            }
+        }
+        #endregion
+
+        #region Capture Screen
+
+        private RelayCommand _catureScreenCommand;
+        public RelayCommand CaptureScreenCommand
+        {
+            get
+            {
+                if (_catureScreenCommand == null)
+                {
+                    _catureScreenCommand = new RelayCommand(
+                        (parameter) => CaptureScreenCommandExecute(),
+                        (parameter) => CanCaptureScreenCommand()
+                    );
+                }
+                return _catureScreenCommand;
+            }
+        }
+
+
+        private bool CanCaptureScreenCommand()
+        {
+            return !string.IsNullOrWhiteSpace(CurrentFolder);
+        }
+
+        public void CaptureScreenCommandExecute()
+        {
+            using (ScreenshotWindow window = new ScreenshotWindow(CurrentFolder))
+            {
+                window.ShowDialog();
+                //Swindow.Save();
             }
         }
         #endregion
