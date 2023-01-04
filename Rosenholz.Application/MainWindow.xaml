@@ -5,11 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rosenholz.Application"
         xmlns:uc="clr-namespace:Rosenholz.UserControls;assembly=Rosenholz.UserControls"
+        xmlns:tb="http://www.hardcodet.net/taskbar" 
         mc:Ignorable="d"
          Background="#1C1C1C" Foreground="White"
         WindowState="Maximized"
-        Title="Rosenholz" Height="650" Width="800">
+        Title="Rosenholz" Height="650" Width="800"
+        ShowInTaskbar="False">
     <Grid>
+        <tb:TaskbarIcon IconSource="/Images/icon.ico" ToolTipText="Rosenholz" TrayMouseDoubleClick="TaskbarIcon_TrayMouseDoubleClick">
+        <tb:TaskbarIcon.ContextMenu>
+            <ContextMenu Background="#1C1C1C" Foreground="White">
+                <MenuItem Header="Maximize" Command="{Binding MaximizeCommand}" />
+                <MenuItem Header="Minimize" Command="{Binding MinimizeCommand}"/>
+                <MenuItem Header="Due Tasks" Command="{Binding GetDueCommand}"/>
+                <Separator></Separator>
+                <MenuItem Header="Close" Command="{Binding CloseCommand}"/>
+            </ContextMenu>
+        </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+        
         <TabControl>
             <TabItem Header="Foldermanager">
                 <Grid>

@@ -41,6 +41,7 @@ namespace Rosenholz.Application
             AUExplorer.TextEditorRequiredEvent += AUExplorer_TextEditorRequiredEvent;
             AUExplorer.TaskCreationRequiredEvent += AUExplorer_TaskCreationRequiredEvent;
             AUExplorer.DisplayTaskViewModelRequiredEvent += AUExplorer_DisplayTaskViewModelRequiredEvent;
+            DataContext = this;
         }
 
         private void AUExplorer_DisplayTaskViewModelRequiredEvent(TaskModel parent)
@@ -182,6 +183,59 @@ namespace Rosenholz.Application
             focusedTaskViewModel.LoadItems(TaskState.Focused);
             dueTaskViewModel.LoadItems(TaskState.Due);
             closedTaskViewModel.LoadItems(TaskState.Closed);
+        }
+
+        private void TaskbarIcon_TrayMouseDoubleClick(System.Object sender, System.Windows.RoutedEventArgs e)
+        {
+            WindowState = WindowState.Maximized;
+        }
+
+        private RelayCommand _maximizeCommand;
+        public RelayCommand MaximizeCommand
+        {
+            get
+            {
+                if (_maximizeCommand == null)
+                {
+                    _maximizeCommand = new RelayCommand(
+                        (parameter) => { WindowState = WindowState.Maximized; },
+                        (parameter) => true
+                    );
+                }
+                return _maximizeCommand;
+            }
+        }
+
+        private RelayCommand _minimizeCommand;
+        public RelayCommand MinimizeCommand
+        {
+            get
+            {
+                if (_minimizeCommand == null)
+                {
+                    _minimizeCommand = new RelayCommand(
+                        (parameter) => { WindowState = WindowState.Minimized; },
+                        (parameter) => true
+                    );
+                }
+                return _minimizeCommand;
+            }
+        }
+
+        private RelayCommand _closeCommand;
+        public RelayCommand CloseCommand
+        {
+            get
+            {
+                if (_closeCommand == null)
+                {
+                    _closeCommand = new RelayCommand(
+                        (parameter) => { Close(); },
+                        (parameter) => true
+                    );
+                }
+                return _closeCommand;
+            }
         }
     }
 }

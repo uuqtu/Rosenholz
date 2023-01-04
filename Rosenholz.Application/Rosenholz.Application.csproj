@@ -122,6 +122,7 @@
     <ProjectReference Include="..\Rosenholz.Windows\Rosenholz.Windows.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.10" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
