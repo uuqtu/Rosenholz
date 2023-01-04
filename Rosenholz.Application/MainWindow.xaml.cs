@@ -1,20 +1,25 @@
-﻿using Rosenholz.Model;
+﻿using Microsoft.VisualBasic;
+using Rosenholz.Model;
 using Rosenholz.Windows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace Rosenholz.Application
 {
@@ -138,6 +143,7 @@ namespace Rosenholz.Application
             dueTaskViewModel.LoadItems(TaskState.Due);
             dueTaskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
             DueTaskViewUserControl.DataContext = dueTaskViewModel;
+            ShowDueTasksBalloon();
         }
         private void ClosedTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -220,6 +226,61 @@ namespace Rosenholz.Application
                 }
                 return _minimizeCommand;
             }
+        }
+
+
+        private RelayCommand _getDueCommand;
+        public RelayCommand GetDueCommand
+        {
+            get
+            {
+                if (_getDueCommand == null)
+                {
+                    _getDueCommand = new RelayCommand(
+                        (parameter) => DisplayDueTasks(),
+                        (parameter) => true
+                    );
+                }
+                return _getDueCommand;
+            }
+        }
+
+        private List<string> GetDueTasks()
+        {
+            var a = dueTaskViewModel.TaskItems;
+
+            List<string> strings = new List<string>();
+
+            foreach (var item in a)
+            {
+                strings.Add(String.Concat(item.TargetDate.ToShortDateString(), ":\r\n", item.Title, "\r\n"));
+            }
+
+            return strings;
+        }
+
+        private void DisplayDueTasks()
+        {
+            string fileName = Path.GetRandomFileName();
+            fileName = Path.ChangeExtension(fileName, ".txt");
+            fileName = Path.Combine(Path.GetTempPath(), fileName);
+
+            File.WriteAllLines(fileName, GetDueTasks());
+
+            Rosenholz.Windows.TextEditor.TextEditorStandAlone tsa = new Windows.TextEditor.TextEditorStandAlone(fileName);
+            tsa.Show();
+        }
+
+        private void ShowDueTasksBalloon()
+        {
+            var strings = GetDueTasks();
+
+            FancyBalloon balloon = new FancyBalloon();
+            var str = string.Join("\r\n", strings);
+            balloon.BalloonText = str;
+
+            //show balloon and close it after 4 seconds
+            MyNotifyIcon.ShowCustomBalloon(balloon, PopupAnimation.Slide, 400000);
         }
 
         private RelayCommand _closeCommand;

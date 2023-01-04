@@ -44,6 +44,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Documents\markdig_cheatsheet.pdf" />
+    <None Remove="Images\close.ico" />
+    <None Remove="Images\close.png" />
     <None Remove="Templates\Tex\bib\bib.ctv6" />
     <None Remove="Templates\Tex\fphw.cls" />
     <None Remove="Templates\Tex\litverz.bib" />
@@ -72,6 +74,12 @@
     <Content Include="Templates\Tex\main_vorlage.tex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\close.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\close.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
