@@ -36,6 +36,7 @@ namespace Rosenholz.UserControls
 
         public event TextEditorRequired TextEditorRequiredEvent;
         public event DisplayTaskViewModelRequired DisplayTaskViewModelRequiredEvent;
+        public event WindowStateChangeRequired WindowStateChangeRequiredEvent;
         /// <summary>
         /// Button Pannel braucht einen Task
         /// </summary>
@@ -45,7 +46,13 @@ namespace Rosenholz.UserControls
             InitializeComponent();
             ButtonPanel.TaskCreationRequiredEvent += ButtonPanel_TaskCreationRequiredEvent;
             TaskViewer.DisplayTaskViewModelRequiredEvent += TaskViewer_DisplayTaskViewModelRequiredEvent;
+            ButtonPanel.WindowStateChangeRequiredEvent += ButtonPanel_WindowStateChangeRequiredEvent;
             DataContext = this;
+        }
+
+        private void ButtonPanel_WindowStateChangeRequiredEvent(WindowState state)
+        {
+            WindowStateChangeRequiredEvent?.Invoke(state);
         }
 
         private void TaskViewer_DisplayTaskViewModelRequiredEvent(TaskModel task)

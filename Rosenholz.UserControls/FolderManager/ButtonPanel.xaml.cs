@@ -31,9 +31,11 @@ namespace Rosenholz.UserControls
     /// Interaction logic for ButtonPanel.xaml
     /// </summary>
     public delegate void TaskCreationRequired(string currentFolder);
+    public delegate void WindowStateChangeRequired(WindowState state);
     public partial class ButtonPanel : UserControl, INotifyPropertyChanged
     {
         public event TaskCreationRequired TaskCreationRequiredEvent;
+        public event WindowStateChangeRequired WindowStateChangeRequiredEvent;
         public ButtonPanel()
         {
             InitializeComponent();
@@ -605,11 +607,23 @@ namespace Rosenholz.UserControls
 
         public void CaptureScreenCommandExecute()
         {
-            using (ScreenshotWindow window = new ScreenshotWindow(CurrentFolder))
+            try
             {
-                window.ShowDialog();
-                //Swindow.Save();
+                WindowStateChangeRequiredEvent?.Invoke(WindowState.Minimized);
+                using (ScreenshotWindow window = new ScreenshotWindow(CurrentFolder))
+                {
+                    window.ShowDialog();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                WindowStateChangeRequiredEvent?.Invoke(WindowState.Maximized);
+            }
+
         }
         #endregion
 

@@ -47,7 +47,14 @@ namespace Rosenholz.Application
             AUExplorer.TextEditorRequiredEvent += AUExplorer_TextEditorRequiredEvent;
             AUExplorer.TaskCreationRequiredEvent += AUExplorer_TaskCreationRequiredEvent;
             AUExplorer.DisplayTaskViewModelRequiredEvent += AUExplorer_DisplayTaskViewModelRequiredEvent;
+            AUExplorer.WindowStateChangeRequiredEvent += AUExplorer_WindowStateChangeRequiredEvent;
+
             DataContext = this;
+        }
+
+        private void AUExplorer_WindowStateChangeRequiredEvent(WindowState state)
+        {
+            WindowState = state;
         }
 
         private void AUExplorer_DisplayTaskViewModelRequiredEvent(TaskModel parent)
@@ -194,6 +201,8 @@ namespace Rosenholz.Application
 
         private void TaskbarIcon_TrayMouseDoubleClick(System.Object sender, System.Windows.RoutedEventArgs e)
         {
+            WindowState = WindowState.Minimized;
+            Thread.Sleep(500);
             WindowState = WindowState.Maximized;
         }
 
@@ -205,9 +214,11 @@ namespace Rosenholz.Application
                 if (_maximizeCommand == null)
                 {
                     _maximizeCommand = new RelayCommand(
-                        (parameter) => { WindowState = WindowState.Minimized;
-                                         Thread.Sleep(500);
-                                         WindowState = WindowState.Maximized; 
+                        (parameter) =>
+                        {
+                            WindowState = WindowState.Minimized;
+                            Thread.Sleep(500);
+                            WindowState = WindowState.Maximized;
                         },
                         (parameter) => true
                     );
