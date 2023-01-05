@@ -295,7 +295,7 @@ namespace Rosenholz.Application
             balloon.BalloonText = str;
 
             //show balloon and close it after 4 seconds
-            MyNotifyIcon.ShowCustomBalloon(balloon, PopupAnimation.Slide, 400000);
+            MyNotifyIcon.ShowCustomBalloon(balloon, PopupAnimation.Slide, 5000);
         }
 
         private RelayCommand _closeCommand;
