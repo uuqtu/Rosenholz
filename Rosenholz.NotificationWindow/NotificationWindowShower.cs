@@ -27,13 +27,13 @@ namespace Rosenholz.NotificationWindow
 
         private static NotificationWindow _notification;
 
-        public static void ShowNotification(string text, NotificationWindow.NotificationType type, bool autoHide, Action onClick = null)
+        public static void Show(string text, NotificationWindow.NotificationType type, bool autoHide, Action onClick = null)
         {
             Notification = new NotificationWindow(text, type, autoHide, onClick);
             Notification.Show();
         }
 
-        public static async Task ShowNotificationAsync(string text, NotificationWindow.NotificationType type, Action onClick = null)
+        public static async Task ShowAsync(string text, NotificationWindow.NotificationType type, Action onClick = null)
         {
             Notification = new NotificationWindow(text, type, true, onClick);
             await Notification.ShowAsync();

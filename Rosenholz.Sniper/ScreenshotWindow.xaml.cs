@@ -431,7 +431,7 @@ namespace Rosenholz.Sniper
                     return;
                 }
                 if (Error)
-                    await NotificationWindowShower.ShowNotificationAsync("", NotificationType.Error);
+                    await NotificationWindowShower.ShowAsync("", NotificationType.Error);
             }
             catch
             {

@@ -1,4 +1,5 @@
 ﻿using Rosenholz.Model;
+using Rosenholz.NotificationWindow;
 using Rosenholz.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static Rosenholz.NotificationWindow.NotificationWindow;
 
 namespace Rosenholz.UserControls
 {
@@ -31,7 +33,15 @@ namespace Rosenholz.UserControls
     public partial class AUExplorer : UserControl, INotifyPropertyChanged
     {
         private int _numberOfTasks;
-        public int NumberOfTasks { get { return _numberOfTasks; } set { _numberOfTasks = value; OnPropertyChanged(nameof(NumberOfTasks)); } }
+        public int NumberOfTasks
+        {
+            get => _numberOfTasks;
+            set
+            {
+                _numberOfTasks = value;
+                OnPropertyChanged(nameof(NumberOfTasks));               
+            }
+        }
 
 
         public event TextEditorRequired TextEditorRequiredEvent;
@@ -105,8 +115,10 @@ namespace Rosenholz.UserControls
             this.ButtonPanel.CurrentFolder = path;
             this.TaskViewer.AUReference = curentReference?.AUReferenceString;
 
-            NumberOfTasks = Rosenholz.Model.TaskStorage.Instance.ReadTask(curentReference.AUReferenceString).Count;
-
+            var a = Rosenholz.Model.TaskStorage.Instance.ReadTask(curentReference.AUReferenceString);
+            NumberOfTasks = a.Count(o => o.TaskState == TaskState.New || o.TaskState == TaskState.Due || o.TaskState == TaskState.Terminated);
+            if (_numberOfTasks > 0)
+                NotificationWindowShower.Show("Open Tasks", NotificationType.Progress, true);
         }
 
 

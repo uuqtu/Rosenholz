@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using static Rosenholz.NotificationWindow.NotificationWindow;
 using static Rosenholz.Sniper.Libraries.Helper.ConfigHelper;
 
@@ -30,18 +31,20 @@ namespace Rosenholz.Sniper.Libraries.Helper
                         //Save File with unique name
                         long time = DateTime.Now.ToFileTimeUtc();
                         string extension = "." + ConfigHelper.ImageFormat.ToString().ToLower();
-                        string filename = Path.Combine(pathToSave, "_snipes", $"Snipe_{time}{extension}");
-                        using (FileStream fstream = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Write))
+                        string fileName = $"Snipe_{time}{extension}";
+                        string filePath = Path.Combine(pathToSave, "_snipes", fileName);
+                        Clipboard.SetText($"![Bild](../_snipes/" + fileName + ")");
+                        using (FileStream fstream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write))
                         {
                             await stream.CopyToAsync(fstream);
                         }
                         wasSaved = true;
-                        clickAction = () => { Process.Start(filename); };
+                        clickAction = () => { Process.Start(filePath); };
 
                         if (ConfigHelper.OpenFileAfterSnap)
                         {
                             //Open Explorer and Highlight Image
-                            Process.Start("explorer.exe", $"/select, \"{filename}\"");
+                            Process.Start("explorer.exe", $"/select, \"{filePath}\"");
                         }
                     }
                     catch
@@ -60,7 +63,7 @@ namespace Rosenholz.Sniper.Libraries.Helper
                     case AfterSnipe.DoNothing:
                         //Do nothing (just save file e.g.)
                         if (wasSaved)
-                            await NotificationWindowShower.ShowNotificationAsync("", NotificationType.Success, clickAction);
+                            NotificationWindowShower.Show("", NotificationType.Success, true);
                         break;
                     case AfterSnipe.UploadImgur:
                         //Upload image to imgur and copy link
@@ -71,7 +74,7 @@ namespace Rosenholz.Sniper.Libraries.Helper
             }
             catch (Exception ex)
             {
-                await NotificationWindowShower.ShowNotificationAsync("", NotificationType.Error, ActionTroubleshoot);
+                await NotificationWindowShower.ShowAsync("", NotificationType.Error, ActionTroubleshoot);
 
                 Helpers.WriteError(ex);
             }
@@ -125,7 +128,7 @@ namespace Rosenholz.Sniper.Libraries.Helper
                     case AfterSnipe.DoNothing:
                         //Do nothing (just save file e.g.)
                         if (wasSaved)
-                            await NotificationWindowShower.ShowNotificationAsync("", NotificationType.Success, clickAction);
+                            await NotificationWindowShower.ShowAsync("", NotificationType.Success, clickAction);
                         break;
                     case AfterSnipe.UploadImgur:
                         //Upload image to imgur and copy link
@@ -136,7 +139,7 @@ namespace Rosenholz.Sniper.Libraries.Helper
             }
             catch (Exception ex)
             {
-                await NotificationWindowShower.ShowNotificationAsync("", NotificationType.Error, ActionTroubleshoot);
+                await NotificationWindowShower.ShowAsync("", NotificationType.Error, ActionTroubleshoot);
 
                 Helpers.WriteError(ex);
             }
