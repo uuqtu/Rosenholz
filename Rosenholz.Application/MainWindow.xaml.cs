@@ -300,7 +300,7 @@ namespace Rosenholz.Application
 
             foreach (var item in a)
             {
-                strings.Add(String.Concat(item.TargetDate.ToShortDateString(), ":\r\n", item.Title, "\r\n"));
+                strings.Add(String.Concat(item.TargetDate.ToShortDateString(), ":\r\n[", item.F16F22Reference, "]-[", item.AUReference, "]\r\n", item.Title, "\r\n"));
             }
 
             return strings;
