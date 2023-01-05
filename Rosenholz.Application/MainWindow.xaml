@@ -136,8 +136,8 @@
                         <RowDefinition Height="2*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <uc:MemorexCategoryUserControl Name="MemorexCategoryView" Loaded="MemorexCategoryView_Loaded" Grid.Column="1" Grid.Row="0"></uc:MemorexCategoryUserControl>
-                    <uc:MemorexInputUserControl Name="MemorexInputView" Grid.Column="0" Grid.Row="0"></uc:MemorexInputUserControl>
-                    <uc:MemorexSearchUserControl Name="MemorexSearchView" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ></uc:MemorexSearchUserControl>
+                    <uc:MemorexInputUserControl Name="MemorexInputView" Grid.Column="0" Grid.Row="0" Loaded="MemorexInputView_Loaded"></uc:MemorexInputUserControl>
+                    <uc:MemorexSearchUserControl Name="MemorexSearchView" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Loaded="MemorexSearchView_Loaded"></uc:MemorexSearchUserControl>
                 </Grid>
             </TabItem>
 

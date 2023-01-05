@@ -11,7 +11,7 @@ namespace Rosenholz.ViewModel.Memorex
 {
     public class CategoryViewModel : ViewModelBase
     {
-        public static EventHandler CategoryViewModelChanged;
+        public event EventHandler CategoryViewModelChanged;
         public ICommand AddCategoryCommand { get; set; }
 
         private string _category = String.Empty;
@@ -21,7 +21,6 @@ namespace Rosenholz.ViewModel.Memorex
             get => _category;
             set => SetField(ref _category, value);
         }
-
 
         public CategoryViewModel()
         {

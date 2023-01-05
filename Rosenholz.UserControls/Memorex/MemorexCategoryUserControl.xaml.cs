@@ -23,16 +23,9 @@ namespace Rosenholz.UserControls
     /// </summary>
     public partial class MemorexCategoryUserControl : UserControl
     {
-        public CategoryViewModel CategoryVieModelObject { get; set; } = new CategoryViewModel();
-
         public MemorexCategoryUserControl()
         {
             InitializeComponent();
-        }
-
-        private void CategoryViewControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.DataContext = CategoryViewControl;
         }
     }
 }

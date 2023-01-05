@@ -14,26 +14,26 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center">Stichworte</Label>
-        <TextBox Grid.Row="1" Margin="10,10,10,10" FontSize="20"
-                 Text="{Binding InputVieModelObject.Searchwords, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        <TextBox Margin="10,00,10,00" Grid.Row="1" FontSize="20"
+                 Text="{Binding Searchwords, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  HorizontalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
 
         <Label Grid.Row="2" Grid.Column="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center">Link</Label>
-        <TextBox Grid.Row="3" Margin="10,10,10,10" FontSize="20"
-                 Text="{Binding InputVieModelObject.Link, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        <TextBox Margin="10,00,10,00" Grid.Row="3"  FontSize="20"
+                 Text="{Binding Link, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  HorizontalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
 
         <Label Grid.Row="4" Grid.Column="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center">Kategorie</Label>
-        <ComboBox Grid.Row="5" Margin="10,10,10,10" FontSize="20"
-                 Text="{Binding InputVieModelObject.Category, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                 ItemsSource="{Binding InputVieModelObject.PossibleCategories, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+        <ComboBox Margin="10,00,10,00" Grid.Row="5"  FontSize="20"
+                 Text="{Binding Category, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 ItemsSource="{Binding PossibleCategories, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                  HorizontalContentAlignment="Center" VerticalAlignment="Center"></ComboBox>
-        <Button  Grid.Row="7" Margin="10,10,10,10" 
-                 Command="{Binding InputVieModelObject.AddCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">Speichern</Button>
+        <Button  Margin="10,00,10,00" Grid.Row="7"  
+                 Command="{Binding AddCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">Speichern</Button>
     </Grid>
 </UserControl>

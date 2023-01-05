@@ -19,27 +19,25 @@
         </Grid.ColumnDefinitions>
 
 
-        <Label Grid.Row="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Label Grid.Row="0" Grid.ColumnSpan="2" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center">
             Suchworte
         </Label>
 
         <TextBox Grid.Row="1" Margin="10,10,10,10" FontSize="20"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                Text="{Binding SearchVieModelObject.TextFilter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                Text="{Binding TextFilter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
 
-        <Button Grid.Row="0" Grid.Column="1" Margin="10,10,10,10"
-               Command="{Binding SearchVieModelObject.SearchCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">Suchen</Button>
         <Button Grid.Row="1" Grid.Column="1" Margin="10,10,10,10"
-               Command="{Binding SearchVieModelObject.ClearCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">Clear</Button>
+               Command="{Binding ClearCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">Clear</Button>
 
 
         <DataGrid Grid.Row="2" ClipboardCopyMode="ExcludeHeader" Grid.ColumnSpan="2"
                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" 
                   CanUserReorderColumns="False" CanUserSortColumns="False"
                   IsReadOnly="True"
-                  ItemsSource="{Binding SearchVieModelObject.KnowledgeElementCollectionView,  UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
-                  SelectedItem="{Binding SearchVieModelObject.SelectedElement, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  ItemsSource="{Binding KnowledgeElementCollectionView,  UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                  SelectedItem="{Binding SelectedElement, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                   AutoGenerateColumns="False" HeadersVisibility="Column">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Kategorie" Width="1*" Binding="{Binding Category}"></DataGridTextColumn>
@@ -48,7 +46,7 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu >
-                    <MenuItem Header="Löschen" Command="{Binding SearchVieModelObject.DeleteCommand}" />
+                    <MenuItem Header="Delete" Command="{Binding DeleteCommand}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>

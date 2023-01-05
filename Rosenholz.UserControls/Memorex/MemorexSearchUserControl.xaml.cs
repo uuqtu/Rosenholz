@@ -23,18 +23,11 @@ namespace Rosenholz.UserControls
     /// </summary>
     public partial class MemorexSearchUserControl : UserControl
     {
-        public SearchViewModel SearchVieModelObject { get; set; } = new SearchViewModel();
-
         public MemorexSearchUserControl()
         {
             InitializeComponent();
         }
 
-
-        private void SearchViewControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.DataContext = SearchVieModelObject;
-        }
 
     }
 }

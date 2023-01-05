@@ -37,7 +37,7 @@ namespace Rosenholz.Model.Storage
 
         public void CreateTable()
         {
-            string dir = Settings.Settings.Instance.F22SubLocation;
+            string dir = Settings.Settings.Instance.MemorexSubLocation;
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
@@ -139,10 +139,12 @@ namespace Rosenholz.Model.Storage
                 data = con.ReadData("SELECT DISTINCT CATEGORY FROM CATEGORIES");
             }
 
-            values = (from rw in data.AsEnumerable()
-                      select rw["SEARCHWORDS"]).OfType<string>().ToList();
+            //values = data.Rows.Cast<DataRow>().Select(r => Convert.ToString(r["CATEGORY"])).ToList();
 
-               return values;
+            values = (from rw in data.AsEnumerable()
+                      select rw["CATEGORY"]).OfType<string>().ToList();
+
+            return values;
         }
 
 

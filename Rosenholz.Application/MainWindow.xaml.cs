@@ -37,7 +37,11 @@ namespace Rosenholz.Application
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel dueTaskViewModel { get; set; } = null;
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel closedTaskViewModel { get; set; } = null;
 
-        Rosenholz.ViewModel.Memorex.CategoryViewModel categoryViewModel { get; set; } = null;
+        #region Memorex
+        Rosenholz.ViewModel.Memorex.CategoryViewModel categoryViewModelObject { get; set; } = null;
+        Rosenholz.ViewModel.Memorex.InputViewModel inputViewModelObject { get; set; } = null;
+        Rosenholz.ViewModel.Memorex.SearchViewModel searchViewModelObject { get; set; } = null;
+        #endregion
 
 
 
@@ -172,12 +176,6 @@ namespace Rosenholz.Application
             Tevm.DisplayTaskViewModelRequiredEvent += Tevm_TaskModelViewRequiredEvent;
         }
 
-        private void MemorexCategoryView_Loaded(object sender, RoutedEventArgs e)
-        {
-            categoryViewModel = new Rosenholz.ViewModel.Memorex.CategoryViewModel();
-            MemorexCategoryView.DataContext = categoryViewModel;
-        }
-
         private void Tevm_TaskModelViewRequiredEvent(TaskModel child)
         {
             Rosenholz.Windows.ShowChildTaskWindow childview = new Rosenholz.Windows.ShowChildTaskWindow(child);
@@ -191,9 +189,38 @@ namespace Rosenholz.Application
             return child.ReturnValue;
         }
 
+        private void MemorexCategoryView_Loaded(object sender, RoutedEventArgs e)
+        {
+            categoryViewModelObject = new Rosenholz.ViewModel.Memorex.CategoryViewModel();
+            categoryViewModelObject.CategoryViewModelChanged += CategoryViewModelObject_CategoryViewModelChanged;
+            MemorexCategoryView.DataContext = categoryViewModelObject;
 
+        }
 
+        private void CategoryViewModelObject_CategoryViewModelChanged(object sender, EventArgs e)
+        {
+            inputViewModelObject.LoadCategories();
+        }
 
+        private void MemorexInputView_Loaded(object sender, RoutedEventArgs e)
+        {
+            inputViewModelObject = new Rosenholz.ViewModel.Memorex.InputViewModel();
+            inputViewModelObject.LoadCategories();
+            inputViewModelObject.InputViewModelChanged += InputViewModelObject_InputViewModelChanged;
+            MemorexInputView.DataContext = inputViewModelObject;
+        }
+
+        private void InputViewModelObject_InputViewModelChanged(object sender, EventArgs e)
+        {
+            searchViewModelObject.LoadItems();
+        }
+
+        private void MemorexSearchView_Loaded(object sender, RoutedEventArgs e)
+        {
+            searchViewModelObject = new Rosenholz.ViewModel.Memorex.SearchViewModel();
+            searchViewModelObject.LoadItems();
+            MemorexSearchView.DataContext = searchViewModelObject;
+        }
 
         private void Tevm_TaskSourceChangedEvent()
         {

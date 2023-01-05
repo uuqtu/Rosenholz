@@ -17,7 +17,6 @@ namespace Rosenholz.ViewModel.Memorex
 {
     public class SearchViewModel : ViewModelBase
     {
-        public static EventHandler SearchViewModelChanged;
         public ICommand SearchCommand { get; set; }
         public ICommand ClearCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
@@ -68,12 +67,13 @@ namespace Rosenholz.ViewModel.Memorex
             }
         }
 
-        public void LoadItems(Rosenholz.Model.TaskState state)
+        public void LoadItems()
         {
             var a = Rosenholz.Model.Storage.MemorexStorage.Instance.ReadData();
             KnowledgeElements = new ObservableCollection<KnowledgeElement>(a);
             _knowledgeElementCollectionView = new ListCollectionView(KnowledgeElements);
             OnPropertyChanged(nameof(KnowledgeElements));
+            OnPropertyChanged(nameof(KnowledgeElementCollectionView));
         }
         #endregion
 
@@ -82,10 +82,11 @@ namespace Rosenholz.ViewModel.Memorex
         private void ExecuteClear(object obj)
         {
             KnowledgeElements.Clear();
-            OnPropertyChanged(nameof(KnowledgeElements));
             TextFilter = String.Empty;
             SelectedElement = null;
-            SearchViewModelChanged?.Invoke(null, null);
+            LoadItems();
+            OnPropertyChanged(nameof(KnowledgeElements));
+            OnPropertyChanged(nameof(KnowledgeElementCollectionView));
         }
         #endregion
 
@@ -104,6 +105,9 @@ namespace Rosenholz.ViewModel.Memorex
             {
                 Model.Storage.MemorexStorage.Instance.DeleteEntry(SelectedElement.Guid);
             }
+            LoadItems();
+            OnPropertyChanged(nameof(KnowledgeElements));
+            OnPropertyChanged(nameof(KnowledgeElementCollectionView));
         }
 
         #endregion

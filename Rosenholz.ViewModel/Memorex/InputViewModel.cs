@@ -11,7 +11,7 @@ namespace Rosenholz.ViewModel.Memorex
 {
     public class InputViewModel : ViewModelBase
     {
-        public static EventHandler InputViewModelChanged;
+        public event EventHandler InputViewModelChanged;
         public ICommand AddCommand { get; set; }
         private string _searchwords = String.Empty;
         private string _link = String.Empty;
@@ -32,14 +32,24 @@ namespace Rosenholz.ViewModel.Memorex
             set => SetField(ref _category, value);
         }
 
-        public IList<string> PossibleCategories
+        private List<string> _possibleCategories;
+        public List<string> PossibleCategories
         {
             get
             {
-                return Rosenholz.Model.Storage.MemorexStorage.Instance.ReadCategoryData();
+                return _possibleCategories;
+            }
+            set
+            {
+                _possibleCategories = value;
+                OnPropertyChanged(nameof(PossibleCategories));
             }
         }
 
+        public void LoadCategories()
+        {
+            PossibleCategories = Rosenholz.Model.Storage.MemorexStorage.Instance.ReadCategoryData().ToList();
+        }
 
         public InputViewModel()
         {
@@ -61,6 +71,7 @@ namespace Rosenholz.ViewModel.Memorex
             Link = String.Empty;
             Searchwords = String.Empty;
             Category = String.Empty;
+            InputViewModelChanged?.Invoke(null, null);
         }
     }
 }

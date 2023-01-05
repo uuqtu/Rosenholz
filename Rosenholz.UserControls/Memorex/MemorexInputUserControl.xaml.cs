@@ -23,16 +23,9 @@ namespace Rosenholz.UserControls
     /// </summary>
     public partial class MemorexInputUserControl : UserControl
     {
-        public InputViewModel InputVieModelObject { get; set; } = new InputViewModel();
-
         public MemorexInputUserControl()
         {
             InitializeComponent();
-        }
-
-        private void InputViewControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.DataContext = InputVieModelObject;
         }
     }
 }
