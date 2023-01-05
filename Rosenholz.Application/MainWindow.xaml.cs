@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -204,7 +205,10 @@ namespace Rosenholz.Application
                 if (_maximizeCommand == null)
                 {
                     _maximizeCommand = new RelayCommand(
-                        (parameter) => { WindowState = WindowState.Maximized; },
+                        (parameter) => { WindowState = WindowState.Minimized;
+                                         Thread.Sleep(500);
+                                         WindowState = WindowState.Maximized; 
+                        },
                         (parameter) => true
                     );
                 }
