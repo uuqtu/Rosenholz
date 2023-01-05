@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
         BorderThickness="5"
         BorderBrush="blue"
-        Title="InitialSettings" Height="290" Width="900">
+        Title="InitialSettings" Height="315" Width="900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"></ColumnDefinition>
@@ -21,6 +21,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
@@ -79,6 +80,12 @@
                  VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
                  Text="{Binding TaskSubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
+        <Label Grid.Column="0" Grid.Row="8" Background="#1C1C1C" Foreground="White" FontSize="10"
+               HorizontalAlignment="Left" VerticalAlignment="Center">MemorexSubLocation</Label>
+        <TextBox Grid.Column="1" Grid.Row="8" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
+                 Text="{Binding MemorexSubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
         <!--Zweite Spalte-->
 
         <Label Background="#1C1C1C" Foreground="White" Grid.Column="2" Grid.Row="2" FontSize="10"
@@ -116,6 +123,12 @@
         <TextBox Grid.Column="3" Grid.Row="7" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
                  VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"
                  Text="{Binding CompletionOfAssignmentsLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Label Grid.Column="2" Grid.Row="8" Background="#1C1C1C" Foreground="White" FontSize="10"
+               HorizontalAlignment="Left" VerticalAlignment="Center">Memorex-Filename</Label>
+        <TextBox Grid.Column="3" Grid.Row="8" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"
+                 Text="{Binding MemorexFileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="10"
                     Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center">

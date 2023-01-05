@@ -100,6 +100,17 @@ namespace Rosenholz.Windows
             }
         }
 
+        private string _memorexSubLocation;
+        public string MemorexSubLocation
+        {
+            get { return _memorexSubLocation; }
+            set
+            {
+                _memorexSubLocation = value;
+                OnPropertyChanged(nameof(MemorexSubLocation));
+            }
+        }
+
 
 
 
@@ -168,6 +179,17 @@ namespace Rosenholz.Windows
             {
                 _tasksFileName = value;
                 OnPropertyChanged(nameof(TasksFileName));
+            }
+        }
+
+        private string _memorexFileName;
+        public string MemorexFileName
+        {
+            get { return _memorexFileName; }
+            set
+            {
+                _memorexFileName = value;
+                OnPropertyChanged(nameof(MemorexFileName));
             }
         }
 
@@ -260,11 +282,13 @@ namespace Rosenholz.Windows
             var.IniWriteValue("FilePath", nameof(F16SubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZPK"));
             var.IniWriteValue("FilePath", nameof(TaskSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZTV"));
             var.IniWriteValue("FilePath", nameof(AUSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZAV"));
+            var.IniWriteValue("FilePath", nameof(MemorexSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZLV"));
             var.IniWriteValue("FileName", nameof(F22FileName), "f22.db");
             var.IniWriteValue("FileName", nameof(F16FileName), "f16.db");
             var.IniWriteValue("FileName", nameof(TasksFileName), "tasks.db");
             var.IniWriteValue("FileName", nameof(TaskItemsFileName), "taskitems.db");
             var.IniWriteValue("FileName", nameof(TaskLinkFileName), "linkedtaskitems.db");
+            var.IniWriteValue("FileName", nameof(MemorexFileName), "memorex.db");
             var.IniWriteValue("FilePath", nameof(CompletionOfAssignmentsLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "CoA"));
 
             GetIniFiles();
@@ -298,11 +322,13 @@ namespace Rosenholz.Windows
                 F16SubLocation = var.IniReadValue("FilePath", nameof(F16SubLocation));
                 TaskSubLocation = var.IniReadValue("FilePath", nameof(TaskSubLocation));
                 AUSubLocation = var.IniReadValue("FilePath", nameof(AUSubLocation));
+                MemorexSubLocation = var.IniReadValue("FilePath", nameof(MemorexSubLocation));
                 F22FileName = var.IniReadValue("FileName", nameof(F22FileName));
                 F16FileName = var.IniReadValue("FileName", nameof(F16FileName));
                 TasksFileName = var.IniReadValue("FileName", nameof(TasksFileName));
                 TaskItemsFileName = var.IniReadValue("FileName", nameof(TaskItemsFileName));
                 TaskLinkFileName = var.IniReadValue("FileName", nameof(TaskLinkFileName));
+                MemorexFileName = var.IniReadValue("FileName", nameof(MemorexFileName));
                 CompletionOfAssignmentsLocation = var.IniReadValue("FilePath", nameof(CompletionOfAssignmentsLocation));
                 GetIniFiles();
             }
@@ -335,6 +361,7 @@ namespace Rosenholz.Windows
                 var.IniWriteValue("Organization", "F16SubLocation", F16SubLocation);
                 var.IniWriteValue("Organization", "AUSubLocation", AUSubLocation);
                 var.IniWriteValue("Organization", "TaskSubLocation", TaskSubLocation);
+                var.IniWriteValue("Organization", "MemorexSubLocation", MemorexSubLocation);
                 var.IniWriteValue("Organization", "CoALocation", CompletionOfAssignmentsLocation);
                 var.IniWriteValue("Storage", "StorageBaseLocation", StorageBaseLocation);
                 GetIniFiles();
@@ -374,7 +401,9 @@ namespace Rosenholz.Windows
                 var.IniWriteValue("FileName", nameof(TasksFileName), TasksFileName);
                 var.IniWriteValue("FileName", nameof(TaskItemsFileName), TaskItemsFileName);
                 var.IniWriteValue("FileName", nameof(TaskLinkFileName), TaskLinkFileName);
+                var.IniWriteValue("FileName", nameof(MemorexFileName), MemorexFileName);
                 var.IniWriteValue("FilePath", nameof(CompletionOfAssignmentsLocation), CompletionOfAssignmentsLocation);
+                var.IniWriteValue("FilePath", nameof(MemorexSubLocation), MemorexSubLocation);
 
                 File.Delete("settings.ini");
 
@@ -390,7 +419,9 @@ namespace Rosenholz.Windows
                 settings.IniWriteValue("FileName", nameof(TasksFileName), TasksFileName);
                 settings.IniWriteValue("FileName", nameof(TaskItemsFileName), TaskItemsFileName);
                 settings.IniWriteValue("FileName", nameof(TaskLinkFileName), TaskLinkFileName);
+                settings.IniWriteValue("FileName", nameof(MemorexFileName), MemorexFileName);
                 settings.IniWriteValue("FilePath", nameof(CompletionOfAssignmentsLocation), CompletionOfAssignmentsLocation);
+                settings.IniWriteValue("FilePath", nameof(MemorexSubLocation), MemorexSubLocation);
 
                 DialogResult = true;
 

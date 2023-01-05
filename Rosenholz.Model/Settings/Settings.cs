@@ -43,12 +43,14 @@ namespace Rosenholz.Settings
         public string F22SubLocation => ini.IniReadValue("FilePath", nameof(F22SubLocation));
         public string F16SubLocation => ini.IniReadValue("FilePath", nameof(F16SubLocation));
         public string TaskSubLocation => ini.IniReadValue("FilePath", nameof(TaskSubLocation));
+        public string MemorexSubLocation => ini.IniReadValue("FilePath", nameof(MemorexSubLocation));
         public string AUSubLocation => ini.IniReadValue("FilePath", nameof(AUSubLocation));
         public string F22FileName => ini.IniReadValue("FileName", nameof(F22FileName));
         public string F16FileName => ini.IniReadValue("FileName", nameof(F16FileName));
         public string TasksFileName => ini.IniReadValue("FileName", nameof(TasksFileName));
         public string TaskItemsFileName => ini.IniReadValue("FileName", nameof(TaskItemsFileName));
         public string TaskLinkFileName => ini.IniReadValue("FileName", nameof(TaskLinkFileName));
+        public string MemorexFileName => ini.IniReadValue("FileName", nameof(MemorexFileName));
         public string CompletionOfAssignmentsLocation => ini.IniReadValue("FileName", nameof(CompletionOfAssignmentsLocation));
     }
 }

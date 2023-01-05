@@ -37,6 +37,8 @@ namespace Rosenholz.Application
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel dueTaskViewModel { get; set; } = null;
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel closedTaskViewModel { get; set; } = null;
 
+        Rosenholz.ViewModel.Memorex.CategoryViewModel categoryViewModel { get; set; } = null;
+
 
 
 
@@ -161,9 +163,6 @@ namespace Rosenholz.Application
             ClosedTaskViewUserControl.DataContext = closedTaskViewModel;
         }
 
-
-
-
         private void TaskView_Loaded(object sender, RoutedEventArgs e)
         {
             Tevm = new Rosenholz.ViewModel.DisplayParentTaskViewModel();
@@ -171,6 +170,12 @@ namespace Rosenholz.Application
             Tevm.TaskSourceChangedEvent += Tevm_TaskSourceChangedEvent;
             Tevm.ChildRequredEvent += Tevm_ChildRequredEvent;
             Tevm.DisplayTaskViewModelRequiredEvent += Tevm_TaskModelViewRequiredEvent;
+        }
+
+        private void MemorexCategoryView_Loaded(object sender, RoutedEventArgs e)
+        {
+            categoryViewModel = new Rosenholz.ViewModel.Memorex.CategoryViewModel();
+            MemorexCategoryView.DataContext = categoryViewModel;
         }
 
         private void Tevm_TaskModelViewRequiredEvent(TaskModel child)
@@ -313,5 +318,7 @@ namespace Rosenholz.Application
                 return _closeCommand;
             }
         }
+
+
     }
 }

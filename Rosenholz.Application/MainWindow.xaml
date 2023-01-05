@@ -125,6 +125,22 @@
             <TabItem Header="GTD">
             </TabItem>
 
+            <TabItem Header="Memorex">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <uc:MemorexCategoryUserControl Name="MemorexCategoryView" Loaded="MemorexCategoryView_Loaded" Grid.Column="1" Grid.Row="0"></uc:MemorexCategoryUserControl>
+                    <uc:MemorexInputUserControl Name="MemorexInputView" Grid.Column="0" Grid.Row="0"></uc:MemorexInputUserControl>
+                    <uc:MemorexSearchUserControl Name="MemorexSearchView" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ></uc:MemorexSearchUserControl>
+                </Grid>
+            </TabItem>
+
         </TabControl>
     </Grid>
 </Window>
