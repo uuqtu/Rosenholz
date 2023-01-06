@@ -11,13 +11,15 @@
         WindowStartupLocation="CenterScreen"
         BorderThickness="5"
         BorderBrush="blue"
-        Title="InitialSettings" Height="315" Width="900">
+        Title="InitialSettings" Height="365" Width="900">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="110"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="110"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="350"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="295"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"></RowDefinition>
@@ -30,10 +32,12 @@
             <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" ItemsSource="{Binding IniFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        <ComboBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6" ItemsSource="{Binding IniFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   Margin ="5,5,5,5" SelectedItem="{Binding SelectedIniPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged"
                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></ComboBox>
 
@@ -45,93 +49,169 @@
 
         <Label Background="#1C1C1C" Foreground="White" Grid.Column="0" Grid.Row="2" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">StorageBaseLocation</Label>
-        <TextBox Grid.Column="1" Grid.Row="2" Background="#1C1C1C" Foreground="White"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
+        <TextBox Grid.Column="1" Grid.Row="2" Background="#1C1C1C" Foreground="White" TextDecorations="Underline"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" BorderThickness="0"
                  Text="{Binding StorageBaseLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="0" Grid.Row="3" FontSize="10"
+        <Label Background="#1C1C1C" Foreground="White" Grid.Column="3" Grid.Row="2" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">Position</Label>
-        <TextBox Grid.Column="1" Grid.Row="3" Background="#1C1C1C" Foreground="White"
+        <TextBox Grid.Column="4" Grid.Row="2" Background="#1C1C1C" Foreground="White" BorderThickness="0"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
                  Text="{Binding Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="0" Grid.Row="4" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">F22SubLocation</Label>
-        <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
-                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
-                 Text="{Binding F22SubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="0" Grid.Row="5" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">F16SubLocation</Label>
-        <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
-                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
+                   
+        <!--F16-->
+        <Label Grid.Column="0" Grid.Row="4" Background="#1C1C1C" Foreground="White" FontSize="10"
+               HorizontalAlignment="Left" VerticalAlignment="Center">F16 - Storage</Label>
+        <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" BorderThickness="0"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" IsReadOnly="True"
+                 Text="{Binding StorageBaseLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="3" Grid.Row="4" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" TextDecorations="Underline"
                  Text="{Binding F16SubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="0" Grid.Row="6" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">AUSubLocation</Label>
-        <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
-                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
-                 Text="{Binding AUSubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-
-        <Label Grid.Column="0" Grid.Row="7" Background="#1C1C1C" Foreground="White" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">TaskSubLocation</Label>
-        <TextBox Grid.Column="1" Grid.Row="7" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
-                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
-                 Text="{Binding TaskSubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <Label Grid.Column="0" Grid.Row="8" Background="#1C1C1C" Foreground="White" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">MemorexSubLocation</Label>
-        <TextBox Grid.Column="1" Grid.Row="8" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
-                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White"
-                 Text="{Binding MemorexSubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <!--Zweite Spalte-->
-
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="2" Grid.Row="2" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">F22FileName</Label>
-        <TextBox Grid.Column="3" Grid.Row="2" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
-                 Text="{Binding F22FileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="2" Grid.Row="3" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">F16FileName</Label>
-        <TextBox Grid.Column="3" Grid.Row="3" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
+        <TextBox Grid.Column="4" Grid.Row="4" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="5" Grid.Row="4" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" TextDecorations="Underline"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" BorderThickness="0"
                  Text="{Binding F16FileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="2" Grid.Row="4" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">TasksFileName</Label>
-        <TextBox Grid.Column="3" Grid.Row="4" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
+        <!--F22-->
+        <Label Grid.Column="0" Grid.Row="5" Background="#1C1C1C" Foreground="White" FontSize="10"
+               HorizontalAlignment="Left" VerticalAlignment="Center">F22 - Storage</Label>
+        <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" BorderThickness="0"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" IsReadOnly="True"
+                 Text="{Binding StorageBaseLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" TextDecorations="Underline"
+                 Text="{Binding F22SubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="4" Grid.Row="5" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="5" Grid.Row="5" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" TextDecorations="Underline"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" BorderThickness="0"
+                 Text="{Binding F22FileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <!--AU-->
+        <Label Grid.Column="0" Grid.Row="6" Background="#1C1C1C" Foreground="White" FontSize="10"
+               HorizontalAlignment="Left" VerticalAlignment="Center">AU- Storage</Label>
+        <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" BorderThickness="0"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" IsReadOnly="True"
+                 Text="{Binding StorageBaseLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center" 
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="4" Grid.Row="6" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="3" Grid.Row="6" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" TextDecorations="Underline"
+                 Text="{Binding AUSubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <!--<TextBox Grid.Column="5" Grid.Row="5" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
                  VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"
+                 Text="{Binding AUFileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>-->
+        <!--Task-->
+        <Label Grid.Column="0" Grid.Row="7" Background="#1C1C1C" Foreground="White" FontSize="10"
+               HorizontalAlignment="Left" VerticalAlignment="Center">Task- Storage</Label>
+        <TextBox Grid.Column="1" Grid.Row="7" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" BorderThickness="0"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" IsReadOnly="True"
+                 Text="{Binding StorageBaseLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="3" Grid.Row="7" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" TextDecorations="Underline"
+                 Text="{Binding TaskSubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="4" Grid.Row="7" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="5" Grid.Row="7" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" TextDecorations="Underline"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" BorderThickness="0"
                  Text="{Binding TasksFileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="2" Grid.Row="5" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">TaskItemsFileName</Label>
-        <TextBox Grid.Column="3" Grid.Row="5" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
-                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"
+        <!--TaskItems-->
+        <Label Grid.Column="0" Grid.Row="8" Background="#1C1C1C" Foreground="White" FontSize="10"
+               HorizontalAlignment="Left" VerticalAlignment="Center">Task Items- Storage</Label>
+        <TextBox Grid.Column="1" Grid.Row="8" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" BorderThickness="0"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" IsReadOnly="True"
+                 Text="{Binding StorageBaseLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="3" Grid.Row="8" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center" MaxLength="3"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" IsReadOnly="True"
+                 Text="{Binding TaskSubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="4" Grid.Row="8" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="5" Grid.Row="8" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" TextDecorations="Underline"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"  BorderThickness="0"
                  Text="{Binding TaskItemsFileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <Label Background="#1C1C1C" Foreground="White" Grid.Column="2" Grid.Row="6" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">TaskLinkFileName</Label>
-        <TextBox Grid.Column="3" Grid.Row="6" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
-                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"
+        <!--LinkedTaskItems-->
+        <Label Grid.Column="0" Grid.Row="9" Background="#1C1C1C" Foreground="White" FontSize="10"
+               HorizontalAlignment="Left" VerticalAlignment="Center">Linked Task Items- Storage</Label>
+        <TextBox Grid.Column="1" Grid.Row="9" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" BorderThickness="0"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" IsReadOnly="True"
+                 Text="{Binding StorageBaseLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="9" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="3" Grid.Row="9" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center" MaxLength="3"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" IsReadOnly="True"
+                 Text="{Binding TaskSubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="4" Grid.Row="9" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="5" Grid.Row="9" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" TextDecorations="Underline"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"  BorderThickness="0"
                  Text="{Binding TaskLinkFileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <Label Grid.Column="2" Grid.Row="7" Background="#1C1C1C" Foreground="White" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">CoA-Location</Label>
-        <TextBox Grid.Column="3" Grid.Row="7" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
-                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"
-                 Text="{Binding CompletionOfAssignmentsLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <Label Grid.Column="2" Grid.Row="8" Background="#1C1C1C" Foreground="White" FontSize="10"
-               HorizontalAlignment="Left" VerticalAlignment="Center">Memorex-Filename</Label>
-        <TextBox Grid.Column="3" Grid.Row="8" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
-                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"
+        <!--Memorex-->
+        <Label Grid.Column="0" Grid.Row="10" Background="#1C1C1C" Foreground="White" FontSize="10"
+               HorizontalAlignment="Left" VerticalAlignment="Center">Memorex- Storage</Label>
+        <TextBox Grid.Column="1" Grid.Row="10" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" BorderThickness="0"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" IsReadOnly="True"
+                 Text="{Binding StorageBaseLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="10" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="3" Grid.Row="10" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" TextDecorations="Underline"
+                 Text="{Binding MemorexSubLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="4" Grid.Row="10" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="5" Grid.Row="10" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" TextDecorations="Underline"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" BorderThickness="0"
                  Text="{Binding MemorexFileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <!--CoA-->
+        <Label Grid.Column="0" Grid.Row="11" Background="#1C1C1C" Foreground="White" FontSize="10"
+               HorizontalAlignment="Left" VerticalAlignment="Center">CoA- Storage</Label>
+        <TextBox Grid.Column="1" Grid.Row="11" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" BorderThickness="0"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" IsReadOnly="True"
+                 Text="{Binding StorageBaseLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="11" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="3" Grid.Row="11" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" TextDecorations="Underline"
+                 Text="{Binding CompletionOfAssignmentsLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Column="4" Grid.Row="11" HorizontalAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" MaxLength="3" IsReadOnly="True"
+                 >\</TextBox>
+        <TextBox Grid.Column="5" Grid.Row="11" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" TextDecorations="Underline"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0" BorderThickness="0"
+                 Text="{Binding CompletionOfAssignmentsLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <!--<Label Grid.Column="2" Grid.Row="10" Background="#1C1C1C" Foreground="White" FontSize="10"
+               HorizontalAlignment="Left" VerticalAlignment="Center">CoA-Location</Label>-->
+        <!--<TextBox Grid.Column="3" Grid.Row="10" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"
+                 VerticalAlignment="Stretch" Background="#1C1C1C" Foreground="White" Margin="0,0,5,0"
+                 Text="{Binding CompletionOfAssignmentsLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>-->
 
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="10"
-                    Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="12"
+                    Grid.ColumnSpan="10" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Margin="0,0,0,0" Width="150" Command="{Binding CreateNewSettingsCommand}">Create New Settings File</Button>
             <Button Margin="0,0,0,0" Width="150" Command="{Binding SaveSettingsCommand}" CommandParameter="{Binding SelectedIniPath}">Save</Button>
             <Button Margin="0,0,0,0" Width="150" Command="{Binding OpenDefaultCommand}">Open Default</Button>

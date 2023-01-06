@@ -31,7 +31,6 @@ namespace Rosenholz.Windows
         private static string FileName = "FileName";
         private static string Storage = "Storage";
         private static string Admin = "Admin";
-        private static string Organization = "Organization";
         private static string MainSettingsName = "settings.ini";
 
         public ObservableCollection<string> IniFiles { get { return _iniFiles; } set { _iniFiles = value; OnPropertyChanged(nameof(IniFiles)); } }
@@ -212,28 +211,12 @@ namespace Rosenholz.Windows
             if (string.IsNullOrWhiteSpace(str))
                 return;
 
-            IniFile var = new IniFile(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{str}.ini"));
-            var.IniWriteValue(Admin, nameof(Position), 2);
-            var.IniWriteValue(Storage, nameof(StorageBaseLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS"));
-            #region File Path
-            var.IniWriteValue(FilePath, nameof(F22SubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZVK"));
-            var.IniWriteValue(FilePath, nameof(F16SubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZPK"));
-            var.IniWriteValue(FilePath, nameof(TaskSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZTV"));
-            var.IniWriteValue(FilePath, nameof(AUSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZAV"));
-            var.IniWriteValue(FilePath, nameof(MemorexSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZLV"));
-            var.IniWriteValue(FilePath, nameof(CompletionOfAssignmentsLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "CoA"));
-            #endregion
-            #region File Name
-            var.IniWriteValue(FileName, nameof(F22FileName), "f22.db");
-            var.IniWriteValue(FileName, nameof(F16FileName), "f16.db");
-            var.IniWriteValue(FileName, nameof(TasksFileName), "tasks.db");
-            var.IniWriteValue(FileName, nameof(TaskItemsFileName), "taskitems.db");
-            var.IniWriteValue(FileName, nameof(TaskLinkFileName), "linkedtaskitems.db");
-            var.IniWriteValue(FileName, nameof(MemorexFileName), "memorex.db");            
-            #endregion
+            InitializeIniFileAndWrite(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{str}.ini"));
 
             GetIniFiles();
         }
+
+
         #endregion
 
         #region LoadSettingsCommand
@@ -256,26 +239,7 @@ namespace Rosenholz.Windows
         {
             if (parameter is string)
             {
-                IniFile var = new IniFile(parameter.ToString());
-                Position                        = var.IniReadValue("Admin", nameof(Position));
-                StorageBaseLocation             = var.IniReadValue("Storage", nameof(StorageBaseLocation));
-                #region FilePath
-                F22SubLocation                  = var.IniReadValue("FilePath", nameof(F22SubLocation));
-                F16SubLocation                  = var.IniReadValue("FilePath", nameof(F16SubLocation));
-                TaskSubLocation                 = var.IniReadValue("FilePath", nameof(TaskSubLocation));
-                AUSubLocation                   = var.IniReadValue("FilePath", nameof(AUSubLocation));
-                MemorexSubLocation              = var.IniReadValue("FilePath", nameof(MemorexSubLocation));
-                CompletionOfAssignmentsLocation = var.IniReadValue("FilePath", nameof(CompletionOfAssignmentsLocation));
-                #endregion
-                #region FileName
-                F22FileName                     = var.IniReadValue("FileName", nameof(F22FileName));
-                F16FileName                     = var.IniReadValue("FileName", nameof(F16FileName));
-                TasksFileName                   = var.IniReadValue("FileName", nameof(TasksFileName));
-                TaskItemsFileName               = var.IniReadValue("FileName", nameof(TaskItemsFileName));
-                TaskLinkFileName                = var.IniReadValue("FileName", nameof(TaskLinkFileName));
-                MemorexFileName                 = var.IniReadValue("FileName", nameof(MemorexFileName));
-                #endregion
-
+                IniReadValues(parameter.ToString());
                 GetIniFiles();
             }
         }
@@ -301,18 +265,11 @@ namespace Rosenholz.Windows
         {
             if (parameter is string)
             {
-                IniFile var = new IniFile(parameter.ToString());
-                var.IniWriteValue("Admin", "Position", Position);
-                var.IniWriteValue("Organization", "F22SubLocation", F22SubLocation);
-                var.IniWriteValue("Organization", "F16SubLocation", F16SubLocation);
-                var.IniWriteValue("Organization", "AUSubLocation", AUSubLocation);
-                var.IniWriteValue("Organization", "TaskSubLocation", TaskSubLocation);
-                var.IniWriteValue("Organization", "MemorexSubLocation", MemorexSubLocation);
-                var.IniWriteValue("Organization", "CoALocation", CompletionOfAssignmentsLocation);
-                var.IniWriteValue("Storage", "StorageBaseLocation", StorageBaseLocation);
+                IniWriteValues(parameter.ToString());
                 GetIniFiles();
             }
         }
+
         #endregion
 
         #region SetSettingsAndOpenCommand
@@ -335,39 +292,9 @@ namespace Rosenholz.Windows
         {
             if (parameter is string)
             {
-                IniFile var = new IniFile(parameter.ToString());
-                var.IniWriteValue("Admin", nameof(Position), Position);
-                var.IniWriteValue("Storage", nameof(StorageBaseLocation), StorageBaseLocation);
-                var.IniWriteValue("FilePath", nameof(F22SubLocation), F22SubLocation);
-                var.IniWriteValue("FilePath", nameof(F16SubLocation), F16SubLocation);
-                var.IniWriteValue("FilePath", nameof(TaskSubLocation), TaskSubLocation);
-                var.IniWriteValue("FilePath", nameof(AUSubLocation), AUSubLocation);
-                var.IniWriteValue("FileName", nameof(F22FileName), F22FileName);
-                var.IniWriteValue("FileName", nameof(F16FileName), F16FileName);
-                var.IniWriteValue("FileName", nameof(TasksFileName), TasksFileName);
-                var.IniWriteValue("FileName", nameof(TaskItemsFileName), TaskItemsFileName);
-                var.IniWriteValue("FileName", nameof(TaskLinkFileName), TaskLinkFileName);
-                var.IniWriteValue("FileName", nameof(MemorexFileName), MemorexFileName);
-                var.IniWriteValue("FilePath", nameof(CompletionOfAssignmentsLocation), CompletionOfAssignmentsLocation);
-                var.IniWriteValue("FilePath", nameof(MemorexSubLocation), MemorexSubLocation);
-
-                File.Delete("settings.ini");
-
-                IniFile settings = new IniFile(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.ini"));
-                settings.IniWriteValue("Admin", nameof(Position), Position);
-                settings.IniWriteValue("Storage", nameof(StorageBaseLocation), StorageBaseLocation);
-                settings.IniWriteValue("FilePath", nameof(F22SubLocation), F22SubLocation);
-                settings.IniWriteValue("FilePath", nameof(F16SubLocation), F16SubLocation);
-                settings.IniWriteValue("FilePath", nameof(TaskSubLocation), TaskSubLocation);
-                settings.IniWriteValue("FilePath", nameof(AUSubLocation), AUSubLocation);
-                settings.IniWriteValue("FileName", nameof(F22FileName), F22FileName);
-                settings.IniWriteValue("FileName", nameof(F16FileName), F16FileName);
-                settings.IniWriteValue("FileName", nameof(TasksFileName), TasksFileName);
-                settings.IniWriteValue("FileName", nameof(TaskItemsFileName), TaskItemsFileName);
-                settings.IniWriteValue("FileName", nameof(TaskLinkFileName), TaskLinkFileName);
-                settings.IniWriteValue("FileName", nameof(MemorexFileName), MemorexFileName);
-                settings.IniWriteValue("FilePath", nameof(CompletionOfAssignmentsLocation), CompletionOfAssignmentsLocation);
-                settings.IniWriteValue("FilePath", nameof(MemorexSubLocation), MemorexSubLocation);
+                IniWriteValues(parameter.ToString());
+                File.Delete(MainSettingsName);
+                IniWriteValues(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, MainSettingsName));
 
                 DialogResult = true;
 
@@ -375,7 +302,84 @@ namespace Rosenholz.Windows
             }
         }
         #endregion
-
+        /// <summary>
+        /// Initializes the Ini File
+        /// </summary>
+        /// <param name="str"></param>
+        private static void InitializeIniFileAndWrite(string patToIniFile)
+        {
+            IniFile var = new IniFile(patToIniFile);
+            var.IniWriteValue(Admin, nameof(Position), 2);
+            var.IniWriteValue(Storage, nameof(StorageBaseLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS"));
+            #region File Path
+            var.IniWriteValue(FilePath, nameof(F22SubLocation), "ZVK");
+            var.IniWriteValue(FilePath, nameof(F16SubLocation), "ZPK");
+            var.IniWriteValue(FilePath, nameof(TaskSubLocation), "ZTV");
+            var.IniWriteValue(FilePath, nameof(AUSubLocation), "ZAV");
+            var.IniWriteValue(FilePath, nameof(MemorexSubLocation), "ZLV");
+            var.IniWriteValue(FilePath, nameof(CompletionOfAssignmentsLocation), "CoA");
+            #endregion
+            #region File Name
+            var.IniWriteValue(FileName, nameof(F22FileName), "f22.db");
+            var.IniWriteValue(FileName, nameof(F16FileName), "f16.db");
+            var.IniWriteValue(FileName, nameof(TasksFileName), "tasks.db");
+            var.IniWriteValue(FileName, nameof(TaskItemsFileName), "taskitems.db");
+            var.IniWriteValue(FileName, nameof(TaskLinkFileName), "linkedtaskitems.db");
+            var.IniWriteValue(FileName, nameof(MemorexFileName), "memorex.db");
+            #endregion
+        }
+        /// <summary>
+        /// Writes Values to the selected Ini FIle
+        /// </summary>
+        /// <param name="patToIniFile"></param>
+        private void IniWriteValues(string patToIniFile)
+        {
+            IniFile var = new IniFile(patToIniFile);
+            var.IniWriteValue(Admin, nameof(Position), Position);
+            var.IniWriteValue(Storage, nameof(StorageBaseLocation), StorageBaseLocation);
+            #region FilePaths
+            var.IniWriteValue(FilePath, nameof(F22SubLocation), F22SubLocation);
+            var.IniWriteValue(FilePath, nameof(F16SubLocation), F16SubLocation);
+            var.IniWriteValue(FilePath, nameof(TaskSubLocation), TaskSubLocation);
+            var.IniWriteValue(FilePath, nameof(AUSubLocation), AUSubLocation);
+            var.IniWriteValue(FilePath, nameof(CompletionOfAssignmentsLocation), CompletionOfAssignmentsLocation);
+            var.IniWriteValue(FilePath, nameof(MemorexSubLocation), MemorexSubLocation);
+            #endregion
+            #region FileName
+            var.IniWriteValue(FileName, nameof(F22FileName), F22FileName);
+            var.IniWriteValue(FileName, nameof(F16FileName), F16FileName);
+            var.IniWriteValue(FileName, nameof(TasksFileName), TasksFileName);
+            var.IniWriteValue(FileName, nameof(TaskItemsFileName), TaskItemsFileName);
+            var.IniWriteValue(FileName, nameof(TaskLinkFileName), TaskLinkFileName);
+            var.IniWriteValue(FileName, nameof(MemorexFileName), MemorexFileName);
+            #endregion
+        }
+        /// <summary>
+        /// Reads the values from the Ini File
+        /// </summary>
+        /// <param name="parameter"></param>
+        private void IniReadValues(string parameter)
+        {
+            IniFile var = new IniFile(parameter);
+            Position = var.IniReadValue(Admin, nameof(Position));
+            StorageBaseLocation = var.IniReadValue(Storage, nameof(StorageBaseLocation));
+            #region FilePath
+            F22SubLocation = var.IniReadValue(FilePath, nameof(F22SubLocation));
+            F16SubLocation = var.IniReadValue(FilePath, nameof(F16SubLocation));
+            TaskSubLocation = var.IniReadValue(FilePath, nameof(TaskSubLocation));
+            AUSubLocation = var.IniReadValue(FilePath, nameof(AUSubLocation));
+            MemorexSubLocation = var.IniReadValue(FilePath, nameof(MemorexSubLocation));
+            CompletionOfAssignmentsLocation = var.IniReadValue(FilePath, nameof(CompletionOfAssignmentsLocation));
+            #endregion
+            #region FileName
+            F22FileName = var.IniReadValue(FileName, nameof(F22FileName));
+            F16FileName = var.IniReadValue(FileName, nameof(F16FileName));
+            TasksFileName = var.IniReadValue(FileName, nameof(TasksFileName));
+            TaskItemsFileName = var.IniReadValue(FileName, nameof(TaskItemsFileName));
+            TaskLinkFileName = var.IniReadValue(FileName, nameof(TaskLinkFileName));
+            MemorexFileName = var.IniReadValue(FileName, nameof(MemorexFileName));
+            #endregion
+        }
         #region OpenDefaultCommand
         private RelayCommand _penDefaultCommand;
         public RelayCommand OpenDefaultCommand
