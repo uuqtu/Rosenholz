@@ -109,11 +109,22 @@ namespace Rosenholz.ViewModel
                 {
                     _closeTaskCommand = new RelayCommand(
                         (parameter) => CloseTaskExecute(parameter),
-                        (parameter) => !(Entry == null)
+                        (parameter) => CanExecuteCloseTask()
                     );
                 }
                 return _closeTaskCommand;
             }
+        }
+
+        /// <summary>
+        /// Can only be closed, if all LinkedTasked Items are already closed.
+        /// </summary>
+        /// <returns></returns>
+        private bool CanExecuteCloseTask()
+        {
+            var notAllClosed = Entry?.LinkedTaskItems.Any(x => x.TaskState != TaskState.Closed);
+
+            return (!(Entry == null)) && (notAllClosed == false);
         }
 
         public abstract void CloseTaskExecute(object window);

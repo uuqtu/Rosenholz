@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rosenholz.UserControls"
              mc:Ignorable="d" 
+             Background="#1C1C1C" Foreground="White"
              Name="CategoryViewControl"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -19,19 +20,19 @@
             <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label  Grid.Row="0" Grid.Column="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center">Name der neuen Kategorie</Label>
-        <TextBox Margin="10,00,10,00" Grid.Row="1"  FontSize="20"
+        <Label Background="#1C1C1C" Foreground="White" Grid.Row="0" Grid.Column="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center">Name der neuen Kategorie</Label>
+        <TextBox Margin="10,00,10,00" Grid.Row="1"  FontSize="20" Background="#1C1C1C" Foreground="White"
                  Text="{Binding Category, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  HorizontalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
-        <Button  Margin="10,00,10,00" Height="29" Grid.Row="3"
+        <Button  Margin="10,00,10,00" Height="29" Grid.Row="3" Background="#1C1C1C" Foreground="White"
                  Command="{Binding AddCategoryCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">Save Category</Button>
 
-        <Label Grid.Row="4" Grid.Column="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center">Delete Category</Label>
-        <ComboBox Margin="10,00,10,00" Grid.Row="5"  FontSize="20"
+        <Label Grid.Row="4" Grid.Column="0" FontSize="30" VerticalAlignment="Center" Background="#1C1C1C" Foreground="White" HorizontalAlignment="Center">Delete Category</Label>
+        <ComboBox Margin="10,00,10,00" Grid.Row="5"  FontSize="20" Background="#1C1C1C" Foreground="White"
                  Text="{Binding Category, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  ItemsSource="{Binding PossibleCategories, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                  HorizontalContentAlignment="Center" VerticalAlignment="Center"></ComboBox>
-        <Button  Margin="10,00,10,00" Grid.Row="7" 
+        <Button  Margin="10,00,10,00" Grid.Row="7"  Background="#1C1C1C" Foreground="White"
                  Command="{Binding AddCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">Delete</Button>
     </Grid>
 </UserControl>
