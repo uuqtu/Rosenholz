@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace Rosenholz.Windows
 {
@@ -25,6 +27,13 @@ namespace Rosenholz.Windows
     public partial class InitialSettings : Window, INotifyPropertyChanged
     {
         private ObservableCollection<string> _iniFiles;
+        private static string FilePath = "FilePath";
+        private static string FileName = "FileName";
+        private static string Storage = "Storage";
+        private static string Admin = "Admin";
+        private static string Organization = "Organization";
+        private static string MainSettingsName = "settings.ini";
+
         public ObservableCollection<string> IniFiles { get { return _iniFiles; } set { _iniFiles = value; OnPropertyChanged(nameof(IniFiles)); } }
         private string _selectedIniPath;
         public string SelectedIniPath
@@ -48,178 +57,118 @@ namespace Rosenholz.Windows
         {
             var dir = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.ini");
 
-
-            IniFiles = new ObservableCollection<string>(dir.ToList().Where(s => !s.Contains("settings.ini")));
+            // Exclude the MainSettingsName since it will be rewritten with the information selected.
+            IniFiles = new ObservableCollection<string>(dir.ToList().Where(s => !s.Contains(MainSettingsName)));
         }
+
+
+        #region Administrative 
 
         private string _storageBaseLocation;
         public string StorageBaseLocation
         {
-            get { return _storageBaseLocation; }
-            set
-            {
-                _storageBaseLocation = value;
-                OnPropertyChanged(nameof(StorageBaseLocation));
-            }
+            get => _storageBaseLocation;
+            set => SetField(ref _storageBaseLocation, value, nameof(StorageBaseLocation));
         }
 
         private string _position;
         public string Position
         {
-            get
-            {
-                return _position;
-            }
-            set
-            {
-                _position = value;
-                OnPropertyChanged(nameof(Position));
-            }
+            get => _position;
+            set => SetField(ref _position, value, nameof(Position));
+        }
+        #endregion
+
+        #region SubLocations
+
+        private string _f16SubLocation;
+        public string F16SubLocation
+        {
+            get => _f16SubLocation;
+            set => SetField(ref _f16SubLocation, value, nameof(F16SubLocation));
         }
 
         private string _f22SubLocation;
         public string F22SubLocation
         {
-            get { return _f22SubLocation; }
-            set
-            {
-                _f22SubLocation = value;
-                OnPropertyChanged(nameof(F22SubLocation));
-            }
+            get => _f22SubLocation;
+            set => SetField(ref _f22SubLocation, value, nameof(F22SubLocation));
         }
-
-
-        private string _f16SubLocation;
-        public string F16SubLocation
-        {
-            get { return _f16SubLocation; }
-            set
-            {
-                _f16SubLocation = value;
-                OnPropertyChanged(nameof(F16SubLocation));
-            }
-        }
-
-        private string _memorexSubLocation;
-        public string MemorexSubLocation
-        {
-            get { return _memorexSubLocation; }
-            set
-            {
-                _memorexSubLocation = value;
-                OnPropertyChanged(nameof(MemorexSubLocation));
-            }
-        }
-
-
-
 
         private string _taskSubLocation;
         public string TaskSubLocation
         {
-            get { return _taskSubLocation; }
-            set
-            {
-                _taskSubLocation = value;
-                OnPropertyChanged(nameof(TaskSubLocation));
-            }
+            get => _taskSubLocation;
+            set => SetField(ref _taskSubLocation, value, nameof(TaskSubLocation));
         }
 
         private string _aUSubLocation;
         public string AUSubLocation
         {
-            get { return _aUSubLocation; }
-            set
-            {
-                _aUSubLocation = value;
-                OnPropertyChanged(nameof(AUSubLocation));
-            }
+            get => _aUSubLocation;
+            set => SetField(ref _aUSubLocation, value, nameof(AUSubLocation));
         }
 
         private string _completionOfAssignmentsLocation;
         public string CompletionOfAssignmentsLocation
         {
-            get { return _completionOfAssignmentsLocation; }
-            set
-            {
-                _completionOfAssignmentsLocation = value;
-                OnPropertyChanged(nameof(CompletionOfAssignmentsLocation));
-            }
+            get => _completionOfAssignmentsLocation;
+            set => SetField(ref _completionOfAssignmentsLocation, value, nameof(CompletionOfAssignmentsLocation));
         }
+
+        private string _memorexSubLocation;
+        public string MemorexSubLocation
+        {
+            get => _memorexSubLocation;
+            set => SetField(ref _memorexSubLocation, value, nameof(MemorexSubLocation));
+        }
+        #endregion
 
         #region Filenames
-
-        private string _f22FileName;
-        public string F22FileName
-        {
-            get { return _f22FileName; }
-            set
-            {
-                _f22FileName = value;
-                OnPropertyChanged(nameof(F22FileName));
-            }
-        }
 
         private string _f16FileName;
         public string F16FileName
         {
-            get { return _f16FileName; }
-            set
-            {
-                _f16FileName = value;
-                OnPropertyChanged(nameof(F16FileName));
-            }
+            get => _f16FileName;
+            set => SetField(ref _f16FileName, value, nameof(F16FileName));
+        }
+
+        private string _f22FileName;
+        public string F22FileName
+        {
+            get => _f22FileName;
+            set => SetField(ref _f22FileName, value, nameof(F22FileName));
         }
 
         private string _tasksFileName;
         public string TasksFileName
         {
-            get { return _tasksFileName; }
-            set
-            {
-                _tasksFileName = value;
-                OnPropertyChanged(nameof(TasksFileName));
-            }
+            get => _tasksFileName;
+            set => SetField(ref _tasksFileName, value, nameof(TasksFileName));
         }
-
-        private string _memorexFileName;
-        public string MemorexFileName
-        {
-            get { return _memorexFileName; }
-            set
-            {
-                _memorexFileName = value;
-                OnPropertyChanged(nameof(MemorexFileName));
-            }
-        }
-
 
         private string _taskItemsFileName;
         public string TaskItemsFileName
         {
-            get { return _taskItemsFileName; }
-            set
-            {
-                _taskItemsFileName = value;
-                OnPropertyChanged(nameof(TaskItemsFileName));
-            }
+            get => _taskItemsFileName;
+            set => SetField(ref _taskItemsFileName, value, nameof(TaskItemsFileName));
         }
 
         private string _taskLinkFileName;
         public string TaskLinkFileName
         {
-            get { return _taskLinkFileName; }
-            set
-            {
-                _taskLinkFileName = value;
-                OnPropertyChanged(nameof(TaskLinkFileName));
-            }
+            get => _taskLinkFileName;
+            set => SetField(ref _taskLinkFileName, value, nameof(TaskLinkFileName));
+        }
+
+        private string _memorexFileName;
+        public string MemorexFileName
+        {
+            get => _memorexFileName;
+            set => SetField(ref _memorexFileName, value, nameof(MemorexFileName));
         }
 
         #endregion
-
-
-
 
         private RelayCommand _closeSettingsCommand;
         public RelayCommand CloseSettingsCommand
@@ -229,24 +178,12 @@ namespace Rosenholz.Windows
                 if (_closeSettingsCommand == null)
                 {
                     _closeSettingsCommand = new RelayCommand(
-                        (parameter) => CloseSettingsExecute(),
-                        (parameter) => CanEcexuteCloseSettings()
+                        (parameter) => { DialogResult = false; this.Close(); },
+                        (parameter) => true
                     );
                 }
                 return _closeSettingsCommand;
             }
-        }
-
-
-        private bool CanEcexuteCloseSettings()
-        {
-            return true;
-        }
-
-        public void CloseSettingsExecute()
-        {
-            DialogResult = false;
-            this.Close();
         }
 
 
@@ -276,20 +213,24 @@ namespace Rosenholz.Windows
                 return;
 
             IniFile var = new IniFile(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{str}.ini"));
-            var.IniWriteValue("Admin", nameof(Position), 2);
-            var.IniWriteValue("Storage", nameof(StorageBaseLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS"));
-            var.IniWriteValue("FilePath", nameof(F22SubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZVK"));
-            var.IniWriteValue("FilePath", nameof(F16SubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZPK"));
-            var.IniWriteValue("FilePath", nameof(TaskSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZTV"));
-            var.IniWriteValue("FilePath", nameof(AUSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZAV"));
-            var.IniWriteValue("FilePath", nameof(MemorexSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZLV"));
-            var.IniWriteValue("FileName", nameof(F22FileName), "f22.db");
-            var.IniWriteValue("FileName", nameof(F16FileName), "f16.db");
-            var.IniWriteValue("FileName", nameof(TasksFileName), "tasks.db");
-            var.IniWriteValue("FileName", nameof(TaskItemsFileName), "taskitems.db");
-            var.IniWriteValue("FileName", nameof(TaskLinkFileName), "linkedtaskitems.db");
-            var.IniWriteValue("FileName", nameof(MemorexFileName), "memorex.db");
-            var.IniWriteValue("FilePath", nameof(CompletionOfAssignmentsLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "CoA"));
+            var.IniWriteValue(Admin, nameof(Position), 2);
+            var.IniWriteValue(Storage, nameof(StorageBaseLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS"));
+            #region File Path
+            var.IniWriteValue(FilePath, nameof(F22SubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZVK"));
+            var.IniWriteValue(FilePath, nameof(F16SubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZPK"));
+            var.IniWriteValue(FilePath, nameof(TaskSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZTV"));
+            var.IniWriteValue(FilePath, nameof(AUSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZAV"));
+            var.IniWriteValue(FilePath, nameof(MemorexSubLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "ZLV"));
+            var.IniWriteValue(FilePath, nameof(CompletionOfAssignmentsLocation), System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%desktop%"), "MFS", "CoA"));
+            #endregion
+            #region File Name
+            var.IniWriteValue(FileName, nameof(F22FileName), "f22.db");
+            var.IniWriteValue(FileName, nameof(F16FileName), "f16.db");
+            var.IniWriteValue(FileName, nameof(TasksFileName), "tasks.db");
+            var.IniWriteValue(FileName, nameof(TaskItemsFileName), "taskitems.db");
+            var.IniWriteValue(FileName, nameof(TaskLinkFileName), "linkedtaskitems.db");
+            var.IniWriteValue(FileName, nameof(MemorexFileName), "memorex.db");            
+            #endregion
 
             GetIniFiles();
         }
@@ -316,20 +257,25 @@ namespace Rosenholz.Windows
             if (parameter is string)
             {
                 IniFile var = new IniFile(parameter.ToString());
-                Position = var.IniReadValue("Admin", nameof(Position));
-                StorageBaseLocation = var.IniReadValue("Storage", nameof(StorageBaseLocation));
-                F22SubLocation = var.IniReadValue("FilePath", nameof(F22SubLocation));
-                F16SubLocation = var.IniReadValue("FilePath", nameof(F16SubLocation));
-                TaskSubLocation = var.IniReadValue("FilePath", nameof(TaskSubLocation));
-                AUSubLocation = var.IniReadValue("FilePath", nameof(AUSubLocation));
-                MemorexSubLocation = var.IniReadValue("FilePath", nameof(MemorexSubLocation));
-                F22FileName = var.IniReadValue("FileName", nameof(F22FileName));
-                F16FileName = var.IniReadValue("FileName", nameof(F16FileName));
-                TasksFileName = var.IniReadValue("FileName", nameof(TasksFileName));
-                TaskItemsFileName = var.IniReadValue("FileName", nameof(TaskItemsFileName));
-                TaskLinkFileName = var.IniReadValue("FileName", nameof(TaskLinkFileName));
-                MemorexFileName = var.IniReadValue("FileName", nameof(MemorexFileName));
+                Position                        = var.IniReadValue("Admin", nameof(Position));
+                StorageBaseLocation             = var.IniReadValue("Storage", nameof(StorageBaseLocation));
+                #region FilePath
+                F22SubLocation                  = var.IniReadValue("FilePath", nameof(F22SubLocation));
+                F16SubLocation                  = var.IniReadValue("FilePath", nameof(F16SubLocation));
+                TaskSubLocation                 = var.IniReadValue("FilePath", nameof(TaskSubLocation));
+                AUSubLocation                   = var.IniReadValue("FilePath", nameof(AUSubLocation));
+                MemorexSubLocation              = var.IniReadValue("FilePath", nameof(MemorexSubLocation));
                 CompletionOfAssignmentsLocation = var.IniReadValue("FilePath", nameof(CompletionOfAssignmentsLocation));
+                #endregion
+                #region FileName
+                F22FileName                     = var.IniReadValue("FileName", nameof(F22FileName));
+                F16FileName                     = var.IniReadValue("FileName", nameof(F16FileName));
+                TasksFileName                   = var.IniReadValue("FileName", nameof(TasksFileName));
+                TaskItemsFileName               = var.IniReadValue("FileName", nameof(TaskItemsFileName));
+                TaskLinkFileName                = var.IniReadValue("FileName", nameof(TaskLinkFileName));
+                MemorexFileName                 = var.IniReadValue("FileName", nameof(MemorexFileName));
+                #endregion
+
                 GetIniFiles();
             }
         }
@@ -439,17 +385,15 @@ namespace Rosenholz.Windows
                 if (_penDefaultCommand == null)
                 {
                     _penDefaultCommand = new RelayCommand(
-                        (parameter) => OpenDefaultCommandExecute(parameter),
-                        (parameter) => File.Exists("settings.ini")
+                        (parameter) =>
+                        {
+                            DialogResult = true; this.Close();
+                        },
+                        (parameter) => File.Exists(MainSettingsName)
                     );
                 }
                 return _penDefaultCommand;
             }
-        }
-        public void OpenDefaultCommandExecute(object parameter)
-        {
-            DialogResult = true;
-            this.Close();
         }
         #endregion
 
@@ -465,6 +409,14 @@ namespace Rosenholz.Windows
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LoadSettingsCommandExecute(SelectedIniPath);
+        }
+
+        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
         }
     }
 }
