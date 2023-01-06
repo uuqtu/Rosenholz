@@ -16,19 +16,19 @@ namespace Rosenholz.Application
     public partial class App : System.Windows.Application
     {
         #region Constants and Fields
-        ///https://stackoverflow.com/questions/14506406/wpf-single-instance-best-practices
-        ///
-        /// <summary>The event mutex name.</summary>
-        private const string UniqueEventName = "{88974gfvdfgsdfhgsdhbgfdsfgdfgsdfgdsfgsydengffdxvchgxb1a}";
+        /////https://stackoverflow.com/questions/14506406/wpf-single-instance-best-practices
+        /////
+        ///// <summary>The event mutex name.</summary>
+        //private const string UniqueEventName = "{88974gfvdfgsdfhgsdhbgfdsfgdfgsdfgdsfgsydengffdxvchgxb1a}";
 
-        /// <summary>The unique mutex name.</summary>
-        private const string UniqueMutexName = "{88974gfvdfgsdfhgsdhbgfdsfgdfgsdfgdsfgsydengffdxvchgxb1a}";
+        ///// <summary>The unique mutex name.</summary>
+        //private const string UniqueMutexName = "{88974gfvdfgsdfhgsdhbgfdsfgdfgsdfgdsfgsydengffdxvchgxb1a}";
 
-        /// <summary>The event wait handle.</summary>
-        private EventWaitHandle eventWaitHandle;
+        ///// <summary>The event wait handle.</summary>
+        //private EventWaitHandle eventWaitHandle;
 
-        /// <summary>The mutex.</summary>
-        private Mutex mutex;
+        ///// <summary>The mutex.</summary>
+        //private Mutex mutex;
 
         #endregion
 
@@ -76,7 +76,11 @@ namespace Rosenholz.Application
             if (settingsWindow.DialogResult == true)
             { mainWindow.Show(); }
             else
-            { mainWindow.Close(); }
+            {
+                mainWindow.IsDesiredCloseButtonClicked = true;
+                mainWindow.AskForValidation = false;
+                mainWindow.Close();
+            }
         }
     }
 }

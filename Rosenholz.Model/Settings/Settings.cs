@@ -40,17 +40,31 @@ namespace Rosenholz.Settings
 
         public string Position => ini.IniReadValue("Admin", nameof(Position));
         public string StorageBaseLocation => ini.IniReadValue("Storage", nameof(StorageBaseLocation));
-        public string F22SubLocation => ini.IniReadValue("FilePath", nameof(F22SubLocation));
-        public string F16SubLocation => ini.IniReadValue("FilePath", nameof(F16SubLocation));
-        public string TaskSubLocation => ini.IniReadValue("FilePath", nameof(TaskSubLocation));
-        public string MemorexSubLocation => ini.IniReadValue("FilePath", nameof(MemorexSubLocation));
-        public string AUSubLocation => ini.IniReadValue("FilePath", nameof(AUSubLocation));
+
+        #region FileName
         public string F22FileName => ini.IniReadValue("FileName", nameof(F22FileName));
         public string F16FileName => ini.IniReadValue("FileName", nameof(F16FileName));
         public string TasksFileName => ini.IniReadValue("FileName", nameof(TasksFileName));
         public string TaskItemsFileName => ini.IniReadValue("FileName", nameof(TaskItemsFileName));
         public string TaskLinkFileName => ini.IniReadValue("FileName", nameof(TaskLinkFileName));
         public string MemorexFileName => ini.IniReadValue("FileName", nameof(MemorexFileName));
-        public string CompletionOfAssignmentsLocation => ini.IniReadValue("FileName", nameof(CompletionOfAssignmentsLocation));
+        public string CompletionOfAssignmentsFileName => ini.IniReadValue("FileName", nameof(CompletionOfAssignmentsFileName));
+        #endregion
+
+        #region FilePaht
+        public string F22SubLocation => Path.Combine(StorageBaseLocation, ini.IniReadValue("FilePath", nameof(F22SubLocation)));
+        public string F16SubLocation => Path.Combine(StorageBaseLocation, ini.IniReadValue("FilePath", nameof(F16SubLocation)));
+        public string TaskSubLocation => Path.Combine(StorageBaseLocation, ini.IniReadValue("FilePath", nameof(TaskSubLocation)));
+        public string MemorexSubLocation => Path.Combine(StorageBaseLocation, ini.IniReadValue("FilePath", nameof(MemorexSubLocation)));
+        public string AUSubLocation => Path.Combine(StorageBaseLocation, ini.IniReadValue("FilePath", nameof(AUSubLocation)));
+        public string CompletionOfAssignmentsLocation => Path.Combine(StorageBaseLocation, ini.IniReadValue("FilePath", nameof(CompletionOfAssignmentsLocation)));
+        #endregion
+
+
+
+
+
+
+
     }
 }

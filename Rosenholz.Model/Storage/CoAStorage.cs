@@ -41,7 +41,7 @@ namespace Rosenholz.Model.Storage
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
-            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.CompletionOfAssignmentsLocation, "CoA.db")))
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.CompletionOfAssignmentsLocation, Settings.Settings.Instance.CompletionOfAssignmentsFileName)))
             {
                 string command =
                     "CREATE TABLE IF NOT EXISTS COA (" +
@@ -59,7 +59,7 @@ namespace Rosenholz.Model.Storage
 
         public void InsertData(CoA Insertee)
         {
-            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.CompletionOfAssignmentsLocation, "CoA.db")))
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.CompletionOfAssignmentsLocation, Settings.Settings.Instance.CompletionOfAssignmentsFileName)))
             {
                 string command =
                     "INSERT INTO COA (TASKNAME, ENDDATE, TIMEESTIMATION, DESCRIPTION, LOCATION, STATE)" +
@@ -74,7 +74,7 @@ namespace Rosenholz.Model.Storage
             DataTable data = null;
             List<CoA> values = new List<CoA>();
 
-            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.CompletionOfAssignmentsLocation, "CoA.db")))
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.CompletionOfAssignmentsLocation, Settings.Settings.Instance.CompletionOfAssignmentsFileName)))
             {
                 data = con.ReadData("SELECT * FROM COA");
             }

@@ -44,7 +44,8 @@ namespace Rosenholz.Application
         Rosenholz.ViewModel.Memorex.SearchViewModel searchViewModelObject { get; set; } = null;
         #endregion
 
-        private bool _isDesiredCloseButtonClicked = false;
+        public bool IsDesiredCloseButtonClicked = false;
+        public bool AskForValidation = true;
 
 
         public Rosenholz.ViewModel.F22ViewModel f22ViewModelObject { get; set; } = null;
@@ -257,15 +258,17 @@ namespace Rosenholz.Application
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (_isDesiredCloseButtonClicked)
+            if (IsDesiredCloseButtonClicked)
             {
-
-                e.Cancel = !IsValidated();
+                if (AskForValidation)
+                    e.Cancel = !IsValidated();
+                else
+                    e.Cancel = false;
 
                 // Desired X button clicked - statements
                 if (e.Cancel)
                 {
-                    _isDesiredCloseButtonClicked = false; // reset the flag
+                    IsDesiredCloseButtonClicked = false; // reset the flag
                     return;
                 }
             }
@@ -386,7 +389,7 @@ namespace Rosenholz.Application
                 if (_closeCommand == null)
                 {
                     _closeCommand = new RelayCommand(
-                        (parameter) => { _isDesiredCloseButtonClicked = true; Close(); },
+                        (parameter) => { IsDesiredCloseButtonClicked = true; Close(); },
                         (parameter) => true
                     );
                 }
