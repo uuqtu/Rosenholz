@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.MessageBox;
 using Path = System.IO.Path;
 
 namespace Rosenholz.Application
@@ -43,7 +44,7 @@ namespace Rosenholz.Application
         Rosenholz.ViewModel.Memorex.SearchViewModel searchViewModelObject { get; set; } = null;
         #endregion
 
-
+        private bool _isDesiredCloseButtonClicked = false;
 
 
         public Rosenholz.ViewModel.F22ViewModel f22ViewModelObject { get; set; } = null;
@@ -233,9 +234,56 @@ namespace Rosenholz.Application
 
         private void TaskbarIcon_TrayMouseDoubleClick(System.Object sender, System.Windows.RoutedEventArgs e)
         {
-            WindowState = WindowState.Minimized;
+            this.WindowState = WindowState.Minimized;
             Thread.Sleep(500);
-            WindowState = WindowState.Maximized;
+            this.WindowState = WindowState.Maximized;
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            switch (this.WindowState)
+            {
+                case WindowState.Maximized:
+                    ShowInTaskbar = true;
+                    break;
+                case WindowState.Minimized:
+                    ShowInTaskbar = false;
+                    break;
+                case WindowState.Normal:
+
+                    break;
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_isDesiredCloseButtonClicked)
+            {
+
+                e.Cancel = !IsValidated();
+
+                // Desired X button clicked - statements
+                if (e.Cancel)
+                {
+                    _isDesiredCloseButtonClicked = false; // reset the flag
+                    return;
+                }
+            }
+            else
+            {
+                e.Cancel = true;
+                this.WindowState = WindowState.Minimized;
+            }
+        }
+
+        private bool IsValidated()
+        {
+            //this.Visibility = Visibility.Hidden;
+
+            Rosenholz.Extensions.MessageBox box = new Extensions.MessageBox("Warning", "Is it okay to close?");
+            box.ShowDialog();
+
+            return box.DialogResult == true;
         }
 
         private RelayCommand _maximizeCommand;
@@ -248,9 +296,9 @@ namespace Rosenholz.Application
                     _maximizeCommand = new RelayCommand(
                         (parameter) =>
                         {
-                            WindowState = WindowState.Minimized;
+                            this.WindowState = WindowState.Minimized;
                             Thread.Sleep(500);
-                            WindowState = WindowState.Maximized;
+                            this.WindowState = WindowState.Maximized;
                         },
                         (parameter) => true
                     );
@@ -267,7 +315,7 @@ namespace Rosenholz.Application
                 if (_minimizeCommand == null)
                 {
                     _minimizeCommand = new RelayCommand(
-                        (parameter) => { WindowState = WindowState.Minimized; },
+                        (parameter) => { this.WindowState = WindowState.Minimized; },
                         (parameter) => true
                     );
                 }
@@ -338,7 +386,7 @@ namespace Rosenholz.Application
                 if (_closeCommand == null)
                 {
                     _closeCommand = new RelayCommand(
-                        (parameter) => { Close(); },
+                        (parameter) => { _isDesiredCloseButtonClicked = true; Close(); },
                         (parameter) => true
                     );
                 }
@@ -346,6 +394,20 @@ namespace Rosenholz.Application
             }
         }
 
+        /// <summary>Brings main window to foreground.</summary>
+        public void BringToForeground()
+        {
+            if (this.WindowState == WindowState.Minimized || this.Visibility == Visibility.Hidden)
+            {
+                this.Show();
+                this.WindowState = WindowState.Normal;
+            }
 
+            // According to some sources these steps gurantee that an app will be brought to foreground.
+            this.Activate();
+            this.Topmost = true;
+            this.Topmost = false;
+            this.Focus();
+        }
     }
 }

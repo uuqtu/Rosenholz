@@ -22,6 +22,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using MessageBox = System.Windows.MessageBox;
 using Path = System.IO.Path;
 using RelayCommand = Rosenholz.Model.RelayCommand;
 

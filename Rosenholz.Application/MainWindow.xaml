@@ -10,7 +10,9 @@
          Background="#1C1C1C" Foreground="White"
         WindowState="Maximized"
         Title="Rosenholz" Height="650" Width="800"
-        ShowInTaskbar="False">
+        Closing="Window_Closing"
+        StateChanged="Window_StateChanged"
+        ShowInTaskbar="True">
     <Grid>
         <tb:TaskbarIcon IconSource="/Images/icon.ico" ToolTipText="Rosenholz" TrayMouseDoubleClick="TaskbarIcon_TrayMouseDoubleClick" Name="MyNotifyIcon">
         <tb:TaskbarIcon.ContextMenu>
