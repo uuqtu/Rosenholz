@@ -95,14 +95,16 @@ namespace Rosenholz.ViewModel
                     AUContextChangeEvent.Invoke(null);
 
                 OnPropertyChanged(nameof(CurrentF22Selected));
-                try
-                {
-                    WriteF22ItemsCommandExecute(null);
-                }
-                catch
-                {
 
-                }
+#warning WriteF16ItemsCommandExecute auskommentiert.
+                //try
+                //{
+                //    WriteF22ItemsCommandExecute();
+                //}
+                //catch
+                //{
+
+                //}
             }
         }
 
@@ -160,7 +162,7 @@ namespace Rosenholz.ViewModel
                 if (_writeF22ItemsCommand == null)
                 {
                     _writeF22ItemsCommand = new RelayCommand(
-                        (parameter) => WriteF22ItemsCommandExecute(parameter),
+                        (parameter) => WriteF22ItemsCommandExecute(),
                         (parameter) => CanExecuteWriteF22ItemsCommand(parameter)
                     );
                 }
@@ -168,9 +170,9 @@ namespace Rosenholz.ViewModel
             }
         }
 
-        public void WriteF22ItemsCommandExecute(object parameter)
+        public static void WriteF22ItemsCommandExecute()
         {
-            var text = (string)parameter;
+
             var items = F22Storage.Instance.ReadData();
             string dir = Settings.Settings.Instance.F22SubLocation;
 
@@ -223,7 +225,7 @@ namespace Rosenholz.ViewModel
                 if (_archiveF22Command == null)
                 {
                     _archiveF22Command = new RelayCommand(
-                        (parameter) => ArchiveF16Execute(parameter),
+                        (parameter) => ArchiveF22Execute(),
                         (parameter) => true
                     );
                 }
@@ -231,9 +233,8 @@ namespace Rosenholz.ViewModel
             }
         }
 
-        public void ArchiveF16Execute(object parameter)
+        public static void ArchiveF22Execute()
         {
-            var text = (string)parameter;
             string dir = Settings.Settings.Instance.F22SubLocation;
 
             if (!Directory.Exists(Path.Combine(dir, "_archive")))
@@ -241,18 +242,23 @@ namespace Rosenholz.ViewModel
 
             string location = Path.Combine(dir, "_archive", $"f22_{DateTime.Now.ToFileTimeUtc()}.zip");
 
-            using (ZipArchive zip = ZipFile.Open(location, ZipArchiveMode.Create))
-            {
-                try
-                {
-                    zip.CreateEntryFromFile(Settings.Settings.Instance.F22SubLocation, Settings.Settings.Instance.F22FileName);
-                }
-                catch (Exception ex)
-                {
+            string src = Path.Combine(Settings.Settings.Instance.F22SubLocation, Settings.Settings.Instance.F22FileName);
+            string dest = Path.Combine(Settings.Settings.Instance.F22SubLocation, "_archive", $"{DateTime.Now.ToFileTimeUtc()}_{Settings.Settings.Instance.F22FileName}");
 
-                    MessageBox.Show(ex.Message);
-                }
-            }
+            File.Copy(src, dest);
+
+            //using (ZipArchive zip = ZipFile.Open(location, ZipArchiveMode.Create))
+            //{
+            //    try
+            //    {
+            //        zip.CreateEntryFromFile(Settings.Settings.Instance.F22SubLocation, Settings.Settings.Instance.F22FileName);
+            //    }
+            //    catch (Exception ex)
+            //    {
+
+            //        MessageBox.Show(ex.Message);
+            //    }
+            //}
         }
     }
 }

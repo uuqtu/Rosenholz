@@ -11,7 +11,7 @@
         Background="#1C1C1C" Foreground="White"
         WindowStartupLocation="CenterScreen"
         Title="{Binding LabelText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-        WindowStyle="None"
+        WindowStyle="ToolWindow"
         Height="150" Width="300">
     <Grid>
         <Grid.ColumnDefinitions>

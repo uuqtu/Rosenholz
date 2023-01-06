@@ -35,7 +35,7 @@ namespace Rosenholz.ViewModel
 
         public F16ViewModel()
         {
-
+            F16ViewModel.ArchiveF16Execute();
         }
 
         public string TextFilter
@@ -86,14 +86,15 @@ namespace Rosenholz.ViewModel
                     F22ContextChangeEvent?.Invoke(new F16F22Reference("I_000_00"));
                 OnPropertyChanged(nameof(CurrentF16Selected));
 
-                try
-                {
-                    WriteF16ItemsCommandExecute(null);
-                }
-                catch
-                {
+#warning WriteF16ItemsCommandExecute auskommentiert.
+                //try
+                //{
+                //    WriteF16ItemsCommandExecute();
+                //}
+                //catch
+                //{
 
-                }
+                //}
             }
         }
 
@@ -153,7 +154,7 @@ namespace Rosenholz.ViewModel
                 if (_writeF16ItemsCommand == null)
                 {
                     _writeF16ItemsCommand = new RelayCommand(
-                        (parameter) => WriteF16ItemsCommandExecute(parameter),
+                        (parameter) => WriteF16ItemsCommandExecute(),
                         (parameter) => CanExecuteWriteF16ItemsCommand(parameter)
                     );
                 }
@@ -161,9 +162,9 @@ namespace Rosenholz.ViewModel
             }
         }
 
-        public void WriteF16ItemsCommandExecute(object parameter)
+        public static void WriteF16ItemsCommandExecute()
         {
-            var text = (string)parameter;
+
             var items = F16Storage.Instance.ReadData();
             string dir = Settings.Settings.Instance.F16SubLocation;
 
@@ -245,7 +246,7 @@ namespace Rosenholz.ViewModel
                 if (_archiveF16Command == null)
                 {
                     _archiveF16Command = new RelayCommand(
-                        (parameter) => ArchiveF16Execute(parameter),
+                        (parameter) => ArchiveF16Execute(),
                         (parameter) => true
                     );
                 }
@@ -253,9 +254,8 @@ namespace Rosenholz.ViewModel
             }
         }
 
-        public void ArchiveF16Execute(object parameter)
+        public static void ArchiveF16Execute()
         {
-            var text = (string)parameter;
             string dir = Settings.Settings.Instance.F16SubLocation;
 
             if (!Directory.Exists(Path.Combine(dir, "_archive")))
@@ -263,18 +263,23 @@ namespace Rosenholz.ViewModel
 
             string location = Path.Combine(dir, "_archive", $"f16_{DateTime.Now.ToFileTimeUtc()}.zip");
 
-            using (ZipArchive zip = ZipFile.Open(location, ZipArchiveMode.Create))
-            {
-                try
-                {
-                    zip.CreateEntryFromFile(Settings.Settings.Instance.F16SubLocation, Settings.Settings.Instance.F16FileName);
-                }
-                catch (Exception ex)
-                {
+            string src = Path.Combine(Settings.Settings.Instance.F16SubLocation, Settings.Settings.Instance.F16FileName);
+            string dest = Path.Combine(Settings.Settings.Instance.F16SubLocation, "_archive", $"{DateTime.Now.ToFileTimeUtc()}_{Settings.Settings.Instance.F16FileName}");
 
-                    MessageBox.Show(ex.Message);
-                }
-            }
+            File.Copy(src, dest);
+
+            //using (ZipArchive zip = ZipFile.Open(location, ZipArchiveMode.Create))
+            //{
+            //    try
+            //    {
+            //        zip.CreateEntryFromFile(Settings.Settings.Instance.F16SubLocation, Settings.Settings.Instance.F16FileName);
+            //    }
+            //    catch (Exception ex)
+            //    {
+
+            //        MessageBox.Show(ex.Message);
+            //    }
+            //}
         }
     }
 }

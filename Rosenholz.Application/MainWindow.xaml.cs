@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using Rosenholz.Model;
+using Rosenholz.ViewModel;
 using Rosenholz.Windows;
 using System;
 using System.Collections.Generic;
@@ -258,6 +259,21 @@ namespace Rosenholz.Application
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            try
+            {
+                F22ViewModel.ArchiveF22Execute();
+                F16ViewModel.ArchiveF16Execute();
+
+                F22ViewModel.WriteF22ItemsCommandExecute();
+                F16ViewModel.WriteF16ItemsCommandExecute();
+            }
+            catch (Exception ex)
+            {
+                Rosenholz.Extensions.MessageBox box = new Extensions.MessageBox("Fehler beim Erzeugen der Archive!", ex.Message);
+                box.ShowDialog();
+            }
+
+
             if (IsDesiredCloseButtonClicked)
             {
                 if (AskForValidation)
@@ -283,7 +299,7 @@ namespace Rosenholz.Application
         {
             //this.Visibility = Visibility.Hidden;
 
-            Rosenholz.Extensions.MessageBox box = new Extensions.MessageBox("Warning", "Is it okay to close?");
+            Rosenholz.Extensions.MessageBox box = new Extensions.MessageBox("Warning", "Is it okay to exit?");
             box.ShowDialog();
 
             return box.DialogResult == true;
