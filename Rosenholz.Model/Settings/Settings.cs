@@ -31,7 +31,7 @@ namespace Rosenholz.Settings
         {
             get
             {
-                ini = new IniFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.ini"));
+                ini = new IniFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings", "settings.ini"));
                 return instance;
             }
         }
