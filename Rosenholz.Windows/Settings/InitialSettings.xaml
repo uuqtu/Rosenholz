@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rosenholz.Windows"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -55,9 +56,14 @@
 
         <Label Background="#1C1C1C" Foreground="White" Grid.Column="3" Grid.Row="2" FontSize="10"
                HorizontalAlignment="Left" VerticalAlignment="Center">Position</Label>
-        <TextBox Grid.Column="4" Grid.Row="2" Background="#1C1C1C" Foreground="White" BorderThickness="0"
+        <xctk:IntegerUpDown Grid.Column="5" Grid.Row="2"  Foreground="Green" Background="#1C1C1C" BorderThickness="0"
+                 HorizontalAlignment="Left"  VerticalAlignment="Stretch" Width="50" HorizontalContentAlignment="Center"
+                 Value="{Binding Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        
+        
+        <!--<TextBox Grid.Column="4" Grid.Row="2" Background="#1C1C1C" Foreground="White" BorderThickness="0"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
-                 Text="{Binding Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                 Text="{Binding Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>-->
 
                    
         <!--F16-->

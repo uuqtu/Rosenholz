@@ -76,8 +76,8 @@ namespace Rosenholz.Windows
             set => SetField(ref _storageBaseLocation, value, nameof(StorageBaseLocation));
         }
 
-        private string _position;
-        public string Position
+        private int _position;
+        public int Position
         {
             get => _position;
             set => SetField(ref _position, value, nameof(Position));
@@ -376,7 +376,7 @@ namespace Rosenholz.Windows
         private void IniReadValues(string parameter)
         {
             IniFile var = new IniFile(parameter);
-            Position = var.IniReadValue(AdminIniIdentifier, nameof(Position));
+            Position = int.Parse(var.IniReadValue(AdminIniIdentifier, nameof(Position)));
             StorageBaseLocation = var.IniReadValue(StorageIniIdentifier, nameof(StorageBaseLocation));
             #region FilePath
             F22SubLocation = var.IniReadValue(FilePathIniIdentifier, nameof(F22SubLocation));
