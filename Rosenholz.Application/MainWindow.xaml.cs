@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using Microsoft.Win32;
 using Rosenholz.Model;
 using Rosenholz.ViewModel;
 using Rosenholz.Windows;
@@ -53,12 +54,36 @@ namespace Rosenholz.Application
         public MainWindow()
         {
             InitializeComponent();
+
+            SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
+
             AUExplorer.TextEditorRequiredEvent += AUExplorer_TextEditorRequiredEvent;
             AUExplorer.TaskCreationRequiredEvent += AUExplorer_TaskCreationRequiredEvent;
             AUExplorer.DisplayTaskViewModelRequiredEvent += AUExplorer_DisplayTaskViewModelRequiredEvent;
             AUExplorer.WindowStateChangeRequiredEvent += AUExplorer_WindowStateChangeRequiredEvent;
 
             DataContext = this;
+        }
+
+        /// <summary>
+        /// Es ist immer am besten, wenn die App geschlossen wird, wenn das System seinen zustand ändert.
+        /// Einfach aus sicherheit für die f16 und f22 Dateien.
+        /// Daher wir die App einfach hart Beendet. ;-)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        {
+            Console.WriteLine(e.Mode.ToString());
+            if (e.Mode == PowerModes.Suspend)
+            {
+                Environment.Exit(0);
+            }
+
+            if (e.Mode == PowerModes.Resume)
+            {
+                Environment.Exit(0);
+            }
         }
 
         private void AUExplorer_WindowStateChangeRequiredEvent(WindowState state)
