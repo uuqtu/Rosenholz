@@ -34,8 +34,10 @@ namespace Rosenholz.Application
     {
         public Rosenholz.Model.TaskModel CurrentlySelectedModel;
         Rosenholz.ViewModel.DisplayParentTaskViewModel Tevm { get; set; } = null;
+        Rosenholz.ViewModel.DisplayParentTaskViewModel ArchivedTevm { get; set; } = null;
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel newTaskViewModel { get; set; } = null;
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel terminatedTaskViewModel { get; set; } = null;
+        Rosenholz.ViewModel.TaskCollectionDisplayViewModel archivedTaskViewModel { get; set; } = null;
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel focusedTaskViewModel { get; set; } = null;
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel dueTaskViewModel { get; set; } = null;
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel closedTaskViewModel { get; set; } = null;
@@ -179,6 +181,14 @@ namespace Rosenholz.Application
             FocusedTaskViewUserControl.DataContext = focusedTaskViewModel;
         }
 
+        private void ArchivedTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            archivedTaskViewModel = new Rosenholz.ViewModel.TaskCollectionDisplayViewModel();
+            archivedTaskViewModel.LoadItems(TaskState.Archived);
+            archivedTaskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = ArchivedTevm.Entry = m; };
+            ArchivedTaskViewUserControl.DataContext = archivedTaskViewModel;
+        }
+
         private void DueTaskViewUserControl_Loaded(object sender, RoutedEventArgs e)
         {
             dueTaskViewModel = new Rosenholz.ViewModel.TaskCollectionDisplayViewModel();
@@ -195,6 +205,11 @@ namespace Rosenholz.Application
             ClosedTaskViewUserControl.DataContext = closedTaskViewModel;
         }
 
+        /// <summary>
+        /// For the Task manager view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TaskView_Loaded(object sender, RoutedEventArgs e)
         {
             Tevm = new Rosenholz.ViewModel.DisplayParentTaskViewModel();
@@ -202,6 +217,19 @@ namespace Rosenholz.Application
             Tevm.TaskSourceChangedEvent += Tevm_TaskSourceChangedEvent;
             Tevm.ChildRequredEvent += Tevm_ChildRequredEvent;
             Tevm.DisplayTaskViewModelRequiredEvent += Tevm_TaskModelViewRequiredEvent;
+        }
+        /// <summary>
+        /// For the Archived Tasks View
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TaskViewArchived_Loaded(object sender, RoutedEventArgs e)
+        {
+            ArchivedTevm = new Rosenholz.ViewModel.DisplayParentTaskViewModel();
+            TaskViewArchived.DataContext = ArchivedTevm;
+            ArchivedTevm.TaskSourceChangedEvent += Tevm_TaskSourceChangedEvent;
+            ArchivedTevm.ChildRequredEvent += Tevm_ChildRequredEvent;
+            ArchivedTevm.DisplayTaskViewModelRequiredEvent += Tevm_TaskModelViewRequiredEvent;
         }
 
         private void Tevm_TaskModelViewRequiredEvent(TaskModel child)
@@ -257,6 +285,8 @@ namespace Rosenholz.Application
             focusedTaskViewModel.LoadItems(TaskState.Focused);
             dueTaskViewModel.LoadItems(TaskState.Due);
             closedTaskViewModel.LoadItems(TaskState.Closed);
+            //Kann sein dass das hier nicht nötig ist, aber ich wollte kein extra event handler
+            archivedTaskViewModel.LoadItems(TaskState.Archived);
         }
 
         private void TaskbarIcon_TrayMouseDoubleClick(System.Object sender, System.Windows.RoutedEventArgs e)

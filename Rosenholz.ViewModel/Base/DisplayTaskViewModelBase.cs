@@ -19,6 +19,7 @@ namespace Rosenholz.ViewModel
         internal TaskModel _entry;
         internal string _status;
         internal string _openCloseButtonText => (Entry?.TaskState != TaskState.Closed) ? "Aufgabe schließen" : "Aufgabe wiedereröffnen";
+        internal string _archiveButtonText => (Entry?.TaskState != TaskState.Archived) ? "Aufgabe archivieren" : "Aufgabe wiederherstellen";
         internal RelayCommand _addTaskItemEntryCommand;
         internal RelayCommand _updateTaskCommand;
         internal RelayCommand _openAUFolderCommand;
@@ -36,6 +37,10 @@ namespace Rosenholz.ViewModel
         {
             get { return _openCloseButtonText; }
         }
+        public string ArchiveButtonText
+        {
+            get { return _archiveButtonText; }
+        }
         public TaskModel Entry
         {
             get { return _entry; }
@@ -44,6 +49,7 @@ namespace Rosenholz.ViewModel
                 _entry = value;
                 OnPropertyChanged(nameof(Entry));
                 OnPropertyChanged(nameof(OpenCloseButtonText));
+                OnPropertyChanged(nameof(ArchiveButtonText));
             }
         }
 
@@ -124,7 +130,7 @@ namespace Rosenholz.ViewModel
         {
             var notAllClosed = Entry?.LinkedTaskItems.Any(x => x.TaskState != TaskState.Closed);
 
-            return (!(Entry == null)) && (notAllClosed == false);
+            return (!(Entry == null)) && (notAllClosed == false) && (Entry?.TaskState != TaskState.Archived);
         }
 
         public abstract void CloseTaskExecute(object window);
@@ -158,7 +164,7 @@ namespace Rosenholz.ViewModel
                 {
                     _createNewLinkedTaskCommand = new RelayCommand(
                         (parameter) => CreateNewLinkedTaskExecute(parameter),
-                        (parameter) => !(Entry == null)
+                        (parameter) => !(Entry == null) && Entry?.TaskState != TaskState.Archived
                     );
                 }
                 return _createNewLinkedTaskCommand;
