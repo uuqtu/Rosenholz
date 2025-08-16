@@ -266,7 +266,8 @@ namespace Rosenholz.ViewModel
             string src = Path.Combine(Settings.Settings.Instance.F16SubLocation, Settings.Settings.Instance.F16FileName);
             string dest = Path.Combine(Settings.Settings.Instance.F16SubLocation, "_archive", $"{DateTime.Now.ToFileTimeUtc()}_{Settings.Settings.Instance.F16FileName}");
 
-            File.Copy(src, dest);
+            if(File.Exists(src))
+                File.Copy(src, dest);
 
             //using (ZipArchive zip = ZipFile.Open(location, ZipArchiveMode.Create))
             //{
