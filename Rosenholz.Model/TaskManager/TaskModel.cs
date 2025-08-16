@@ -21,8 +21,10 @@ namespace Rosenholz.Model
         private ObservableCollection<TaskModel> _linkedtaskItems;
 
         private string _f16f22Reference;
+        private string _f16f22ReferenceName;
         private int _level;
-        private string _auReference;
+        private string _auReference; 
+        private string _auReferenceName;
 
         public TaskModel(Guid id, DateTime created, string title, string description, DateTime targetDate, TaskState taskState, DateTime focusDate, ObservableCollection<TaskItemModel> taskItemItems, string f16f22Reference, int level, string auReference, ObservableCollection<TaskModel> linkedTaskItems)
         {
@@ -66,8 +68,10 @@ namespace Rosenholz.Model
         public TaskState TaskState { get { return _taskState; } set { _taskState = value; OnPropertyChanged(nameof(TaskState)); OnPropertyChanged(nameof(TaskStateString)); } }
         public DateTime FocusDate { get { return _focusDate; } set { _focusDate = value; OnPropertyChanged(nameof(FocusDate)); } }
         public string F16F22Reference { get { return _f16f22Reference; } set { _f16f22Reference = value; OnPropertyChanged(nameof(F16F22Reference)); } }
+        public string F16F22ReferenceName { get { return Model.F16Storage.Instance.GetF16(F16F22Reference).Keyword; } set { _f16f22ReferenceName = value; OnPropertyChanged(nameof(F16F22ReferenceName)); } }
         public int Level { get { return _level; } set { _level = value; OnPropertyChanged(nameof(Level)); } }
         public string AUReference { get { return _auReference; } set { _auReference = value; OnPropertyChanged(nameof(AUReference)); } }
+        public string AUReferenceName { get { return Model.F22Storage.Instance.GetF22(AUReference).Pseudonym; } set { _auReferenceName = value; OnPropertyChanged(nameof(AUReferenceName)); } }
         public ObservableCollection<TaskItemModel> TaskItemItems { get { return _taskItemItems; } set { _taskItemItems = value; OnPropertyChanged(nameof(TaskItemItems)); } }
         public ObservableCollection<TaskModel> LinkedTaskItems { get { return _linkedtaskItems; } set { _linkedtaskItems = value; OnPropertyChanged(nameof(LinkedTaskItems)); } }
         public string TaskStateString => TaskState.ToString();

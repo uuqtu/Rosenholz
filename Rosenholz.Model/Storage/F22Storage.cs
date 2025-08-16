@@ -96,6 +96,30 @@ namespace Rosenholz.Model
             return values;
         }
 
+        public F22 GetF22(string aureference)
+        {
+            DataTable data = null;
+            List<F22> values = new List<F22>();
+
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.F22SubLocation, Settings.Settings.Instance.F22FileName)))
+            {
+                data = con.ReadData($"SELECT * FROM F22 WHERE AUREFERENCE=\'{aureference}\'");
+            }
+
+            values = (from rw in data.AsEnumerable()
+                      select new F22()
+                      {
+                          AUReference = new AUReference(Convert.ToString(rw["AUReference"])),
+                          F16F22Reference = new F16F22Reference(Convert.ToString(rw["F16F22Reference"])),
+                          Pseudonym = Convert.ToString(rw["Pseudonym"]),
+                          Created = Convert.ToString(rw["Created"]),
+                          Link = Convert.ToString(rw["Link"]),
+                          Dossier = Convert.ToString(rw["Dossier"])
+                      }).ToList();
+
+            return values.First();
+        }
+
         public IList<F22> ReadAUElements(string f16F22Reference)
         {
             DataTable data = null;

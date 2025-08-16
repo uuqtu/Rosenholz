@@ -97,7 +97,29 @@ namespace Rosenholz.Model
         return values;
     }
 
-    public void WriteFiles()
+        public F16 GetF16(string f16F22Reference)
+        {
+            DataTable data = null;
+            List<F16> values = new List<F16>();
+
+            using (var con = new SQLiteConnectionHelper(Path.Combine(Settings.Settings.Instance.F16SubLocation, Settings.Settings.Instance.F16FileName)))
+            {
+                data = con.ReadData($"SELECT * FROM F16 WHERE F16F22REFERENCE=\'{f16F22Reference}\'");
+            }
+
+            values = (from rw in data.AsEnumerable()
+                      select new F16()
+                      {
+                          Keyword = Convert.ToString(rw["Keyword"]),
+                          Label = Convert.ToString(rw["Label"]),
+                          Purpose = Convert.ToString(rw["Purpose"]),
+                          F16F22Reference = new F16F22Reference(Convert.ToString(rw["F16F22Reference"]))
+                      }).ToList();
+
+            return values.First();
+        }
+
+        public void WriteFiles()
     {
         var items = ReadData();
 
