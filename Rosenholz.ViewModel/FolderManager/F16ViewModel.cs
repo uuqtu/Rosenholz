@@ -1,9 +1,11 @@
-﻿using Rosenholz.Model;
+﻿using Markdig;
+using Rosenholz.Model;
 using Rosenholz.Model.RomanNumerals;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -11,6 +13,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -24,13 +27,21 @@ namespace Rosenholz.ViewModel
         private string _textFilter;
         private string _reference;
         private string _latestItem;
+        private double _selectedFontSize = 13;
+        private string _statusBar;
         private F16 _currentF16Selected = null;
+        private RelayCommand _openStructureCommand;
         public event F22ContextChanged F22ContextChangeEvent;
         public event F16EntryRequired F16EntryRequiredEvent;
         private ListCollectionView _f16CollectionView;
         public ICollectionView F16CollectionView
         {
             get { return this._f16CollectionView; }
+        }
+        public string StatusBar
+        {
+            get { return _statusBar; }
+            set { _statusBar = value; OnPropertyChanged(nameof(StatusBar)); }
         }
 
         public F16ViewModel()
@@ -56,7 +67,78 @@ namespace Rosenholz.ViewModel
             }
         }
 
+        public double SelectedFontSize
+        {
+            get { return _selectedFontSize; }
+            set { _selectedFontSize = value; OnPropertyChanged(nameof(SelectedFontSize)); }
+        }
 
+        public List<double> FontSizes { get; } = new List<double>() { 8, 9, 10, 11, 12, 13, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
+
+        #region Open Structure :Öffnet im Texteditor
+        public RelayCommand OpenStructureCommand
+        {
+            get
+            {
+                if (_openStructureCommand == null)
+                {
+                    _openStructureCommand = new RelayCommand(
+                        (parameter) => OpenStructureCommandExecute(parameter),
+                        (parameter) => true
+                    );
+                }
+                return _openStructureCommand;
+            }
+        }
+        public void OpenStructureCommandExecute(object window)
+        {
+            var a = Model.F16Storage.Instance.ReadData();
+            StatusBar = "F16 read. " + a.Count + " elemens.";
+
+            var b = Model.F22Storage.Instance.ReadData();
+            StatusBar = "F22 read. " + b.Count + " elemens.";
+
+            List<string> elements = new List<string>();
+
+            foreach (var e in a)
+            {
+                elements.Add($"{e.F16F22Reference.F22String}: {e.Keyword} ({e.Label})");
+                foreach (var i in b)
+                {
+                    if (i.F16F22Reference.F22String == e.F16F22Reference.F22String)
+                    {
+                        elements.Add($"{i.AUReference.AUReferenceString}: {i.Pseudonym}");
+                        foreach (var f in Directory.GetFiles(Path.Combine(Settings.Settings.Instance.StorageBaseLocation, i.Link)))
+                            {
+                            elements.Add($"{Path.GetFileName(f)}: {f}");
+                        }
+                    }
+
+                }
+            }
+
+            string fileName = Path.GetRandomFileName();
+            fileName = Path.ChangeExtension(fileName, ".txt");
+            fileName = Path.Combine(Path.GetTempPath(), fileName);
+
+            File.WriteAllLines(fileName, elements);
+            try
+            {
+                new Process
+                {
+                    StartInfo = new ProcessStartInfo(fileName)
+                    {
+                        UseShellExecute = true
+                    }
+                }.Start();
+                StatusBar = $"File opened: {fileName}";
+            }
+            catch (Exception ex)
+            {
+                StatusBar = $"Error while opening file: {fileName}";
+            }            
+        }
+        #endregion
 
         public string Reference
         {
@@ -266,7 +348,7 @@ namespace Rosenholz.ViewModel
             string src = Path.Combine(Settings.Settings.Instance.F16SubLocation, Settings.Settings.Instance.F16FileName);
             string dest = Path.Combine(Settings.Settings.Instance.F16SubLocation, "_archive", $"{DateTime.Now.ToFileTimeUtc()}_{Settings.Settings.Instance.F16FileName}");
 
-            if(File.Exists(src))
+            if (File.Exists(src))
                 File.Copy(src, dest);
 
             //using (ZipArchive zip = ZipFile.Open(location, ZipArchiveMode.Create))

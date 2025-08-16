@@ -28,19 +28,20 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="20*"/>
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <ListView Grid.Row="1" Grid.Column="0"  Name="F16Grid" 
                   ItemsSource="{Binding F16CollectionView, UpdateSourceTrigger=PropertyChanged}"  
                   SelectedItem="{Binding CurrentF16Selected}"
+                  FontSize="{Binding SelectedFontSize}"
                   Background="#2D2D30"
                    Foreground="Green">
             <ListView.View>
                 <GridView x:Name="grdTest">
-                    <GridViewColumn Header="F16F22" DisplayMemberBinding="{Binding F16F22Reference.F22String}" Width="60" />
+                    <GridViewColumn Header="F16F22" DisplayMemberBinding="{Binding F16F22Reference.F22String}" Width="100" />
                     <GridViewColumn Header="Keyword"  DisplayMemberBinding="{Binding Keyword}"  Width="250"/>
                     <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"  Width="300" />
                     <GridViewColumn Header="Purpose" DisplayMemberBinding="{Binding Purpose}" Width="655" />
-
                 </GridView>
             </ListView.View>
         </ListView>
@@ -75,7 +76,7 @@
             </Grid.ColumnDefinitions>
 
             <!--<Label Grid.Row="0" Grid.Column="0" Content="Latest" Height="28" HorizontalAlignment="Left" Name="label6" VerticalAlignment="Top" />-->
-            <TextBox Grid.Row="0" Grid.Column="0" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Name="txtKeyword2" VerticalAlignment="Stretch" 
+            <TextBox Grid.Row="0" Grid.Column="0" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Name="txtKeyword2" VerticalAlignment="Stretch" 
                      Background="#2D2D30" Foreground="White" IsReadOnly="True" Text="{Binding Path=LatestItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
@@ -99,6 +100,19 @@
 
         </Grid>
         
-
+        <Grid Grid.Row="3" Height="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StatusBar Grid.Column="0"  Name="mStatBar" DockPanel.Dock="Bottom" >
+                <StatusBarItem DockPanel.Dock="Left" Background="#2D2D30" Foreground="White">
+                    <TextBlock Name="mStatText" Text="{Binding StatusBar}" />
+                </StatusBarItem>
+            </StatusBar>
+            <ComboBox Grid.Row="0" Grid.Column="1" SelectedItem="{Binding SelectedFontSize}" ItemsSource="{Binding FontSizes}"></ComboBox>
+            <Button Grid.Column="2" Content="Open Structure .txt" Command="{Binding OpenStructureCommand}"></Button>
+        </Grid>
     </Grid>
 </UserControl>
