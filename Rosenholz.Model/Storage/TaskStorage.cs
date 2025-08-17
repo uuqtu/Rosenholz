@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Rosenholz.Model
 {
@@ -172,11 +174,11 @@ namespace Rosenholz.Model
                              {
                                  Id = Guid.Parse(Convert.ToString(rw["ID"])),
                                  TaskState = Model.TaskModel.ParseTaskState(Convert.ToString(rw["TASKSTATE"])),
-                                 Created = DateTime.Parse(Convert.ToString(rw["CREATED"])),
+                                 Created = ConvertToDateTime(rw["CREATED"]),
                                  Title = Convert.ToString(rw["TITLE"]),
                                  Description = Convert.ToString(rw["DESCRIPTION"]),
-                                 TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
-                                 FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
+                                 TargetDate = ConvertToDateTime(rw["TARGETDATE"]),
+                                 FocusDate = ConvertToDateTime(rw["FOCUSDATE"]),
                                  F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
                                  Level = Convert.ToInt32(rw["LEVEL"]),
                                  AUReference = Convert.ToString(rw["AUREFERENCE"])
@@ -220,11 +222,11 @@ namespace Rosenholz.Model
                       {
                           Id = Guid.Parse(Convert.ToString(rw["ID"])),
                           TaskState = Model.TaskModel.ParseTaskState(Convert.ToString(rw["TASKSTATE"])),
-                          Created = DateTime.Parse(Convert.ToString(rw["CREATED"])),
+                          Created = ConvertToDateTime(rw["CREATED"]),
                           Title = Convert.ToString(rw["TITLE"]),
                           Description = Convert.ToString(rw["DESCRIPTION"]),
-                          TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
-                          FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
+                          TargetDate = ConvertToDateTime(rw["TARGETDATE"]),
+                          FocusDate = ConvertToDateTime(rw["FOCUSDATE"]),
                           F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
                           Level = Convert.ToInt32(rw["LEVEL"]),
                           AUReference = Convert.ToString(rw["AUREFERENCE"])
@@ -259,11 +261,11 @@ namespace Rosenholz.Model
                       {
                           Id = Guid.Parse(Convert.ToString(rw["ID"])),
                           TaskState = Model.TaskModel.ParseTaskState(Convert.ToString(rw["TASKSTATE"])),
-                          Created = DateTime.Parse(Convert.ToString(rw["CREATED"])),
+                          Created = ConvertToDateTime(rw["CREATED"]),
                           Title = Convert.ToString(rw["TITLE"]),
                           Description = Convert.ToString(rw["DESCRIPTION"]),
-                          TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
-                          FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
+                          TargetDate = ConvertToDateTime(rw["TARGETDATE"]),
+                          FocusDate = ConvertToDateTime(rw["FOCUSDATE"]),
                           F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
                           Level = Convert.ToInt32(rw["LEVEL"]),
                           AUReference = Convert.ToString(rw["AUREFERENCE"])
@@ -297,11 +299,11 @@ namespace Rosenholz.Model
                       {
                           Id = Guid.Parse(Convert.ToString(rw["ID"])),
                           TaskState = Model.TaskModel.ParseTaskState(Convert.ToString(rw["TASKSTATE"])),
-                          Created = DateTime.Parse(Convert.ToString(rw["CREATED"])),
+                          Created = ConvertToDateTime(rw["CREATED"]),
                           Title = Convert.ToString(rw["TITLE"]),
                           Description = Convert.ToString(rw["DESCRIPTION"]),
-                          TargetDate = DateTime.Parse(Convert.ToString(rw["TARGETDATE"])),
-                          FocusDate = DateTime.Parse(Convert.ToString(rw["FOCUSDATE"])),
+                          TargetDate = ConvertToDateTime(rw["TARGETDATE"]),
+                          FocusDate = ConvertToDateTime(rw["FOCUSDATE"]),
                           F16F22Reference = Convert.ToString(rw["F16F22REFERENCE"]),
                           Level = Convert.ToInt32(rw["LEVEL"]),
                           AUReference = Convert.ToString(rw["AUREFERENCE"])
@@ -344,6 +346,63 @@ namespace Rosenholz.Model
             }
         }
 
+        private static DateTime ConvertToDateTime(object rw)
+        {
+            var candidate = Convert.ToString(rw);
+            DateTime convertionResult = DateTime.MinValue;
+
+            string[] formats = { "dd/MM/yyyy HH:mm:ss",
+                                 "dd/M/yyyy HH:mm:ss",
+                                 "d/M/yyyy HH:mm:ss",
+                                 "d/MM/yyyy HH:mm:ss",
+                                 "dd/MM/yy HH:mm:ss",
+                                 "dd/M/yy HH:mm:ss",
+                                 "d/M/yy HH:mm:ss",
+                                 "d/MM/yy HH:mm:ss",
+                                 "dd/MM/yyyy HH:mm:ss tt",
+                                 "dd/M/yyyy HH:mm:ss tt",
+                                 "d/M/yyyy HH:mm:ss tt",
+                                 "d/MM/yyyy HH:mm:ss tt",
+                                 "dd/MM/yy HH:mm:ss tt",
+                                 "dd/M/yy HH:mm:ss tt",
+                                 "d/M/yy HH:mm:ss tt",
+                                 "d/MM/yy HH:mm:ss tt",
+                                 "dd.MM.yyyy HH:mm:ss"};
+
+            bool conversionSuccess = false;
+
+            try
+            {
+                conversionSuccess = DateTime.TryParseExact(candidate, formats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out convertionResult);
+
+                if (convertionResult == DateTime.MinValue)
+                {
+                    var datestring = candidate;
+                    DateTime time = DateTime.MinValue;
+                    var matchingCulture = CultureInfo.GetCultures(CultureTypes.AllCultures).FirstOrDefault(ci => DateTime.TryParse(datestring, ci, DateTimeStyles.None, out time));
+
+                    if (time == DateTime.MinValue)
+                    {
+                        conversionSuccess = false;
+                        throw new CultureNotFoundException($"Datenformat von {candidate} konnte nicht in gültiges DateTime gewandelt werden.");
+                    }
+                    else
+                        convertionResult = time;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                if (!conversionSuccess)
+                {
+                    MessageBox.Show(ex.Message);
+                    throw ex;
+                }
+            }
+
+            return convertionResult;
+        }
+
         private IList<TaskItemModel> ReadTaskItems(TaskModel task)
         {
             DataTable data = null;
@@ -357,7 +416,7 @@ namespace Rosenholz.Model
             values = (from rw in data.AsEnumerable()
                       select new TaskItemModel()
                       {
-                          Created = DateTime.Parse(Convert.ToString(rw["CREATED"])),
+                          Created = ConvertToDateTime(rw["CREATED"]),
                           Status = Convert.ToString(rw["STATUS"]),
                           Respobsible = Convert.ToString(rw["RESPONSIBLE"]),
                           ReferenceId = Guid.Parse((Convert.ToString(rw["REFERENCEID"])))

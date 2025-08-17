@@ -83,6 +83,7 @@ namespace Rosenholz.Model.Storage
                       select new CoA()
                       {
                           TaskName = Convert.ToString(rw["TASKNAME"]),
+#warning Methode ConvertToDateTime(rw verwenden!
                           EndDate = DateTime.Parse(Convert.ToString(rw["ENDDATE"])),
                           TimeEstimation = Convert.ToString(rw["TIMEESTIMATION"]),
                           Description = Convert.ToString(rw["DESCRIPTION"]),
