@@ -80,8 +80,11 @@ namespace Rosenholz.ViewModel.DrawIo
         {
             //_fullPath = @"d:\\OneDrive - Siemens AG\\Rosenholz\\Rosenholz.draw.io\\drawio\\";
 
+            Model.Logger.Logger.Log.Info($"Starting WebServer at {_url} with path {_fullPath}");
+
             if (_server?.State != WebServerState.Listening)
             {
+                Model.Logger.Logger.Log.Info($"Started WebServer at {_url} with path {_fullPath}");
                 _server = new WebServer(o => o
                                             .WithUrlPrefix(_url)
                                             .WithMode(HttpListenerMode.EmbedIO))
@@ -98,16 +101,23 @@ namespace Rosenholz.ViewModel.DrawIo
             string localDrawioPath = "https://app.diagrams.net/?src=about";
             localDrawioPath = "http://localhost:8085/index.html";
 
+            Model.Logger.Logger.Log.Info($"Setting Source to {localDrawioPath}");
             //Muss nur einmal gesetzt werden, danach soll sie offen bleiben.
             if (Source?.ToString()?.Equals(localDrawioPath) == false || Source?.ToString()?.Equals(localDrawioPath) == null)
             {
+                Model.Logger.Logger.Log.Info($"Setting Source to {localDrawioPath} and creating WebView2");
                 var env = CoreWebView2Environment.CreateAsync(null, null);
+                Model.Logger.Logger.Log.Info($"CoreWebView2Environment created");
                 var uri = new Uri(localDrawioPath);
                 _webView = new WebView2();
+                Model.Logger.Logger.Log.Info($"WebView2 created with URI {uri}");
                 _webView.Source = uri;
                 Source = uri;
-
+                Model.Logger.Logger.Log.Info($"Source set to {Source}");
+                Model.Logger.Logger.Log.Info($"WebView2 is being initialized");
                 await _webView.EnsureCoreWebView2Async();
+                Model.Logger.Logger.Log.Info($"WebView2 initialized");
+
 
                 Thread.Sleep(2000);
 

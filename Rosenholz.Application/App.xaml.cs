@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
 
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config")]
+
 namespace Rosenholz.Application
 {
     /// <summary>
