@@ -42,6 +42,9 @@
                       VerticalAlignment="Stretch"
                       Grid.Column="0"
                       Margin="0,0,0,0">
+            <wv2:WebView2.CreationProperties>
+                <wv2:CoreWebView2CreationProperties UserDataFolder="C:\Temp"/>
+            </wv2:WebView2.CreationProperties>
         </wv2:WebView2>
 
     </Grid>

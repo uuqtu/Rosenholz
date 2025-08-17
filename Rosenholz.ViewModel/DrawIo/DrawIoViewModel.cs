@@ -115,13 +115,14 @@ namespace Rosenholz.ViewModel.DrawIo
                 Source = uri;
                 Model.Logger.Logger.Log.Info($"Source set to {Source}");
                 Model.Logger.Logger.Log.Info($"WebView2 is being initialized");
-                await _webView.EnsureCoreWebView2Async();
+#warning Hier liegt ein Problem vor, dass die WebView nicht immer korrekt initialisiert wird.
+                _webView.EnsureCoreWebView2Async();
                 Model.Logger.Logger.Log.Info($"WebView2 initialized");
 
 
-                Thread.Sleep(2000);
+                //Thread.Sleep(2000);
 
-                _webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
+                //_webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
 
                 
             }
