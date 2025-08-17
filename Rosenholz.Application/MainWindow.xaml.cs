@@ -444,6 +444,9 @@ namespace Rosenholz.Application
         {
             var strings = GetDueTasks();
 
+            if (strings.Count == 0)
+                return;
+
             FancyBalloon balloon = new FancyBalloon();
             var str = string.Join("\r\n", strings);
             balloon.BalloonText = str;
