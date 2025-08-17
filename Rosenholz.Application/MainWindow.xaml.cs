@@ -217,7 +217,7 @@ namespace Rosenholz.Application
         /// <param name="e"></param>
         private void DrawIoView_Loaded(object sender, RoutedEventArgs e)
         {            
-            drawIoViewModel.LoadSourceAsync();
+            drawIoViewModel.SetSource();
             DrawIoUserControl.DataContext = drawIoViewModel;
         }
 

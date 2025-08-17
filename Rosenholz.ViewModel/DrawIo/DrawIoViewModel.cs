@@ -42,7 +42,7 @@ namespace Rosenholz.ViewModel.DrawIo
 
         public void StartWebServer()
         {
-            _fullPath = @"d:\\OneDrive - Siemens AG\\Rosenholz\\Rosenholz.draw.io\\drawio\\";
+            //_fullPath = @"d:\\OneDrive - Siemens AG\\Rosenholz\\Rosenholz.draw.io\\drawio\\";
 
             if (_server?.State != WebServerState.Listening)
             {
@@ -57,7 +57,7 @@ namespace Rosenholz.ViewModel.DrawIo
 
 
 
-        public async Task LoadSourceAsync()
+        public void SetSource()
         {
             string localDrawioPath = "https://app.diagrams.net/?src=about";
             localDrawioPath = "http://localhost:8085/index.html";
@@ -65,7 +65,7 @@ namespace Rosenholz.ViewModel.DrawIo
             //Muss nur einmal gesetzt werden, danach soll sie offen bleiben.
             if (Source?.ToString()?.Equals(localDrawioPath) == false || Source?.ToString()?.Equals(localDrawioPath) == null)
             {
-                var env = await CoreWebView2Environment.CreateAsync(null, null);
+                var env = CoreWebView2Environment.CreateAsync(null, null);
 
                 var uri = new Uri(localDrawioPath).AbsoluteUri;
                 Source = new Uri(uri);
