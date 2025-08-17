@@ -163,7 +163,7 @@ namespace Rosenholz.ViewModel
             }
             catch (Exception ex)
             {
-                StatusBar = $"Error while opening file: {fileName}";
+                StatusBar = $"Error while opening file: {fileName} with {ex.Message}";
             }
         }
         #endregion

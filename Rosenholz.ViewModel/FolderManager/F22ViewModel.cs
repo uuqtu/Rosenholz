@@ -22,7 +22,6 @@ namespace Rosenholz.ViewModel
         private ObservableCollection<F22> _f22List;
         private string _textFilter;
         private double _selectedFontSize = 13;
-        private string _statusBar;
 
         private F16F22Reference _currentF16Reference;
         public event AUContextChanged AUContextChangeEvent;

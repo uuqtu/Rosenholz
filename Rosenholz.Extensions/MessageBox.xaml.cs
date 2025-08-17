@@ -60,7 +60,8 @@ namespace Rosenholz.Extensions
 
 
         private RelayCommand _accept;
-        public new RelayCommand Accept
+        //change to new RelayCommand to avoid confusion with the base class possible (remove new keyword) 17.08.2025
+        public RelayCommand Accept
         {
             get
             {
@@ -76,7 +77,8 @@ namespace Rosenholz.Extensions
         }
 
         private RelayCommand _deny;
-        public new RelayCommand Deny
+        //change to new RelayCommand to avoid confusion with the base class possible (remove new keyword) 17.08.2025
+        public RelayCommand Deny
         {
             get
             {
