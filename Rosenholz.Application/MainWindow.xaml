@@ -178,6 +178,11 @@
                 </Grid>
             </TabItem>
 
+
+        <TabItem Header="draw.io">
+                <uc:DrawIoUserControl Background="#1C1C1C" Foreground="White" Name="DrawIoUserControl" Loaded="DrawIoView_Loaded" ></uc:DrawIoUserControl>
+            </TabItem>
+
         </TabControl>
     </Grid>
 </Window>

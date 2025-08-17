@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualBasic;
 using Microsoft.Win32;
 using Rosenholz.Model;
+using Rosenholz.UserControls;
 using Rosenholz.ViewModel;
+using Rosenholz.ViewModel.DrawIo;
 using Rosenholz.Windows;
 using System;
 using System.Collections.Generic;
@@ -41,6 +43,7 @@ namespace Rosenholz.Application
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel focusedTaskViewModel { get; set; } = null;
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel dueTaskViewModel { get; set; } = null;
         Rosenholz.ViewModel.TaskCollectionDisplayViewModel closedTaskViewModel { get; set; } = null;
+        Rosenholz.ViewModel.DrawIo.DrawIoViewModel drawIoViewModel { get; set; } = null;
 
         #region Memorex
         Rosenholz.ViewModel.Memorex.CategoryViewModel categoryViewModelObject { get; set; } = null;
@@ -63,6 +66,9 @@ namespace Rosenholz.Application
             AUExplorer.TaskCreationRequiredEvent += AUExplorer_TaskCreationRequiredEvent;
             AUExplorer.DisplayTaskViewModelRequiredEvent += AUExplorer_DisplayTaskViewModelRequiredEvent;
             AUExplorer.WindowStateChangeRequiredEvent += AUExplorer_WindowStateChangeRequiredEvent;
+
+            drawIoViewModel = new Rosenholz.ViewModel.DrawIo.DrawIoViewModel();
+            drawIoViewModel.StartWebServer();
 
             DataContext = this;
         }
@@ -204,6 +210,16 @@ namespace Rosenholz.Application
             closedTaskViewModel.TaskContextChangedEvent += delegate (TaskModel m) { CurrentlySelectedModel = Tevm.Entry = m; };
             ClosedTaskViewUserControl.DataContext = closedTaskViewModel;
         }
+        /// <summary>
+        /// For the draw.io view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DrawIoView_Loaded(object sender, RoutedEventArgs e)
+        {            
+            drawIoViewModel.LoadSourceAsync();
+            DrawIoUserControl.DataContext = drawIoViewModel;
+        }
 
         /// <summary>
         /// For the Task manager view
@@ -231,6 +247,7 @@ namespace Rosenholz.Application
             ArchivedTevm.ChildRequredEvent += Tevm_ChildRequredEvent;
             ArchivedTevm.DisplayTaskViewModelRequiredEvent += Tevm_TaskModelViewRequiredEvent;
         }
+
 
         private void Tevm_TaskModelViewRequiredEvent(TaskModel child)
         {
@@ -486,5 +503,7 @@ namespace Rosenholz.Application
             this.Topmost = false;
             this.Focus();
         }
+
+
     }
 }
