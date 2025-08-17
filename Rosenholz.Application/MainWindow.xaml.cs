@@ -160,7 +160,11 @@ namespace Rosenholz.Application
         private void F22ViewModelObject_AUContextChangeEvent(AUReference reference)
         {
             if (reference != null)
+            {
                 AUExplorer.OnCurrentFolderChanged(reference);
+                //Get Folder in DrawIO Model view
+                drawIoViewModel.FolderPath = FolderManager.Instance.GetAUFolder(reference?.AUReferenceString);
+            }
             else
                 AUExplorer.OnCurrentFolderChanged(null);
         }

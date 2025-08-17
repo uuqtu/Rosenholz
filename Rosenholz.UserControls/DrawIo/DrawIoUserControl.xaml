@@ -10,22 +10,39 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
+
+            <Label Grid.Column="0"
+                   Content="{Binding FolderPath}" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Center" 
+                   FontSize="15" 
+                   Margin="10,0,0,0"
+                   Foreground="White"/>
+
+            <Button Grid.Column="1" Command="{Binding CopyPathCommand}">Copy Path</Button>
+        </Grid>
+
+        <Separator Grid.Row="1" ></Separator>
 
         <wv2:WebView2 x:Name="webView2"
-                Source="{Binding Source}"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Grid.Row="0"
-                Grid.Column="0"
-                Margin="0,0,0,0">
+                      Grid.Row="2"
+                      Source="{Binding Source}"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Grid.Column="0"
+                      Margin="0,0,0,0">
         </wv2:WebView2>
-        
+
     </Grid>
 </UserControl>
