@@ -21,8 +21,9 @@
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <uc2:FolderView Grid.Row="0" Grid.Column="0" Grid.RowSpan ="2" Background="#2D2D30" x:Name ="FolderExplorerView"
-                            SnapsToDevicePixels="True" Filter="*.tex|*.txt|*.exe|*.pptx|*.jpeg|*.docx|*.ppt|*.doc|*.url|*.png|*.pdf|*.xlsx|*.xls|*.*" RecentLocations="{Binding RecentFiles}"
+            <!--Extension Filter-->
+            <uc2:FolderView Grid.Row="0" Grid.Column="0" Grid.RowSpan ="2" Background="#2D2D30" x:Name ="FolderExplorerView"                            
+                            SnapsToDevicePixels="True" Filter="*.tex|*.txt|*.exe|*.pptx|*.jpeg|*.docx|*.ppt|*.doc|*.url|*.png|*.pdf|*.xlsx|*.xls|*.csv|*.*" RecentLocations="{Binding RecentFiles}"
                             OnFileOpen="FolderView_OnFileOpen"></uc2:FolderView>
 
             <uc:ButtonPanel x:Name="ButtonPanel" Grid.Row="0" Grid.Column="1"  Grid.RowSpan ="2" Background="#2D2D30"></uc:ButtonPanel>
