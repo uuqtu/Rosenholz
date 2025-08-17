@@ -46,7 +46,8 @@
                 <DataGridTextColumn Header="Link" Width="4*" Binding="{Binding Link}"></DataGridTextColumn>
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
-                <ContextMenu >
+                <ContextMenu >                    
+                    <MenuItem Header="Open" Command="{Binding OpenCommand}" />
                     <MenuItem Header="Delete" Command="{Binding DeleteCommand}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>

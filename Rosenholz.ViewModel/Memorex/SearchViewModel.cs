@@ -1,17 +1,19 @@
-﻿using Rosenholz.Model.Memorex;
+﻿using Rosenholz.Model;
+using Rosenholz.Model.Memorex;
 using Rosenholz.ViewModel.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Windows;
-using Rosenholz.Model;
+using System.Windows.Controls;
 using System.Windows.Data;
-using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Rosenholz.ViewModel.Memorex
 {
@@ -20,6 +22,7 @@ namespace Rosenholz.ViewModel.Memorex
         public ICommand SearchCommand { get; set; }
         public ICommand ClearCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
+        public ICommand OpenCommand { get; set; }
 
         private KnowledgeElement _selectedElement = null;
         private ObservableCollection<KnowledgeElement> _knowledgeElements;
@@ -48,7 +51,27 @@ namespace Rosenholz.ViewModel.Memorex
         {
             ClearCommand = new RelayCommand<object>(ExecuteClear);
             DeleteCommand = new RelayCommand<object>(ExecuteDeleteCommand, CanDeleteCommand);
+            OpenCommand = new RelayCommand<object>(ExecuteOpenCommand, CanOpenCommand);
         }
+
+        #region Open
+        private bool CanOpenCommand(object obj)
+        {
+            if (SelectedElement == null)
+                return false;
+            else if (String.IsNullOrEmpty(SelectedElement.Link))
+                return false;
+            else
+                return true;
+        }
+
+        private void ExecuteOpenCommand(object obj)
+        {
+            var element = SelectedElement.Link;
+            Process.Start("explorer", element);
+        }
+        #endregion 
+
         #region SearchCommand
 
         public string TextFilter
@@ -100,11 +123,14 @@ namespace Rosenholz.ViewModel.Memorex
 
         private void ExecuteDeleteCommand(object obj)
         {
-            var rslt = System.Windows.MessageBox.Show($"Eintrag mit den Suchworten \n\"{SelectedElement?.Searchwords}\" \nund Link \n\"{SelectedElement?.Link}\" \n wirklich löschen?", "", MessageBoxButton.YesNo);
-            if (rslt == MessageBoxResult.Yes)
+            Rosenholz.Extensions.MessageBox box = new Extensions.MessageBox("Info", $"Eintrag mit den Suchworten \"{SelectedElement?.Searchwords}\" und Link \"{SelectedElement?.Link}\" wirklich löschen?");
+            box.ShowDialog();
+
+            ; if (box.DialogResult == true)
             {
                 Model.Storage.MemorexStorage.Instance.DeleteEntry(SelectedElement.Guid);
             }
+
             LoadItems();
             OnPropertyChanged(nameof(KnowledgeElements));
             OnPropertyChanged(nameof(KnowledgeElementCollectionView));

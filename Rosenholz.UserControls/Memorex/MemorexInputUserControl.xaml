@@ -30,7 +30,7 @@
                  HorizontalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
 
         <Label Grid.Row="4" Grid.Column="0" FontSize="30" VerticalAlignment="Center" Background="#1C1C1C" Foreground="White" HorizontalAlignment="Center">Kategorie</Label>
-        <ComboBox Margin="10,00,10,00" Grid.Row="5"  FontSize="20" Background="#1C1C1C" Foreground="White"
+        <ComboBox Margin="10,00,10,00" Grid.Row="5"  FontSize="20" Background="#1C1C1C" Foreground="Blue"
                  Text="{Binding Category, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  ItemsSource="{Binding PossibleCategories, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                  HorizontalContentAlignment="Center" VerticalAlignment="Center"></ComboBox>
