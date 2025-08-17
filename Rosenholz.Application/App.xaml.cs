@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace Rosenholz.Application
 {
@@ -37,20 +39,20 @@ namespace Rosenholz.Application
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-//#warning new code for only one instance could break sth
-//            const string appName = "MyAppName";
-//            bool createdNew;
+            //#warning new code for only one instance could break sth
+            //            const string appName = "MyAppName";
+            //            bool createdNew;
 
-//            _mutex = new Mutex(true, appName, out createdNew);
+            //            _mutex = new Mutex(true, appName, out createdNew);
 
-//            if (!createdNew)
-//            {
-//                //app is already running! Exiting the application
-//                //Application.Current.Shutdown();
-//                this.Shutdown();
-//            }
+            //            if (!createdNew)
+            //            {
+            //                //app is already running! Exiting the application
+            //                //Application.Current.Shutdown();
+            //                this.Shutdown();
+            //            }
 
-//            base.OnStartup(e);
+            //            base.OnStartup(e);
 
             //bool isOwned;
             //this.mutex = new Mutex(true, UniqueMutexName, out isOwned);
@@ -85,24 +87,56 @@ namespace Rosenholz.Application
             //// Terminate this instance.
             //this.Shutdown();
 
-# warning This resolves dateTime parsing issues
-            var culture = new CultureInfo("de-DE");
-            CultureInfo.DefaultThreadCurrentCulture = culture;
-            CultureInfo.DefaultThreadCurrentUICulture = culture;
+#warning Singleton implementierung etwas schlecht.
 
+#if !DEBUG
+
+            var allProcesses = Process.GetProcesses();
+
+            var possibleProcessName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
+            Process[] processes = Process.GetProcessesByName(possibleProcessName);
+
+            if (processes?.Count() > 1)
+            {
+                MessageBox.Show("Already running!");
+                System.Windows.Application.Current.Shutdown();
+            }
+            else
+            {
+                InitialSettings settingsWindow = new InitialSettings();
+                MainWindow mainWindow = new MainWindow();
+
+                settingsWindow.ShowDialog();
+
+                if (settingsWindow.DialogResult == true)
+                {
+                    mainWindow.Show();
+                }
+                else
+                {
+                    mainWindow.IsDesiredCloseButtonClicked = true;
+                    mainWindow.AskForValidation = false;
+                    mainWindow.Close();
+                }
+            }
+#else
             InitialSettings settingsWindow = new InitialSettings();
             MainWindow mainWindow = new MainWindow();
 
             settingsWindow.ShowDialog();
 
             if (settingsWindow.DialogResult == true)
-            { mainWindow.Show(); }
+            {
+                mainWindow.Show();
+            }
             else
             {
                 mainWindow.IsDesiredCloseButtonClicked = true;
                 mainWindow.AskForValidation = false;
                 mainWindow.Close();
             }
+#endif
+
         }
     }
 }
