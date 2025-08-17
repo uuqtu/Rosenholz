@@ -16,6 +16,7 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace Rosenholz.ViewModel
 {
@@ -90,6 +91,9 @@ namespace Rosenholz.ViewModel
                 return _openStructureCommand;
             }
         }
+
+       
+
         public void OpenStructureCommandExecute(object window)
         {
             var a = Model.F16Storage.Instance.ReadData();
@@ -98,32 +102,56 @@ namespace Rosenholz.ViewModel
             var b = Model.F22Storage.Instance.ReadData();
             StatusBar = "F22 read. " + b.Count + " elemens.";
 
-            List<string> elements = new List<string>();
+            // List of all parent notes
+            List<Node> parents = new List<Node>();
 
             foreach (var e in a)
             {
-                elements.Add($"{e.F16F22Reference.F22String}: {e.Keyword} ({e.Label})");
+                var parentText = $"{e.F16F22Reference.F22String}: {e.Keyword} ({e.Label})";
+                
+                List<Node> children = null;
+                children = new List<Node>();
                 foreach (var i in b)
                 {
+                    List<Node> grandchildren = null;
+                    grandchildren = new List<Node>();
                     if (i.F16F22Reference.F22String == e.F16F22Reference.F22String)
                     {
-                        elements.Add($"{i.AUReference.AUReferenceString}: {i.Pseudonym}");
+                        var childrenText = $"{i.AUReference.AUReferenceString}: {i.Pseudonym} ({i.Dossier}) - {i.Created}";
+                        // Create a text for the greatchildren (F22) which are the files
                         foreach (var f in Directory.GetFiles(Path.Combine(Settings.Settings.Instance.StorageBaseLocation, i.Link)))
-                            {
-                            elements.Add($"{Path.GetFileName(f)}: {f}");
+                        {
+                            // Create a text for the grandchildren (files)
+                            string grandchildrenText = $"File: {Path.GetFileName(f)} (Link: {f}) - {File.GetCreationTime(f)}";
+                            // There are no great-grandchildren, nice file is the last level
+                            grandchildren.Add(new Node() { Name = grandchildrenText, Children = null });
                         }
+                        // Add the children to the parent node
+                        children.Add(new Node() { Name = childrenText, Children = grandchildren });
                     }
-
                 }
+                var n = new Node() { Name = parentText, Children = (children != null) ? children : null };
+                parents.Add(n);
             }
 
-            string fileName = Path.GetRandomFileName();
-            fileName = Path.ChangeExtension(fileName, ".txt");
-            fileName = Path.Combine(Path.GetTempPath(), fileName);
+            StatusBar = "Node Information generated. ";
 
-            File.WriteAllLines(fileName, elements);
+
+            string fileName = Path.GetRandomFileName();
             try
             {
+                List<string> output = new List<string>();
+                foreach (Node n in parents)
+                {
+                    var text = Node.PrintTree(n);
+                    output.AddRange(text);
+                }
+
+                fileName = Path.ChangeExtension(fileName, ".txt");
+                fileName = Path.Combine(Path.GetTempPath(), fileName);
+
+                File.WriteAllLines(fileName, output);
+
                 new Process
                 {
                     StartInfo = new ProcessStartInfo(fileName)
@@ -136,9 +164,10 @@ namespace Rosenholz.ViewModel
             catch (Exception ex)
             {
                 StatusBar = $"Error while opening file: {fileName}";
-            }            
+            }
         }
         #endregion
+
 
         public string Reference
         {

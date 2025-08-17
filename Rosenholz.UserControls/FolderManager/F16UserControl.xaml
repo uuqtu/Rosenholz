@@ -99,20 +99,20 @@
                       Text="{Binding TextFilter,UpdateSourceTrigger=PropertyChanged}"/>
 
         </Grid>
-        
+
         <Grid Grid.Row="3" Height="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="40"></ColumnDefinition>
                 <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StatusBar Grid.Column="0"  Name="mStatBar" DockPanel.Dock="Bottom" >
                 <StatusBarItem DockPanel.Dock="Left" Background="#2D2D30" Foreground="White">
                     <TextBlock Name="mStatText" Text="{Binding StatusBar}" />
                 </StatusBarItem>
             </StatusBar>
-            <ComboBox Grid.Row="0" Grid.Column="1" SelectedItem="{Binding SelectedFontSize}" ItemsSource="{Binding FontSizes}"></ComboBox>
-            <Button Grid.Column="2" Content="Open Structure .txt" Command="{Binding OpenStructureCommand}"></Button>
+            <Button Grid.Column="1" Content="Open Structure .txt" Command="{Binding OpenStructureCommand}"></Button>
+            <ComboBox Grid.Row="0" Grid.Column="2" SelectedItem="{Binding SelectedFontSize}" ItemsSource="{Binding FontSizes}"></ComboBox>
         </Grid>
     </Grid>
 </UserControl>

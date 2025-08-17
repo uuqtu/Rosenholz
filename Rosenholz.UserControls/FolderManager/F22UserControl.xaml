@@ -27,19 +27,21 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="20*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <ListView Name="UserGrid" Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding F22CollectionView,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding CurrentF22Selected}"
+                  FontSize="{Binding SelectedFontSize}"
                   Background="#2D2D30"
                   Foreground="Green">
             <ListView.View>
                 <GridView x:Name="grdTest">
-                    <GridViewColumn Header="AU" DisplayMemberBinding="{Binding AUReference.AUReferenceString}" Width="70" />
-                    <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created}" Width="100" />
+                    <GridViewColumn Header="AU" DisplayMemberBinding="{Binding AUReference.AUReferenceString}" Width="120" />
                     <!--<GridViewColumn Header="F16F22Reference"  DisplayMemberBinding="{Binding F16F22Reference.F22String}"  Width="100"/>-->
                     <GridViewColumn Header="Pseudonym" DisplayMemberBinding="{Binding Pseudonym}"  Width="450" />
                     <GridViewColumn Header="Dossier" DisplayMemberBinding="{Binding Dossier}" Width="440" />
+                    <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created}" Width="180" />
                     <!--<GridViewColumn Header="Link" DisplayMemberBinding="{Binding Link}" Width="100" />-->
 
 
@@ -81,6 +83,21 @@
 
             <TextBox  Grid.Column="4" Grid.Row="0" VerticalAlignment="Stretch" Background="#2D2D30" Foreground="HotPink" FontSize="20"
                       Text="{Binding TextFilter,UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+
+        <Grid Grid.Row="3" Height="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StatusBar Grid.Column="0"  Name="mStatBar" DockPanel.Dock="Bottom" >
+                <StatusBarItem DockPanel.Dock="Left" Background="#2D2D30" Foreground="White">
+                    <TextBlock Name="mStatText" Text="{Binding StatusBar}" />
+                </StatusBarItem>
+            </StatusBar>
+            <!--<Button Grid.Column="2" Content="Open Structure .txt" Command="{Binding OpenStructureCommand}"></Button>-->
+            <ComboBox Grid.Row="0" Grid.Column="2" SelectedItem="{Binding SelectedFontSize}" ItemsSource="{Binding FontSizes}"></ComboBox>
         </Grid>
 
     </Grid>

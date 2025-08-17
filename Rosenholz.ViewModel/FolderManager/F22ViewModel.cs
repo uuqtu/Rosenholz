@@ -21,6 +21,9 @@ namespace Rosenholz.ViewModel
     {
         private ObservableCollection<F22> _f22List;
         private string _textFilter;
+        private double _selectedFontSize = 13;
+        private string _statusBar;
+
         private F16F22Reference _currentF16Reference;
         public event AUContextChanged AUContextChangeEvent;
         public event F22EntryRequired F22EntryRequiredEvent;
@@ -54,6 +57,14 @@ namespace Rosenholz.ViewModel
                                                                           ((F22)o).Pseudonym.Contains(value.ToLower()));
             }
         }
+
+        public double SelectedFontSize
+        {
+            get { return _selectedFontSize; }
+            set { _selectedFontSize = value; OnPropertyChanged(nameof(SelectedFontSize)); }
+        }
+
+        public List<double> FontSizes { get; } = new List<double>() { 8, 9, 10, 11, 12, 13, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
 
         public ObservableCollection<F22> F22Items
         {
