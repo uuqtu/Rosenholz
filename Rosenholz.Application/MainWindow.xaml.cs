@@ -325,7 +325,7 @@ namespace Rosenholz.Application
                     ShowInTaskbar = true;
                     break;
                 case WindowState.Minimized:
-                    ShowInTaskbar = false;
+                    ShowInTaskbar = true;
                     break;
                 case WindowState.Normal:
 
