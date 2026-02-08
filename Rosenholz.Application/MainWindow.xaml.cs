@@ -83,15 +83,34 @@ namespace Rosenholz.Application
         private void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
         {
             Console.WriteLine(e.Mode.ToString());
-            if (e.Mode == PowerModes.Suspend)
+
+            if (e.Mode == PowerModes.Suspend || e.Mode == PowerModes.Resume)
             {
-                Environment.Exit(0);
+                // Sicherstellen, dass der Shutdown-Befehl im UI-Thread ausgeführt wird
+                // da SystemEvents_PowerModeChanged möglicherweise in einem anderen Thread ausgelöst wird.
+                Dispatcher.Invoke(() =>
+                {
+                    // Setze die Flags, damit das Window_Closing-Ereignis weiß, dass es sich um einen
+                    // beabsichtigten Shutdown handelt und keine Validierung erforderlich ist.
+                    // Dies überspringt die MessageBox-Abfrage beim Schließen.
+                    IsDesiredCloseButtonClicked = true;
+                    AskForValidation = false;
+
+                    // Beendet die gesamte WPF-Anwendung.
+                    // Dies löst das Window_Closing-Ereignis des Hauptfensters aus.
+                    System.Windows.Application.Current.Shutdown();
+                });
             }
 
-            if (e.Mode == PowerModes.Resume)
-            {
-                Environment.Exit(0);
-            }
+            //if (e.Mode == PowerModes.Suspend)
+            //{
+            //    Environment.Exit(0);
+            //}
+
+            //if (e.Mode == PowerModes.Resume)
+            //{
+            //    Environment.Exit(0);
+            //}
         }
 
         private void AUExplorer_WindowStateChangeRequiredEvent(WindowState state)
