@@ -43,9 +43,9 @@
                 <GridView x:Name="grdTest">
                     <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" Width="200" />
                     <GridViewColumn Header="Beschreibung" DisplayMemberBinding="{Binding Description}" Width="450" />
-                    <GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created, StringFormat='[yyyy-MM-dd]@[HH:mm]'}"  Width="130" />
+                    <!--<GridViewColumn Header="Created" DisplayMemberBinding="{Binding Created, StringFormat='[yyyy-MM-dd]@[HH:mm]'}"  Width="130" />                    
+                    <GridViewColumn Header="FocusDate" DisplayMemberBinding="{Binding FocusDate, StringFormat='[yyyy-MM-dd]'}" Width="80" />-->
                     <GridViewColumn Header="TargetDate" DisplayMemberBinding="{Binding TargetDate, StringFormat='[yyyy-MM-dd]'}" Width="80" />
-                    <GridViewColumn Header="FocusDate" DisplayMemberBinding="{Binding FocusDate, StringFormat='[yyyy-MM-dd]'}" Width="80" />
                 </GridView>
             </ListView.View>
         </ListView>
